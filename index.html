@@ -1,101 +1,103 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>中野竜之介 / NAKANO Ryunosuke</title>
-	<style>
-		body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 2em; background: #f9f9f9; position: relative; }
-		h1 { font-size: 2em; color: #2a4b8d; margin-bottom: 0.2em; }
-		.lang-switch {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-		}
-		.lang-switch button {
-			margin-left: 5px;
-		}
-		.lang-ja { display: block; }
-		.lang-en { display: none; }
-        .hero {
-            margin-top: 80px;
-            text-align: center;
-            padding: 3em 1em;
-            background-color: #eef2fa;
-            border-radius: 10px;
-        }
-        .hero h1 {
-            font-size: 2em;
-            color: #2a4b8d;
-        }
-        .profile-image {
-            display: block;
-            margin: 2em auto 0 auto;
-            max-width: 600px;
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-	</style>
+  <meta charset="UTF-8">
+  <title>中野竜之介 / NAKANO Ryunosuke</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-	<div class="lang-switch">
-		<span>Language:</span>
-		<button onclick="setLanguage('ja')">日本語</button>
-		<button onclick="setLanguage('en')">English</button>
-	</div>
+  <!-- 言語切り替えセレクタ -->
+  <div class="lang-switch">
+    <label for="lang-select">Language:</label>
+    <select id="lang-select" onchange="setLanguage(this.value)">
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 
-    <div class="hero">
-        <h1 class="lang-ja">中野竜之介の公式ホームページです</h1>
-        <h1 class="lang-en">This is the official website of NAKANO Ryunosuke</h1>
-        <img src="img/profile.jpg" alt="NAKANO Ryunosuke" class="profile-image">
-    </div>
+  <!-- ハンバーガーボタン -->
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
+  <!-- サイドバー（ドロワーナビゲーション） -->
+  <nav id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()">×</button>
+    <ul>
+      <!-- ─── ナビリンク：トップページ ─── -->
+      <li>
+        <a class="lang-ja" href="index.html">ホーム</a>
+        <a class="lang-en" href="index.html">Home</a>
+      </li>
+      <!-- ─── ナビリンク：履歴書ページ ─── -->
+      <li>
+        <a class="lang-ja" href="circum_vitae.html">履歴書</a>
+        <a class="lang-en" href="circum_vitae.html">Circum vitae</a>
+      </li>
+      <!-- ─── ドロップダウン：研究活動 (Research Activities) ─── -->
+      <li>
+        <!-- 日本語版ドロップダウン -->
+        <details class="lang-ja">
+          <summary>研究活動</summary>
+          <ul>
+            <li>論文および講演</li>
+            <li>講演資料</li>
+          </ul>
+        </details>
+        <!-- 英語版ドロップダウン -->
+        <details class="lang-en">
+          <summary>Research Activities</summary>
+          <ul>
+            <li>Publications and Talks</li>
+            <li>Presentation materials</li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ヒーローセクション -->
+  <div class="hero">
+    <h1 class="lang-ja">中野竜之介の公式ホームページです</h1>
+    <h1 class="lang-en">This is the official website of NAKANO Ryunosuke</h1>
+    <p class="lang-ja">言語を変更するには、右上のプルダウンを利用してください。</p>
+    <p class="lang-en">Change the language using the dropdown at top right.</p>
+    <img src="img/profile.jpg" alt="NAKANO Ryunosuke" class="profile-image">
+  </div>
+
+  <!-- ===== プロフィールセクション ===== -->
+  <div class="profile-box">
     <h1 class="lang-ja">プロフィール</h1>
     <h1 class="lang-en">Profile</h1>
     
-	<div class="section">
-        <h2 class="lang-ja">名前</h2>
-		<h2 class="lang-en">Name</h2>
-		<p class="lang-ja">中野 竜之介</p>
-		<p class="lang-en">NAKANO Ryunosuke</p>
-	</div>
-	<div class="section">
-		<h2 class="lang-ja">所属</h2>
-		<h2 class="lang-en">Affiliation</h2>
-		<p class="lang-ja">北海道大学大学院 理学研究院 数学部門 博士後期課程2年</p>
-		<p class="lang-en">Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</p>
-	</div>
+    <p class="lang-ja"><strong>名前 :</strong> 中野竜之介</p>
+    <p class="lang-en"><strong>Name :</strong> NAKANO Ryunosuke</p>
 
-	<div class="section">
-		<h2 class="lang-ja">研究分野</h2>
-		<h2 class="lang-en">Research Interests</h2>
-		<ul>
-			<li class="lang-ja">代数幾何・複素幾何</li>
-			<li class="lang-en">Algebraic and Complex Geometry</li>
-			<li class="lang-ja">テータ関数とその関係式</li>
-			<li class="lang-en">Theta Functions and Identities</li>
-			<li class="lang-ja">周期写像と被覆曲線</li>
-			<li class="lang-en">Period Maps and Covering Curves</li>
-		</ul>
-	</div>
+    <p class="lang-ja"><strong>生年月日 :</strong> 1999年9月14日</p>
+    <p class="lang-en"><strong>Date of birth :</strong> September 14, 1999</p>
 
-	<div class="section">
-		<h2 class="lang-ja">連絡先</h2>
-		<h2 class="lang-en">Contact</h2>
-		<p class="lang-ja">メールアドレスは必要に応じて記載</p>
-		<p class="lang-en">Email address will be listed upon request</p>
-	</div>
+    <p class="lang-ja"><strong>所属 :</strong> 北海道大学大学院 理学研究院 数学専攻 博士後期課程 2年</p>
+    <p class="lang-en"><strong>Affiliation :</strong> Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</p>
+    
+    <p class="lang-ja"><strong>研究分野 :</strong></p>
+    <p class="lang-en"><strong>Research Interests :</strong></p>
+    <ul class="lang-ja">
+      <li>特殊関数論（特に超幾何級数）</li>
+      <li>代数多様体上の周期写像・テータ関数</li>
+    </ul>
+    <ul class="lang-en">
+      <li>Special functions – especially hypergeometric series</li>
+      <li>Theta functions and period maps on algebraic varieties</li>
+    </ul>
 
-	<script>
-		function setLanguage(lang) {
-			const ja = document.querySelectorAll('.lang-ja');
-			const en = document.querySelectorAll('.lang-en');
-			ja.forEach(el => el.style.display = (lang === 'ja') ? 'block' : 'none');
-			en.forEach(el => el.style.display = (lang === 'en') ? 'block' : 'none');
-		}
-	</script>
+    <p class="lang-ja"><strong>連絡先 :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</p>
+    <p class="lang-en"><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</p>
 
+    <p><strong>SNS :</strong></p>
+    <ul>
+      <li><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank">@RNakano_theta</a></li>
+    </ul>
+  </div>
+
+  <script src="lang-switch.js"></script>
 </body>
 </html>
