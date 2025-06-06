@@ -16,21 +16,23 @@ function setLanguage(lang) {
 	// クッキーに保存
 	setCookie('lang', lang, 30);
 
-	// 日本語版要素を表示 or 非表示
 	document.querySelectorAll('.lang-ja').forEach(el => {
-		// block 要素・inline 要素問わず「表示させる」なら 'block' か '' かを使えますが、
-		// ここでは要素がブロック系 (div, ul, h1 など) を想定し 'block' として明示します。
 		el.style.display = (lang === 'ja') ? 'block' : 'none';
 	});
-	// 英語版要素を表示 or 非表示
 	document.querySelectorAll('.lang-en').forEach(el => {
 		el.style.display = (lang === 'en') ? 'block' : 'none';
 	});
 
-	// <select> の値も更新
 	const selector = document.getElementById('lang-select');
 	if (selector) selector.value = lang;
 }
+
+// ページ読み込み時にブラウザ言語を判定して setLanguage を呼ぶ
+window.addEventListener('DOMContentLoaded', () => {
+	const userLang = navigator.language.startsWith('ja') ? 'ja' : 'en';
+	setLanguage(userLang);
+});
+
 
 // ===== ハンバーガーメニュー開閉 =====
 function toggleMenu() {

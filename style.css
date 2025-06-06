@@ -55,8 +55,12 @@ h1 {
 }
 
 /* 初期表示は日本語、英語は非表示 */
-.lang-ja { display: block; }
-.lang-en { display: none; }
+.lang-ja {
+  display: block !important;
+}
+.lang-en {
+  display: none !important;
+}
 
 /* ===== ヒーローセクション ===== */
 .hero {
