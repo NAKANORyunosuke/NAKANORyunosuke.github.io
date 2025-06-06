@@ -56,7 +56,7 @@ h1 {
 
 /* 初期表示は日本語、英語は非表示 */
 .lang-ja {
-  display: block !important;
+  display: block;
 }
 .lang-en {
   display: none !important;
