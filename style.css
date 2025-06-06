@@ -184,3 +184,12 @@ h1 {
 #sidebar details ul {
 	padding-left: 1.2em;
 }
+
+.cv {
+	background-color: var(--hero-bg);
+	padding: 2em;
+	margin: 3em auto;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	max-width: 800px;
+} 
