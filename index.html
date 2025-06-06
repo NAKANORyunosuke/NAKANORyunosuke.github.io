@@ -43,6 +43,7 @@
     <!-- (9) 外部CSS / JS の読み込み -->
     <link rel="stylesheet" href="style.css">
     <script src="lang-switch.js" defer></script>
+    <script src="menu.js" defer></script>
     <meta name="google-site-verification" content="VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE" />
 </head>
 <body>
@@ -57,43 +58,10 @@
     </div>
 
     <!-- ハンバーガーボタン -->
+    <div id="sidebar-container"></div>
     <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-    <!-- サイドバー（ドロワーナビゲーション） -->
-    <nav id="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">×</button>
-        <ul>
-        <!-- ─── ナビリンク：トップページ ─── -->
-        <li>
-            <a class="lang-ja" href="index.html">ホーム</a>
-            <a class="lang-en" href="index.html">Home</a>
-        </li>
-        <!-- ─── ナビリンク：履歴書ページ ─── -->
-        <li>
-            <a class="lang-ja" href="circum_vitae.html">履歴書</a>
-            <a class="lang-en" href="circum_vitae.html">Circum vitae</a>
-        </li>
-        <!-- ─── ドロップダウン：研究活動 (Research Activities) ─── -->
-        <li>
-            <!-- 日本語版ドロップダウン -->
-            <details class="lang-ja">
-            <summary>研究活動</summary>
-            <ul>
-                <li>論文および講演</li>
-                <li>講演資料</li>
-            </ul>
-            </details>
-            <!-- 英語版ドロップダウン -->
-            <details class="lang-en">
-            <summary>Research Activities</summary>
-            <ul>
-                <li>Publications and Talks</li>
-                <li>Presentation materials</li>
-            </ul>
-            </details>
-        </li>
-        </ul>
-    </nav>
+
 
     <!-- ヒーローセクション -->
     <div class="hero">
