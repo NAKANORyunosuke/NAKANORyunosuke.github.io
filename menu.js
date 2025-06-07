@@ -41,10 +41,19 @@ function loadSidebar() {
 function toggleMenu() {
   const sidebar = document.getElementById('sidebar');
   if (!sidebar) return;
-  sidebar.classList.toggle('open');
+
+  // (A) サイドバー自体の開閉
+  const isOpen = sidebar.classList.toggle('open');
+
+  // (B) ボタンテキストを「☰」⇔「✕」に切り替え
+  const btn = document.querySelector('.menu-btn');
+  if (btn) {
+    btn.textContent = isOpen ? '✕' : '☰';
+    // もし aria-label を使っているならここで更新するとアクセシビリティ向上
+    btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  }
 }
 
-// ページ読み込み時にサイドバーを読み込む
 window.addEventListener('DOMContentLoaded', () => {
   loadSidebar();
 });

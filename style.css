@@ -163,13 +163,13 @@ h1 {
 #sidebar.open {
 	left: 0;								/* 表示状態 */
 }
-#sidebar .close-btn {
+/* #sidebar .close-btn {
 	font-size: 1.2em;
 	background: none;
 	border: none;
 	cursor: pointer;
 	margin-bottom: 1em;
-}
+} */
 #sidebar ul {
 	list-style: none;
 	padding-left: 0;
@@ -193,3 +193,9 @@ h1 {
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 	max-width: 800px;
 } 
+/* サイドバーの nav#sidebar に内側の余白を追加 */
+#sidebar {
+  /* 既存の padding や top の設定があると思うので、
+     そこに padding-top を足す感じで調整 */
+  padding-top: 2em;
+}
