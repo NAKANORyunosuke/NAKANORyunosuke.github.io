@@ -68,8 +68,8 @@ lang: ja
         <ul>
             <div class="timeline">
                 <li>
-                    <span class="date">2025年8月18日〜8月21日</span>
-                    <span class="desc">Scheduled participation:<a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a></span>
+                    <span class="date">August 18–21, 2025</span>
+                    <span class="desc">Scheduled participation:<a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html"> Summer Seminar of Functional Equation Theory 2025</a></span>
                 </li>
             </div>
         </ul>
@@ -79,7 +79,6 @@ lang: ja
 <div class="profile-box">
     <div class="lang-ja">
         <h1>お知らせ</h1>
-        
     </div>
     <div class="lang-en">
         <h1>Announcements</h1>
