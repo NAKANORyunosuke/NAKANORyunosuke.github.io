@@ -40,10 +40,8 @@ function toggleMenu() {
   const sidebar = document.getElementById('sidebar');
   if (!sidebar) return;
 
-  // (A) サイドバー自体の開閉
   const isOpen = sidebar.classList.toggle('open');
 
-  // (B) ボタンテキストを「☰」⇔「✕」に切り替え
   const btn = document.querySelector('.menu-btn');
   if (btn) {
     btn.textContent = isOpen ? '✕' : '☰';
@@ -51,7 +49,3 @@ function toggleMenu() {
     btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
   }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  loadSidebar();
-});

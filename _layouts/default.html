@@ -25,9 +25,8 @@ lang: ja
 		{% include sidebar.html %}
 	</div>
 	<!-- ハンバーガーボタン -->
-	<button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+	<button class="menu-btn" onclick="toggleMenu(this)" aria-label="Toggle menu">☰</button>
 
-	<button class="menu-btn" onclick="toggleMenu()">☰</button>
 	<!-- メインコンテンツ -->
 	<main>
 		{{ content }}
