@@ -1,0 +1,54 @@
+<!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<!-- (2) ページタイトル（fallbackあり） -->
+<title>{{ page.title | default: "中野竜之介 (NAKANO Ryunosuke)｜数学・超幾何級数・テータ関数の研究者" }}</title>
+
+<!-- (3) ページ概要 -->
+<meta name="description" content="北海道大学大学院 理学院 数学専攻博士後期課程に所属する中野竜之介の公式サイト. 
+研究分野：超幾何級数・テータ関数・代数多様体の周期写像. 
+論文や講演情報, 履歴書などを掲載. 
+NAKANO Ryunosuke’s official website, Doctoral student (Mathematics), Graduate School of Science, Hokkaido University. 
+Research topics: hypergeometric series, theta functions, period mappings on algebraic varieties. 
+Contains publications, presentations, and CV.">
+
+<!-- (4) キーワード -->
+<meta name="keywords" content="中野竜之介, 数学, 代数幾何, 超幾何級数, テータ関数, 算術幾何平均, モノドロミー, Lauricella, 周期写像, 北海道大学, 研究者, 中野, 竜之介, Ryunosuke Nakano, NAKANO Ryunosuke, Mathematics, Algebraic Geometry, Hypergeometric, Theta Functions, Hokkaido University">
+
+<!-- (5) robots 指示 -->
+<meta name="robots" content="index, follow">
+
+<!-- (6) OGP / SNS -->
+<meta property="og:title" content="中野竜之介｜数学・超幾何級数・テータ関数の研究者">
+<meta property="og:description" content="北海道大学大学院 理学院 数学専攻博士後期課程に所属する中野竜之介の公式サイト. 研究分野：超幾何級数・テータ関数・代数多様体の周期写像. 論文や講演情報, 履歴書などを掲載.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- (7) CSS -->
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+
+<!-- (8) JavaScript -->
+<script src="{{ '/assets/lang-switch.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/menu.js' | relative_url }}" defer></script>
+
+<!-- (9) IE 対応（古いブラウザ向け）-->
+<!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<![endif]-->
+
+<!-- (10) Google 検索サイト認証 -->
+<meta name="google-site-verification" content="VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE" />
+
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+{% seo %}
+
+
+<!-- <link rel="stylesheet" href="{{ "/asse/assets/style.css?v=" | append: site.github.build_revision | relative_url }}"> -->
+<!--[if lt IE 9]>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<![endif]-->
+
+{% include head-custom.html %}

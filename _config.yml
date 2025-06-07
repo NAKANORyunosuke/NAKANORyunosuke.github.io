@@ -1,0 +1,8 @@
+# _config.yml
+title: 中野竜之介
+description: 数学・超幾何級数・テータ関数の研究者
+baseurl: ""       # サブディレクトリでホスティングするときのみ '/repo-name'
+url: "https://nakanoryunosuke.github.io"
+theme: minima     # もしくは jekyll-theme-primer など公式テーマ
+plugins:
+  - jekyll-feed

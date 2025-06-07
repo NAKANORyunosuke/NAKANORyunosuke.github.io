@@ -1,0 +1,20 @@
+# ビルド後の出力フォルダ（_site）を無視
+_site/
+
+# Jekyll／Bundler 関連キャッシュ
+.jekyll-cache/
+.sass-cache/
+.bundle/
+vendor/bundle/
+
+# OS／エディタ固有ファイル
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# node/npm を使っているなら
+node_modules/
+
+# その他一時ファイル
+*.log
