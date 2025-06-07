@@ -13,41 +13,75 @@ lang: ja
     <p class="lang-ja">言語を変更するには、右上のプルダウンを利用してください。</p>
     <p class="lang-en">Change the language using the dropdown at top right.</p>
     <figure>
-        <img src="../img/profile.jpg" alt="NAKANO Ryunosuke" class="profile-image">
+        <img src="assets/img/profile.jpg" alt="NAKANO Ryunosuke" class="profile-image">
         <figcaption class="lang-ja">イチョウ並木</figcaption>
         <figcaption class="lang-en">Ginkgo-lined street in Hokkaido Univ.</figcaption>
     </figure>
 </div>
 <!-- ===== プロフィールセクション ===== -->
 <div class="profile-box">
-    <h1 class="lang-ja">プロフィール</h1>
-    <h1 class="lang-en">Profile</h1>
-    
-    <p class="lang-ja"><strong>名前 :</strong> 中野竜之介</p>
-    <p class="lang-en"><strong>Name :</strong> NAKANO Ryunosuke</p>
+    <div class="lang-ja">
+    <h1>プロフィール</h1>
+        <p><strong>名前 :</strong> 中野竜之介</p>
+        <p><strong>生年月日 :</strong> 1999年9月14日</p>
+        <p><strong>所属 :</strong> 北海道大学大学院 理学研究院 数学専攻 博士後期課程 2年</p>
+        <p><strong>研究分野 :</strong></p>
+        <ul>
+            <li>特殊関数論（特に超幾何級数）</li>
+            <li>代数多様体上の周期写像・テータ関数</li>
+        </ul>
+    <h1>連絡先</h1>
+        <p><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</p>
+        <p><strong>Researchermap :</strong> 申請中</p>
+    </div>
+    <div class="lang-en">
+        <h1>Profile</h1>
+            <p><strong>Name :</strong> NAKANO Ryunosuke</p>
+            <p><strong>Date of birth :</strong> September 14, 1999</p>
+            <p><strong>Affiliation :</strong> Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</p>
+            <p><strong>Research Interests :</strong></p>
+            <ul>
+                <li>Special functions – especially hypergeometric series</li>
+                <li>Theta functions and period maps on algebraic varieties</li>
+            </ul>
+        <h1>Contacts</h1>
+            <p><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</p>
+            <p><strong>Researchermap :</strong> Application pending</p>
+    </div>
+        <p><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank">@RNakano_theta</a></p>
+</div>
 
-    <p class="lang-ja"><strong>生年月日 :</strong> 1999年9月14日</p>
-    <p class="lang-en"><strong>Date of birth :</strong> September 14, 1999</p>
+<div class="profile-box">
+    <div class="lang-ja">
+        <h1>今後の予定</h1>
+        <ul>
+            <div class="timeline">
+                <li>
+                    <span class="date">2025年8月18日〜8月21日</span>
+                    <span class="desc"><a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a>に参加予定</span>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="lang-en">
+        <h1>Upcoming Schedule</h1>
+        <ul>
+            <div class="timeline">
+                <li>
+                    <span class="date">2025年8月18日〜8月21日</span>
+                    <span class="desc">Scheduled participation:<a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a></span>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
 
-    <p class="lang-ja"><strong>所属 :</strong> 北海道大学大学院 理学研究院 数学専攻 博士後期課程 2年</p>
-    <p class="lang-en"><strong>Affiliation :</strong> Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</p>
-    
-    <p class="lang-ja"><strong>研究分野 :</strong></p>
-    <p class="lang-en"><strong>Research Interests :</strong></p>
-    <ul class="lang-ja">
-    <li>特殊関数論（特に超幾何級数）</li>
-    <li>代数多様体上の周期写像・テータ関数</li>
-    </ul>
-    <ul class="lang-en">
-    <li>Special functions – especially hypergeometric series</li>
-    <li>Theta functions and period maps on algebraic varieties</li>
-    </ul>
-
-    <p class="lang-ja"><strong>連絡先 :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</p>
-    <p class="lang-en"><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</p>
-
-    <p><strong>SNS :</strong></p>
-    <ul>
-    <li><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank">@RNakano_theta</a></li>
-    </ul>
+<div class="profile-box">
+    <div class="lang-ja">
+        <h1>お知らせ</h1>
+        
+    </div>
+    <div class="lang-en">
+        <h1>Announcements</h1>
+    </div>
 </div>
