@@ -40,11 +40,32 @@ function setLanguage(lang) {
     if (selector) selector.value = lang;
 }
 
+/**
+ * URL のクエリ文字列から lang パラメータを取得
+ * 例: https://…/index.html?lang=en → 'en'
+ */
+function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const l = params.get('lang');
+    if (l === 'ja' || l === 'en') {
+      return l;
+    }
+    return null;
+}
+
+
 // ===== 初回読み込み時の言語判定 =====
 window.addEventListener('DOMContentLoaded', () => {
-    // 先に sidebar を読み込む menu.js が走る想定 → その後に以下が実行される
+    // 1. URL パラメータを最優先
+    const urlLang = getUrlLang();
+    if (urlLang) {
+        setLanguage(urlLang);
+        return;  // URL で指定されたのでそれだけ使う
+    }
+
+    // 2. それ以外はクッキー or ブラウザ言語
     const cookieLang = getCookie('lang');
     const browserLang = navigator.language.startsWith('ja') ? 'ja' : 'en';
-    const lang = cookieLang || browserLang;
-    setLanguage(lang);
+    const initialLang = cookieLang || browserLang;
+    setLanguage(initialLang);
 });
