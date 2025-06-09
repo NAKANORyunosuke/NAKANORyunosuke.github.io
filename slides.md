@@ -23,14 +23,14 @@ og_description: "講演資料を掲載"
                     <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/pdf/NAKANO%20Ryunosuke.pdf">テクニカルレポート</a>
                 </span>
             </li>
-            <li>
+            <!-- <li>
                 <span class="date">2025年8月18日〜8月21日</span>
                 <span class="desc">
                     2025年函数方程式論サマーセミナー
                     <a href="https://drive.google.com/file/d/1qMdAA78Hloo-NaGgGwAdqFCvfrIgkd6L/view">スライド</a>
-                    <!-- <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/pdf/NAKANO%20Ryunosuke.pdf">Technical Report</a> -->
+                    <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/pdf/NAKANO%20Ryunosuke.pdf">Technical Report</a>
                 </span>
-            </li>
+            </li> -->
         </div>
         <div class="lang-en">
             <li>
@@ -41,14 +41,14 @@ og_description: "講演資料を掲載"
                     <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/pdf/NAKANO%20Ryunosuke.pdf">Technical Report</a>
                 </span>
             </li>
-            <li>
+            <!-- <li>
                 <span class="date">August 18–21, 2025</span>
                 <span class="desc">
                     Summer Seminar of Functional Equation Theory 2025
                     <a href="https://drive.google.com/file/d/1qMdAA78Hloo-NaGgGwAdqFCvfrIgkd6L/view">スライド</a>
-                    <!-- <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/pdf/NAKANO%20Ryunosuke.pdf">Technical Report</a> -->
+                    <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/pdf/NAKANO%20Ryunosuke.pdf">Technical Report</a>
                 </span>
-            </li>
+            </li> -->
         </div>
 	</ol>
 </div>
