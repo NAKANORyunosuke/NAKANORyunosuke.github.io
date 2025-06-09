@@ -32,7 +32,7 @@ lang: ja
         </ul>
     <h1>連絡先</h1>
         <p><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</p>
-        <p><strong>Researchermap :</strong> 申請中</p>
+        <p><strong>Researchermap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></p>
     </div>
     <div class="lang-en">
         <h1>Profile</h1>
@@ -46,7 +46,7 @@ lang: ja
             </ul>
         <h1>Contacts</h1>
             <p><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</p>
-            <p><strong>Researchermap :</strong> Application pending</p>
+            <p><strong>Researchermap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></p>
     </div>
         <p><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank">@RNakano_theta</a></p>
 </div>
