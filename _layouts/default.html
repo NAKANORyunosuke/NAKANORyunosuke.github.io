@@ -35,5 +35,27 @@ lang: ja
 	<!-- 共通JS -->
 	<script src="{{ '/assets/lang-switch.js' | relative_url }}"></script>
 	<script src="{{ '/assets/menu.js'				| relative_url }}" defer></script>
+
+	<footer class="site-footer" style="text-align:center; padding:2em 1em; font-size:0.9em; color:var(--text-color);">
+	<p class="lang-ja">
+		最終更新: <span id="last-updated-ja">-</span>
+	</p>
+	<p class="lang-en">
+		Last updated: <span id="last-updated-en">-</span>
+	</p>
+	</footer>
+
+	<script>
+	// ページの最終更新日時をブラウザから取得
+	const d = new Date(document.lastModified);
+
+	// 日本語表記
+	document.getElementById('last-updated-ja').textContent =
+		`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+
+	// 英語表記
+	document.getElementById('last-updated-en').textContent =
+		d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+	</script>
 </body>
 </html>
