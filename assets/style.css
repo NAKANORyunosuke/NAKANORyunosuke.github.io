@@ -172,9 +172,11 @@ h1 {
 	z-index: 1000;
 	overflow-y: auto;
 }
-
+.sidebar-inner {
+  padding: 2rem 0rem 0rem 1rem; /* ← これで文字だけ右下に寄る */
+}
 #sidebar.open {
-	left: 1rem;             /* 表示位置 */
+	left: 0rem;             /* 表示位置 */
 }
 
 /* リスト全体のリセット */
