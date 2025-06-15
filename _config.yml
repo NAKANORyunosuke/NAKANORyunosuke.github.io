@@ -28,4 +28,4 @@ google_verify: "VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE"
 theme:      minima
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
+  # - jekyll-sitemap
