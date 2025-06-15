@@ -46,16 +46,27 @@ lang: ja
 	</footer>
 
 	<script>
-	// ページの最終更新日時をブラウザから取得
-	const d = new Date(document.lastModified);
+		// 最終更新日時を取得
+		const d = new Date(document.lastModified);
 
-	// 日本語表記
-	document.getElementById('last-updated-ja').textContent =
-		`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+		// 2桁ゼロ埋めヘルパー
+		const z2 = n => String(n).padStart(2, '0');
 
-	// 英語表記
-	document.getElementById('last-updated-en').textContent =
-		d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+		// 各パーツを取得
+		const yyyy = d.getFullYear();          // 4桁の西暦
+		const mm   = z2(d.getMonth() + 1);     // 月
+		const dd   = z2(d.getDate());          // 日
+		const hh   = z2(d.getHours());         // 時
+		const mi   = z2(d.getMinutes());       // 分
+
+		// フォーマット（yyyy/mm/dd/hh/mi）
+		const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+
+		// 挿入
+		document.getElementById('last-updated-ja').textContent = formatted;
+		document.getElementById('last-updated-en').textContent = formatted;
 	</script>
+
+
 </body>
 </html>
