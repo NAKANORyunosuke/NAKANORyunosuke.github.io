@@ -44,6 +44,12 @@ h1 {
 	margin-bottom: 0.2em;
 }
 
+h2 {
+	font-size: 2em;
+	color: var(--h1-color);
+	margin-bottom: 0.2em;
+}
+
 /* ===== 言語切り替えスイッチ ===== */
 .lang-switch {
 	position: fixed;

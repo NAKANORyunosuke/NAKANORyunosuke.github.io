@@ -21,7 +21,7 @@ lang: ja
 <!-- ===== プロフィールセクション ===== -->
 <div class="profile-box">
     <div class="lang-ja">
-    <h1>プロフィール</h1>
+    <h2>プロフィール</h2>
         <p><strong>名前 :</strong> 中野竜之介</p>
         <p><strong>生年月日 :</strong> 1999年9月14日</p>
         <p><strong>所属 :</strong> 北海道大学大学院 理学研究院 数学専攻 博士後期課程 2年</p>
@@ -30,12 +30,12 @@ lang: ja
             <li>特殊関数論（特に超幾何級数）</li>
             <li>代数多様体上の周期写像・テータ関数</li>
         </ul>
-    <h1>連絡先</h1>
+    <h2>連絡先</h2>
         <p><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</p>
         <p><strong>Researchermap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></p>
     </div>
     <div class="lang-en">
-        <h1>Profile</h1>
+        <h2>Profile</h2>
             <p><strong>Name :</strong> NAKANO Ryunosuke</p>
             <p><strong>Date of birth :</strong> September 14, 1999</p>
             <p><strong>Affiliation :</strong> Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</p>
@@ -44,7 +44,7 @@ lang: ja
                 <li>Special functions – especially hypergeometric series</li>
                 <li>Theta functions and period maps on algebraic varieties</li>
             </ul>
-        <h1>Contacts</h1>
+        <h2>Contacts</h2>
             <p><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</p>
             <p><strong>Researchermap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></p>
     </div>
@@ -53,7 +53,7 @@ lang: ja
 
 <div class="profile-box">
     <div class="lang-ja">
-        <h1>今後の予定</h1>
+        <h2>今後の予定</h2>
         <ul>
             <div class="timeline">
                 <li>
@@ -64,7 +64,7 @@ lang: ja
         </ul>
     </div>
     <div class="lang-en">
-        <h1>Upcoming Schedule</h1>
+        <h2>Upcoming Schedule</h2>
         <ul>
             <div class="timeline">
                 <li>
@@ -78,9 +78,9 @@ lang: ja
 
 <div class="profile-box">
     <div class="lang-ja">
-        <h1>お知らせ</h1>
+        <h2>お知らせ</h2>
     </div>
     <div class="lang-en">
-        <h1>Announcements</h1>
+        <h2>Announcements</h2>
     </div>
 </div>

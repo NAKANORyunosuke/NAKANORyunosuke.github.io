@@ -1,5 +1,3 @@
-# _config.yml
-
 # ─── サイト基本情報 ───
 title: "中野竜之介 (NAKANO Ryunosuke)"
 description: "北海道大学大学院 理学院 数学専攻博士後期課程 在籍。研究分野は特殊関数（超幾何級数・テータ関数）、代数多様体の周期写像。"
@@ -10,15 +8,16 @@ author:
   name:      "中野竜之介"
   en_name:   "NAKANO Ryunosuke"
   given_name: "Ryunosuke"
-  family_name:  "Nakano"
+  family_name:  "NAKANO"
   job_title: "Doctoral Student, Department of Mathematics, Graduate School of Science, Hokkaido University"
   affiliation: "Hokkaido University"
   same_as:
     - "https://x.com/RNakano_theta"
+    - "https://researchmap.jp/NAKANO-R"
 
 # ─── サイト URL／ベースパス ───
 url:       "https://nakanoryunosuke.github.io"
-baseurl:   ""  # サブディレクトリに置く場合は '/my-repo-name'
+baseurl:   ""
 
 # ─── SNS／認証キーなどのオプション変数 ───
 twitter:     "@RNakano_theta"
