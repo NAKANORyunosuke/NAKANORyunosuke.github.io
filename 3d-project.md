@@ -1,7 +1,0 @@
----
-layout: default
-title: 3d-project
-description: "その他活動"
-lang: ja
----
-
