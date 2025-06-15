@@ -1,0 +1,74 @@
+<!-- _includes/seo.html -->
+---
+---
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>
+  {% if page.title %}
+    {{ page.title }} | {{ site.title }}
+  {% else %}
+    {{ site.title }} | {{ site.description }}
+  {% endif %}
+</title>
+
+<meta name="description"
+      content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+<meta name="keywords"
+      content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
+
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="alternate" hreflang="ja" href="{{ page.url | absolute_url }}">
+<link rel="alternate" hreflang="en" href="{{ page.url | replace: '/','/en/' | absolute_url }}">
+
+<!-- Open Graph -->
+<meta property="og:title"
+      content="{% if page.og_title %}{{ page.og_title }} | {{ site.title }}{% else %}{{ page.title | default: site.title }} | {{ site.title }}{% endif %}">
+<meta property="og:description"
+      content="{{ page.og_description | default: page.description | default: site.description }}">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="{{ page.url | absolute_url }}">
+<meta property="og:image"       content="{{ site.url }}{{ page.og_image | default: '/assets/img/og-image.jpg' }}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="{{ site.twitter | default: '@RNakano_theta' }}">
+<meta name="twitter:title"       content="{{ page.og_title | default: page.title | default: site.title }}">
+<meta name="twitter:description" content="{{ page.og_description | default: page.description | default: site.description | truncate: 100 }}">
+<meta name="twitter:image"       content="{{ site.url }}{{ page.twitter_image | default: '/assets/img/twitter-card.jpg' }}">
+
+<!-- Favicon & Touch Icon -->
+<link rel="icon"               href="{{ '/assets/img/favicon.ico' | relative_url }}" type="image/x-icon">
+<!-- <link rel="apple-touch-icon"   href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}"> -->
+
+<!-- Google Site Verification -->
+<meta name="google-site-verification" content="{{ site.google_verify | default: 'VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE' }}">
+
+<!-- JSON-LD Person Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.author.en_name | default: site.title }}",
+  "alternateName": "{{ site.author.name }}",
+  "givenName": "{{ site.author.given_name }}",
+  "familyName": "{{ site.author.family_name }}",
+  "jobTitle": "{{ site.author.job_title }}",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "{{ site.author.affiliation }}"
+  },
+  "url": "{{ site.url }}",
+  "sameAs": [
+    {% for profile in site.author.same_as %}
+      "{{ profile }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
+<!-- Styles & Scripts -->
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+<script src="{{ '/assets/lang-switch.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/menu.js'        | relative_url }}" defer></script>

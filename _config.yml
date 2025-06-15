@@ -1,8 +1,31 @@
 # _config.yml
-title: 中野竜之介
-description: 数学・超幾何級数・テータ関数の研究者
-baseurl: ""       # サブディレクトリでホスティングするときのみ '/repo-name'
-url: "https://nakanoryunosuke.github.io"
-theme: minima     # もしくは jekyll-theme-primer など公式テーマ
+
+# ─── サイト基本情報 ───
+title: "中野竜之介 (NAKANO Ryunosuke)"
+description: "北海道大学大学院 理学院 数学専攻博士後期課程 在籍。研究分野は特殊関数（超幾何級数・テータ関数）、代数多様体の周期写像。"
+keywords: "中野竜之介,中野,竜之介, NAKANO Ryunosuke,NAKANO, Ryunosuke, 北海道大学, 北海道, 数学, 超幾何級数, テータ関数, 周期写像"
+
+# ─── 多言語対応／著者情報 ───
+author:
+  name:      "中野竜之介"
+  en_name:   "NAKANO Ryunosuke"
+  given_name: "Ryunosuke"
+  family_name:  "Nakano"
+  job_title: "Doctoral Student, Department of Mathematics, Graduate School of Science, Hokkaido University"
+  affiliation: "Hokkaido University"
+  same_as:
+    - "https://x.com/RNakano_theta"
+
+# ─── サイト URL／ベースパス ───
+url:       "https://nakanoryunosuke.github.io"
+baseurl:   ""  # サブディレクトリに置く場合は '/my-repo-name'
+
+# ─── SNS／認証キーなどのオプション変数 ───
+twitter:     "@RNakano_theta"
+google_verify: "VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE"
+
+# ─── プラグイン設定など ───
+theme:      minima
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
