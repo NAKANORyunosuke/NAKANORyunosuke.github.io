@@ -22,6 +22,8 @@ baseurl:   ""
 # ─── SNS／認証キーなどのオプション変数 ───
 twitter:     "@RNakano_theta"
 google_verify: "VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE"
+google_analytics: G-1QXJERSDWQ
+
 
 # ─── プラグイン設定など ───
 theme:      minima
