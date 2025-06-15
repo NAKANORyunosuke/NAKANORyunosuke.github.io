@@ -1,0 +1,42 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]  # または 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 🔧 Set up Ruby for Jekyll
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+
+    - name: 📦 Install Jekyll dependencies
+      run: bundle install
+
+    - name: 🔧 Set up Node.js for TypeScript
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: 📦 Install Node.js dependencies
+      run: npm ci
+
+    - name: 🛠 Build TypeScript
+      run: npm run build:ts
+
+    - name: 🏗 Build Jekyll site
+      run: bundle exec jekyll build
+
+    - name: 🚀 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
