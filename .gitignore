@@ -1,6 +1,6 @@
 # ===== Node.js 関連 =====
 node_modules/
-package-lock.json
+
 
 # ===== Ruby / Jekyll 関連 =====
 .bundle/
