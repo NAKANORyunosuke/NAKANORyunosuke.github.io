@@ -1,5 +1,4 @@
 ---
-// フロントマターは必要なので書く
 ---
 
 // ==============================
@@ -214,8 +213,8 @@ body {
 	left:		-260px;
 	width:	 260px;
 	height:	100%;
-	padding: 2rem 0.5rem 1rem;
-	padding-top: 2em; // 追加
+	padding: 2rem 0rem 0rem 1rem;
+	padding-top: 3em; // 追加
 	background: var(--box-bg);
 	color:			var(--text-color);
 	box-shadow: 2px 0 8px rgba(0,0,0,0.2);
@@ -264,6 +263,7 @@ body {
 		}
 	}
 }
+
 
 
 // ==============================

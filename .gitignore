@@ -1,20 +1,24 @@
-# ビルド後の出力フォルダ（_site）を無視
+# ===== Node.js 関連 =====
+node_modules/
+package-lock.json
+
+# ===== Ruby / Jekyll 関連 =====
+.bundle/
+vendor/
 _site/
 
-# Jekyll／Bundler 関連キャッシュ
-.jekyll-cache/
-.sass-cache/
-.bundle/
-vendor/bundle/
+# ===== TypeScript =====
+tsconfig.tsbuildinfo
+assets/*.js           # ビルド成果物（CIで生成するので Git に含めない）
 
-# OS／エディタ固有ファイル
+# ===== Sass =====
+.sass-cache/
+*.css.map             # sourcemaps（必要なければ）
+assets/*.css          # Sass出力（Jekyllが処理するなら含めてもOK）
+
+# ===== OS / エディタ固有ファイル =====
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
 
-# node/npm を使っているなら
-node_modules/
-
-# その他一時ファイル
-*.log
+# ===== 環境変数ファイル（必要に応じて）=====
+.env
