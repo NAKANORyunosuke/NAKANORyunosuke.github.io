@@ -9,6 +9,18 @@ lang: ja
 <head>
 	{% include head.html %}
 	<link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		new Splide('#image-slider', {
+		type   : 'loop',
+		perPage: 1,
+		autoplay: true,
+		pauseOnHover: true,
+		gap    : '1rem',
+		}).mount();
+	});
+	</script>
 </head>
 <body>
 	
