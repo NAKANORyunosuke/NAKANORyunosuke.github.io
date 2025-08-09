@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "デフォルト"
 lang: ja
 ---
@@ -20,6 +19,15 @@ lang: ja
 		gap    : '1rem',
 		}).mount();
 	});
+	</script>
+	<!-- Mermaid (UMD) -->
+	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+	<script defer>
+		window.addEventListener('DOMContentLoaded', async () => {
+		mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+		await mermaid.run({ querySelector: '.mermaid' });   // ← ここを query → querySelector に
+		// もしくは: await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+		});
 	</script>
 </head>
 <body>

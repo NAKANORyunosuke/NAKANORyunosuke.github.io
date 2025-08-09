@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<main class="container project">
+    <header class="project-header">
+        <h1>{{ page.title }}</h1>
+        {%- if page.period -%}
+        <p class="project-meta">
+            {{ page.period }}{% if page.role %} / {{ page.role }}{% endif %}
+        </p>
+        {%- endif -%}
+        {%- if page.hero -%}
+        <img class="project-hero" src="{{ page.hero | relative_url }}" alt="{{ page.title }}">
+        {%- endif -%}
+    </header>
+
+    <section class="project-body">
+        {{ content }}
+    </section>
+
+    {%- if page.tech -%}
+    <section class="project-tech">
+        <h2>技術スタック</h2>
+        <ul>
+        {%- for t in page.tech -%}
+            <li>{{ t }}</li>
+        {%- endfor -%}
+        </ul>
+    </section>
+    {%- endif -%}
+
+    <!-- {%- if page.repo_url -%}
+    <p class="project-repo">
+        <a href="{{ page.repo_url }}" target="_blank" rel="noopener">GitHubリポジトリを見る →</a>
+    </p>
+    {%- endif -%} -->
+</main>

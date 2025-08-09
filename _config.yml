@@ -34,3 +34,13 @@ plugins:
 sass:
   sass_dir: scss
   style: compressed
+
+collections:
+  projects:
+    output: true
+    permalink: /portfolio/:name/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  parse_block_html: true
