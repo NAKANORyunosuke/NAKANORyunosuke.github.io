@@ -15,39 +15,48 @@ tech:
 repo_url: "https://github.com/NAKANORyunosuke/NeiBot"
 hero: "/assets/img/portfolio/twitch-discord-bot/hero.png"
 tags: [Discord, Twitch, OAuth2, Bot, FastAPI, Nginx, ReverseProxy]
-summary: "Twitchのサブスク状況を自動判定し、Discordロールの付与/剥奪を自動化。OAuthリダイレクト〜API連携〜ロール更新、本番環境のリバースプロキシ構築までを一気通貫で実装。"
+summary: "Twitchのサブスク状況を自動判定し, Discordロールの付与/剥奪を自動化. OAuthリダイレクト〜API連携〜ロール更新, 本番環境のリバースプロキシ構築までをエンドツーエンドで実装. "
 ---
 
 ## プロジェクト概要
-Twitchのサブスク限定Discordサーバー向けに、サブスク会員の認証とロール管理を自動化するBotを構築。  
-認証フローからロール付与までを完全自動化し、さらにNginxによるリバースプロキシ構築で本番運用を安定化。
+Twitchのサブスク限定Discordサーバー向けに, サブスク会員の認証とロール管理を自動化するBotを構築.   
+認証フローからロール付与までを完全自動化し, さらにNginxによるリバースプロキシ構築で本番運用を安定化. 
 
-- **目的:** 手動でのサブスク確認・ロール付与作業をゼロにし、管理者負担を削減
-- **成果:** サブスクTier別ロール付与、失効時の自動剥奪 / HTTPS対応でOAuth要件を満たし、安定した24時間稼働を実現
+- **目的:** 手動でのサブスク確認・ロール付与作業をゼロにし, 管理者負担を削減
+- **成果:** サブスクTier別ロール付与, 失効時の自動剥奪 / HTTPS対応でOAuth要件を満たし, 安定した24時間稼働を実現
 
 ## 実装内容
 - スラッシュコマンド `/link` 実装（認可URL生成とユーザーへの送信）
 - Twitch OAuth 2.0 Authorization Code Flow 実装（`state`でDiscordユーザーを安全特定）
-- FastAPIによるコールバック処理、トークン交換、Helix API呼び出し
+- FastAPIによるコールバック処理, トークン交換, Helix API呼び出し
 - サブスクTier取得とDiscordロール付与/更新（py-cord）
 - JSONによるDiscord ID ↔ Twitchアカウント紐付け管理（将来のDB化を見越した設計）
 - Let’s Encrypt（win-acme）によるHTTPS化
-- **Nginxリバースプロキシ構築**（TLS終端、パスベース振り分け、X-Forwardedヘッダ設定）
+- **Nginxリバースプロキシ構築**（TLS終端, パスベース振り分け, X-Forwardedヘッダ設定）
   - `/` → 将来的なWeb UI（管理画面）用
   - `/callback` → FastAPI（Twitch OAuthコールバック）
-  - HTTP→HTTPSリダイレクト、HSTS適用
+  - HTTP→HTTPSリダイレクト, HSTS適用
 
 ## 技術スタック
-- **言語:** Python 3.12
-- **主要ライブラリ:** py-cord 2.6.1, twitchAPI 4.5.0
-- **Web:** FastAPI（OAuthコールバック）
-- **API:** Twitch Helix API, Discord API
-- **インフラ:** Windows Server, Nginx, win-acme
+- **言語:** Python 3.12  
+  - Discordのapiの都合上Pythonを採用.
+- **主要ライブラリ:**  
+  - **py-cord 2.6.1** — Discord Bot 機能の実装に使用. スラッシュコマンドやロール管理, イベントハンドリングを担当.   
+  - **twitchAPI 4.5.0** — Twitch Helix API 呼び出しや OAuth 2.0 認証処理を簡潔に実装可能に. 
+- **Web:** FastAPI（OAuthコールバック処理）  
+  高速・非同期対応の Python 製 Web フレームワーク. Twitch 認証のコールバックエンドポイントを実装し, 非同期処理で API 応答の遅延を最小化. 
+- **API:**  
+  - **Twitch Helix API** — ユーザー情報およびサブスク状態（Tier判定）を取得.   
+  - **Discord API** — ロールの付与・剥奪, ユーザー情報取得など Bot 側の管理操作を実現. 
+- **インフラ:** Windows Server, Nginx, win-acme  
+  - **Windows Server** — 常時稼働環境として利用.   
+  - **Nginx** — リバースプロキシとして FastAPI へのルーティングと TLS 終端を担当.   
+  - **win-acme** — Let's Encrypt 証明書を自動取得・更新し, HTTPS 対応を維持. 
 
 ## 処理フロー
 1. Discordで `/link` 実行 → BotがTwitch認可URLを返す（`state=DiscordUserID`）
 2. ユーザーがTwitchで認可 → サーバーの`/callback`に`code`と`state`が渡される
-3. コールバック処理で`code`→トークン交換、Helix APIでユーザー＆サブスク状況確認
+3. コールバック処理で`code`→トークン交換, Helix APIでユーザー＆サブスク状況確認
 4. BotがDiscord APIを使い該当ユーザーにロール付与/更新（Tier別対応）
 
 <div class="mermaid" markdown="0">
