@@ -22,12 +22,69 @@ lang: ja
 	</script>
 	<!-- Mermaid (UMD) -->
 	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+	<!-- Mermaid 本体（v10） -->
+	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+
+	<!-- Mermaid 初期化（ライト/ダーク自動 & 変更時に再レンダリング） -->
 	<script defer>
-		window.addEventListener('DOMContentLoaded', async () => {
-		mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
-		await mermaid.run({ querySelector: '.mermaid' });   // ← ここを query → querySelector に
-		// もしくは: await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+	(function () {
+		// 現在のテーマ判定
+		function currentTheme() {
+		return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'default';
+		}
+
+		// 初期化
+		function initMermaid(theme) {
+		mermaid.initialize({
+			startOnLoad: false,
+			securityLevel: 'loose',
+			theme: theme
 		});
+		}
+
+		// 再レンダリング（テーマ変更時）
+		function rerenderMermaid(theme) {
+		mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme });
+
+		const nodes = document.querySelectorAll('.mermaid');
+		nodes.forEach((el) => {
+			// 初回に保存した「生テキスト」を復元してから再描画
+			if (el.getAttribute('data-raw')) {
+			el.innerHTML = el.getAttribute('data-raw');
+			}
+		});
+		mermaid.run({ nodes });
+		}
+
+		// 初回レンダリング
+		window.addEventListener('DOMContentLoaded', async () => {
+		// 生テキストを保存（再描画に使う）
+		document.querySelectorAll('.mermaid').forEach((el) => {
+			if (!el.getAttribute('data-raw')) el.setAttribute('data-raw', el.textContent);
+		});
+
+		initMermaid(currentTheme());
+		await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+		});
+
+		// OSの配色切替（ライト/ダーク）に追従
+		if (window.matchMedia) {
+		const mq = window.matchMedia('(prefers-color-scheme: dark)');
+		mq.addEventListener('change', (e) => {
+			document.documentElement.classList.toggle('dark-mermaid', e.matches);
+			rerenderMermaid(e.matches ? 'dark' : 'default');
+		});
+		}
+
+		// 手動トグルAPI（任意：サイトのテーマ切替ボタンから呼べます）
+		window.setMermaidTheme = function (theme) {
+		if (theme !== 'default' && theme !== 'dark') return;
+		document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+		rerenderMermaid(theme);
+		};
+	})();
 	</script>
 </head>
 <body>
