@@ -45,7 +45,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.2-x64-mingw-ucrt)
+    ffi (1.17.2-x86_64-linux)
     ffi (1.17.2-x86_64-linux)
     forwardable-extended (2.6.0)
     gemoji (4.1.0)
@@ -235,8 +235,8 @@ GEM
     minitest (5.25.5)
     net-http (0.6.0)
       uri
-    nokogiri (1.18.8-x64-mingw-ucrt)
-      racc (~> 1.4)
+    nokogiri (1.18.8-x86_64-linux)
+       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux)
       racc (~> 1.4)
     octokit (4.25.1)
@@ -273,9 +273,8 @@ GEM
     uri (1.0.3)
     webrick (1.9.1)
 
-PLATFORMS
-  x64-mingw-ucrt
-  x86_64-linux
++PLATFORMS
++  x86_64-linux
 
 DEPENDENCIES
   github-pages
