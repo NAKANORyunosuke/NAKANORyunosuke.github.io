@@ -364,3 +364,7 @@ body {
 /* === Mermaid background fix (light/dark) === */
 .mermaid svg { background-color: #ffffff !important; }
 .dark-mermaid .mermaid svg { background-color: #1e1e1e !important; }
+a.lang-ja,
+a.lang-en {
+	white-space: nowrap;
+}
