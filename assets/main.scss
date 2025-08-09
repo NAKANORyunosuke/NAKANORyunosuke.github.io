@@ -364,7 +364,13 @@ body {
 /* === Mermaid background fix (light/dark) === */
 .mermaid svg { background-color: #ffffff !important; }
 .dark-mermaid .mermaid svg { background-color: #1e1e1e !important; }
-a.lang-ja,
-a.lang-en {
-	white-space: nowrap;
+
+
+/* 英語の本文内リンク：リンク内は改行禁止、リンク直後も改行させない */
+.lang-en .desc a {
+  white-space: nowrap;   // リンク内を折り返さない
+  // display:inline-block; は不要（外す）
+}
+.lang-en .desc a::after {
+  content: "\2060";      // ← リンク直後の改行を禁止（見えない文字）
 }
