@@ -28,12 +28,12 @@ OAuth認可〜コールバック〜サブスクTier判定〜ロール付与/剥�
 - **成果:** サブスクTier別ロール自動付与・失効時の自動剥奪 / HTTPS対応（win-acme）/ 24h稼働の安定運用 / 運用リマインド自動化
 
 ## 変更点（2025-08-17）
-- ✅ **月初の自動再リンク要求**（streak維持・tier変動検出 / relink_required フラグ連動）
-- ✅ **未リンク者の自動DM**（参加時 / 1週間後のフォロー）
-- ✅ **Uvicornを利用したFastAPI実行**（`python -m uvicorn bot.bot_client:app --host 0.0.0.0 --port 8000`）
-- ✅ **Nginx + Uvicorn の本番構成**（TLS終端とアプリ分離により安定稼働）
-- ✅ **JSONスキーマ拡張 / データ差分検知**
-- ✅ **セキュリティ強化（アクセス制御・HSTS・ログ監視）**
+- **月初の自動再リンク要求**（streak維持・tier変動検出 / relink_required フラグ連動）
+- **未リンク者の自動DM**（参加時 / 1週間後のフォロー）
+- **Uvicornを利用したFastAPI実行**（`python -m uvicorn bot.bot_client:app --host 0.0.0.0 --port 8000`）
+- **Nginx + Uvicorn の本番構成**（TLS終端とアプリ分離により安定稼働）
+- **JSONスキーマ拡張 / データ差分検知**
+- **セキュリティ強化（アクセス制御・HSTS・ログ監視）**
 
 ## 実装内容
 - `/link` スラッシュコマンド実装
@@ -81,3 +81,6 @@ flowchart LR
 - **Uvicorn + Nginx 構成**で, 外部公開と内部アプリを分離
 - **HSTS / HTTPSリダイレクト**で安全な認証フローを保証
 - 不正アクセス対策（軽量BAN下地・ログ監視）
+
+
+GitHub: [NAKANORyunosuke/NeiBot]({{ page.repo_url }})
