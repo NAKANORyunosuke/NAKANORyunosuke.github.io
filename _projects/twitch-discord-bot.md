@@ -1,6 +1,7 @@
 ---
 layout: project
 title: "Twitchサブスク連携Discord Bot"
+permalink: /portfolio/twitch-discord-bot/
 date: 2025-08-17
 period: "2025/08/05 – 2025/08/17"
 role: "設計 / 実装 / 運用"
