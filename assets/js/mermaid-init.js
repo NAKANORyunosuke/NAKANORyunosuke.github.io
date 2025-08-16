@@ -24,7 +24,7 @@
 
     const blocks = document.querySelectorAll('.mermaid');
     blocks.forEach((el) => {
-      // 初回に生テキストを保存しておき、再描画時に戻す
+      // 初回に生テキストを保存しておき, 再描画時に戻す
       if (el.getAttribute('data-raw')) {
         el.innerHTML = el.getAttribute('data-raw');
       } else {
