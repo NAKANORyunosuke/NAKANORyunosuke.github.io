@@ -1,24 +1,22 @@
 ---
 layout: project
 title: "Twitchサブスク連携Discord Bot"
-date: 2025-08-17
+date: 2025-08-09
 period: "2025/08/05 – 2025/08/17"
 role: "設計 / 実装 / 運用"
 tech:
-  - "Python 3.12"
-  - "py-cord 2.6.1"
-  - "twitchAPI 4.5.0"
-  - "FastAPI"
-  - "Uvicorn"
-  - "Windows Server"
-  - "Let’s Encrypt (win-acme)"
-  - "Nginx (Reverse Proxy)"
+  - Python 3.12
+  - py-cord 2.6.1
+  - twitchAPI 4.5.0
+  - FastAPI
+  - Uvicorn
+  - Windows Server
+  - Let’s Encrypt (win-acme)
+  - Nginx (Reverse Proxy)
 repo_url: "https://github.com/NAKANORyunosuke/NeiBot"
 hero: "/assets/img/portfolio/twitch-discord-bot/hero.png"
-tags: ["Discord","Twitch","OAuth2","Bot","FastAPI","Uvicorn","Nginx","ReverseProxy"]
-summary: "Twitchのサブスク状況を自動判定し、Discordロールの付与/剥奪を自動化。OAuthリダイレクト〜API連携〜ロール更新、Nginx+Uvicornで本番運用を安定化。"
-permalink: /portfolio/twitch-discord-bot/
-published: true
+tags:  ["Discord","Twitch","OAuth2","Bot","FastAPI","Uvicorn","Nginx","ReverseProxy"]
+summary: "Twitchのサブスク状況を自動判定し, Discordロールの付与/剥奪を自動化. OAuthリダイレクト〜API連携〜ロール更新, 本番環境のリバースプロキシ構築までをエンドツーエンドで実装. "
 ---
 
 ## プロジェクト概要
