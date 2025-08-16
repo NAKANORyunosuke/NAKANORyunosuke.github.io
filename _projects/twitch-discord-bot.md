@@ -78,6 +78,58 @@ flowchart LR
   N -.付与.-> H2[X-Forwarded-For];
   N -.付与.-> H3[Host];
 </div>
+<div class="mermaid" markdown="0">
+%%{init: {
+  "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 25, "rankSpacing": 35 },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif" }
+}}%%
+flowchart TD
+
+subgraph Layer1["インフラ"]
+  WS["Windows Server"]
+  Nginx["Nginx<br/>(Reverse Proxy＋SSL)"]
+  Uvicorn["Uvicorn<br/>(FastAPI 実行)"]
+end
+
+subgraph Layer2["FastAPI"]
+  CB[/ /twitch_callback /]
+  VERIFY["アクセストークン検証<br/>サブスク確認"]
+end
+
+subgraph Layer3["Twitch API"]
+  AUTH["OAuth2 認証"]
+  SUBS["サブスク情報取得"]
+end
+
+subgraph Layer4["Storage (venv JSON)"]
+  TOKENS["token.json"]
+  USERS["linked_users.json"]
+end
+
+subgraph Layer5["Bot (py-cord)"]
+  CMD["スラッシュコマンド処理"]
+  ROLE_OPS["ロール付与・剥奪"]
+end
+
+subgraph Layer6["Discord サーバー"]
+  U[ユーザー]
+  SC[/Slash Command/]
+  SUBROLE["@Subscriber ロール"]
+end
+
+%% フロー
+U -->|/link 実行| SC --> CMD
+CMD -->|認証URL生成| AUTH
+AUTH --> CB
+CB --> VERIFY --> SUBS
+VERIFY --> USERS
+VERIFY --> ROLE_OPS --> SUBROLE
+
+CMD --> USERS
+FastAPI --> TOKENS
+WS --> Nginx --> Uvicorn --> CB
+</div>
+
 
 ## 運用とセキュリティ
 - Uvicorn + Nginx 構成により, 外部公開と内部アプリを分離した  
