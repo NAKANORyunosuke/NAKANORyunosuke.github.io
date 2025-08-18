@@ -366,7 +366,7 @@ body {
 .dark-mermaid .mermaid svg { background-color: #1e1e1e !important; }
 
 
-/* 英語の本文内リンク：リンク内は改行禁止、リンク直後も改行させない */
+/* 英語の本文内リンク：リンク内は改行禁止, リンク直後も改行させない */
 .lang-en .desc a {
   white-space: nowrap;   // リンク内を折り返さない
   // display:inline-block; は不要（外す）

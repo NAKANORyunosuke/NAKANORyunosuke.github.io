@@ -78,9 +78,11 @@ permalink: /portfolio/
 
                 {%- if p.tags -%}
                 <ul class="p-tags">
-                    {%- for t in p.tags | default: empty -%}
-                    <li class="p-tag">#{{ t }}</li>
-                    {%- endfor -%}
+                    {% if p.tags %}
+                        {% for t in p.tags %}
+                            <span class="tag">{{ t }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </ul>
                 {%- endif -%}
 
