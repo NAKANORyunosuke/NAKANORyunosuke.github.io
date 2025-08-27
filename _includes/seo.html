@@ -18,7 +18,7 @@
 <meta name="keywords"
       content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
 
-<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="alternate" href="{{ page.url | absolute_url }}">
 <link rel="alternate" hreflang="ja" href="{{ page.url | absolute_url }}">
 <link rel="alternate" hreflang="en" href="{{ page.url | replace: '/','/en/' | absolute_url }}">
 
