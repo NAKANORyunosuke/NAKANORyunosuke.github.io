@@ -1,4 +1,3 @@
-Sitemap: https://nakanoryunosuke.github.io/sitemap.xml
-
 User-agent: *
-Disallow:
+Allow: /
+Sitemap: https://nakanoryunosuke.github.io/sitemap.xml
