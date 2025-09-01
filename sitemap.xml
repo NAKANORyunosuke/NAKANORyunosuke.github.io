@@ -1,23 +1,58 @@
 ---
-layout: none
-<!-- permalink: /sitemap.xml -->
+layout: null
+sitemap: false
 ---
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="
-    http://www.sitemaps.org/schemas/sitemap/0.9
-    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  {% for page in site.pages %}
-    {% unless page.url == "/sitemap.xml" %}
-  <url>
-    <loc>{{ site.url }}{{ page.url }}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>{% if page.url == "/" %}1.0{% else %}0.8{% endif %}</priority>
-  </url>
-    {% endunless %}
-  {% endfor %}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  {%- comment -%} Pages {%- endcomment -%}
+  {%- for doc in site.pages -%}
+    {%- assign p = doc.path | downcase -%}
+    {%- assign ext4 = p | slice: -4, 4 -%}
+    {%- if doc.sitemap != false -%}
+      {%- unless p contains 'assets/' -%}
+        {%- unless ext4 == '.css' or ext4 == '.xml' -%}
+          <url>
+            <loc>{{ doc.url | absolute_url }}</loc>
+            <changefreq>{{ doc.changefreq | default: 'monthly' }}</changefreq>
+            <priority>{{ doc.priority | default: 0.8 }}</priority>
+          </url>
+        {%- endunless -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%} Posts {%- endcomment -%}
+  {%- for doc in site.posts -%}
+    {%- if doc.sitemap != false -%}
+      <url>
+        <loc>{{ doc.url | absolute_url }}</loc>
+        <changefreq>{{ doc.changefreq | default: 'monthly' }}</changefreq>
+        <priority>{{ doc.priority | default: 0.8 }}</priority>
+      </url>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%} Other collections (e.g., projects) {%- endcomment -%}
+  {%- for collection in site.collections -%}
+    {%- unless collection.label == 'posts' or collection.label == 'pages' -%}
+      {%- for doc in collection.docs -%}
+        {%- assign p = doc.path | downcase -%}
+        {%- assign ext4 = p | slice: -4, 4 -%}
+        {%- if doc.sitemap != false -%}
+          {%- unless p contains 'assets/' -%}
+            {%- unless ext4 == '.css' or ext4 == '.xml' -%}
+              <url>
+                <loc>{{ doc.url | absolute_url }}</loc>
+                <changefreq>{{ doc.changefreq | default: 'monthly' }}</changefreq>
+                <priority>{{ doc.priority | default: 0.8 }}</priority>
+              </url>
+            {%- endunless -%}
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endunless -%}
+  {%- endfor -%}
 
 </urlset>
