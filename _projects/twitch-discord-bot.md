@@ -2,7 +2,7 @@
 layout: project
 title: "Twitchサブスク連携Discord Bot"
 date: 2025-08-09
-period: "2025/08/05 – 2025/08/17"
+period: "2025/08/05 - 2025/08/17"
 role: "設計 / 実装 / 運用"
 tech:
   - Python 3.12
