@@ -21,19 +21,19 @@ published: true
 
 ## 概要
 Twitchログイン（django-allauth）で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール.   
-Bot（FastAPI）の管理APIと安全に連携し, メッセージテンプレート `{user}` の置換や未知プレースホルダの事前エラーを備える. 
+Bot（py-cord + FastAPI）の管理APIと安全に連携し, メッセージテンプレート `{user}` の置換や未知プレースホルダの事前エラーを備える. 
 
 - 目的: 運営が非技術者でも安全・簡単にロール対象へ告知DMを送れるようにする
 - 効果: 案内・告知の即時配布, 誤送信・設定ミスの抑制, 添付ファイル付き配信の省力化
 
 ## 主要機能
 - 認証: Twitchログイン（django-allauth）
-  - 許可Twitchログイン名はスタッフ（`is_staff`）へ自動昇格
+    - 許可Twitchログイン名はスタッフ（`is_staff`）へ自動昇格
 - 権限: `is_staff` のみアクセス可能（非スタッフは 403）
 - 送信: 指定ロールの全メンバーへDM一括送信
-  - 添付ファイル対応（最大 8MB, Discord DM 制限に準拠）
-  - テンプレ置換: メッセージ中の `{user}` を各メンバーの表示名へ置換
-  - バリデーション: 未対応の `{...}` が含まれていれば送信前にエラー
+    - 添付ファイル対応（最大 8MB, Discord DM 制限に準拠）
+    - テンプレ置換: メッセージ中の `{user}` を各メンバーの表示名へ置換
+    - バリデーション: 未対応の `{...}` が含まれていれば送信前にエラー
 - 連携: Bot 管理API（Bearer 認証）からサーバー/ロール一覧を取得
 
 ## 画面フロー
@@ -47,24 +47,24 @@ Bot（FastAPI）の管理APIと安全に連携し, メッセージテンプレ�
 ## Bot 管理API連携
 - 認証: `Authorization: Bearer <ADMIN_API_TOKEN>`
 - エンドポイント:
-  - `GET /guilds` … 参加中サーバー一覧
-  - `GET /roles?guild_id=<id>` … 指定サーバーのロール一覧
-  - `POST /send_role_dm` … ロールDM送信ジョブをキュー投入
+    - `GET /guilds` … 参加中サーバー一覧
+    - `GET /roles?guild_id=<id>` … 指定サーバーのロール一覧
+    - `POST /send_role_dm` … ロールDM送信ジョブをキュー投入
 - エラーハンドリング:
-  - メッセージ中に未知の `{...}` が含まれていれば 400 を返却
-  - 送信処理はBot側で0.3秒間隔で順次DM. 失敗（DM閉鎖等）はログに記録
+    - メッセージ中に未知の `{...}` が含まれていれば 400 を返却
+    - 送信処理はBot側で0.3秒間隔で順次DM. 失敗（DM閉鎖等）はログに記録
 
 ### 送信リクエスト例
 ```bash
 curl -X POST http://127.0.0.1:8000/send_role_dm \
-  -H "Authorization: Bearer <ADMIN_API_TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "guild_id": 123456789012345678,
-    "role_id": 987654321098765432,
-    "message": "こんにちは {user} さん！最新情報です. ",
-    "file_url": "https://example.com/uploads/info.png"
-  }'
+    -H "Authorization: Bearer <ADMIN_API_TOKEN>" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "guild_id": 123456789012345678,
+        "role_id": 987654321098765432,
+        "message": "こんにちは {user} さん！最新情報です. ",
+        "file_url": "https://example.com/uploads/info.png"
+    }'
 ```
 
 ### セキュリティ
