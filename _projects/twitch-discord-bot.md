@@ -17,32 +17,32 @@ tech:
 repo_url: "https://github.com/NAKANORyunosuke/NeiBot"
 hero: "/assets/img/portfolio/twitch-discord-bot/hero.png"
 tags: ["Discord","Twitch","OAuth2","Bot","FastAPI","Uvicorn","Nginx","ReverseProxy","EventSub"]
-summary: "Twitchサブスクの状態をEventSubとスケジューラで監視し、Discord側のロールとチャンネルを完全自動化。OAuth認証からWebhook反映、本番環境のリバースプロキシ構築までを一気通貫で実装。"
+summary: "Twitchサブスクの状態をEventSubとスケジューラで監視し, Discord側のロールとチャンネルを完全自動化. OAuth認証からWebhook反映, 本番環境のリバースプロキシ構築までを実装. "
 permalink: /portfolio/twitch-discord-bot/
 published: true
 ---
 
 ## プロジェクト概要
-Twitchのサブスク限定Discordサーバー向けに、サブスク認証とロール/チャンネル管理を全自動化。  
-視聴者は `/link` コマンドからOAuth認可を行うだけでロール付与が完了し、EventSub(Webhook)により再サブや解約も即時反映される。
+Twitchのサブスク限定Discordサーバー向けに, サブスク認証とロール/チャンネル管理を全自動化.   
+視聴者は `/link` コマンドからOAuth認可を行うだけでロール付与が完了し, EventSub(Webhook)により再サブや解約も即時反映される. 
 
-- **目的:** 手動によるサブスク確認・ロール付与をゼロにし、運用負荷とミスを排除すること  
-- **成果:** サブスクTier別ロール/チャンネル自動整備、再サブ検知・解約検知、月次再リンクDMと未解決再送、参加時の自動DM、HTTPS対応までを実現
+- **目的:** 手動によるサブスク確認・ロール付与をゼロにし, 運用負荷とミスを排除すること  
+- **成果:** サブスクTier別ロール/チャンネル自動整備, 再サブ検知・解約検知, 月次再リンクDMと未解決再送, 参加時の自動DM, HTTPS対応までを実現
 
 ## 実装内容
-- `/link` スラッシュコマンドで認可URLを生成し、OAuth完了後にTierロールを自動付与  
+- `/link` スラッシュコマンドで認可URLを生成し, OAuth完了後にTierロールを自動付与  
 - FastAPIエンドポイント  
   - `GET /twitch_callback` でトークン交換とリンク保存  
   - `POST /twitch_eventsub` で `channel.subscribe` / `channel.subscription.message` / `channel.subscription.end` を処理  
 - APSchedulerで月初リマインドと7日後の未解決再送を自動化  
-- サーバー参加時の未リンク者へ自動DMを送信し、連携を促す  
-- サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し、アクセス権を管理  
-- Windows Server上でUvicornをポート8000で起動し、NginxでTLS終端したリバースプロキシ構成を実現
+- サーバー参加時の未リンク者へ自動DMを送信し, 連携を促す  
+- サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し, アクセス権を管理  
+- Windows Server上でUvicornをポート8000で起動し, NginxでTLS終端したリバースプロキシ構成を実現
 
 ## インフラ構成
-- Discord BotとFastAPIを同一プロセス内で稼働し、Uvicornを別スレッドで起動  
-- NginxがHTTPS(443)を受け持ち、`/twitch_callback` と `/twitch_eventsub` をUvicornへプロキシ  
-- win-acmeによるLet’s Encrypt証明書を自動更新し、Nginxに適用
+- Discord BotとFastAPIを同一プロセス内で稼働し, Uvicornを別スレッドで起動  
+- NginxがHTTPS(443)を受け持ち, `/twitch_callback` と `/twitch_eventsub` をUvicornへプロキシ  
+- win-acmeによるLet’s Encrypt証明書を自動更新し, Nginxに適用
 
 <div class="mermaid" markdown="0">
 flowchart LR
