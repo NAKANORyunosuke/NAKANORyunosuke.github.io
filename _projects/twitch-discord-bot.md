@@ -1,71 +1,56 @@
 ---
 layout: project
 title: "Twitchサブスク連携Discord Bot"
-date: 2025-08-09
-period: "2025/08/05 - 2025/08/17"
+date: 2025-09-05
+period: "2025/08/05 - 2025/09/05"
 role: "設計 / 実装 / 運用"
 tech:
   - Python 3.12
   - py-cord 2.6.1
-  - twitchAPI 4.5.0
   - FastAPI
+  - APScheduler
+  - twitchAPI 4.5.0
   - Uvicorn
   - Windows Server
   - Let’s Encrypt (win-acme)
   - Nginx (Reverse Proxy)
 repo_url: "https://github.com/NAKANORyunosuke/NeiBot"
 hero: "/assets/img/portfolio/twitch-discord-bot/hero.png"
-tags: ["Discord","Twitch","OAuth2","Bot","FastAPI","Uvicorn","Nginx","ReverseProxy"]
-summary: "Twitchのサブスク状況を自動判定し, Discordロールの付与/剥奪を自動化. OAuthリダイレクト〜API連携〜ロール更新, 本番環境のリバースプロキシ構築までをエンドツーエンドで実装."
+tags: ["Discord","Twitch","OAuth2","Bot","FastAPI","Uvicorn","Nginx","ReverseProxy","EventSub"]
+summary: "Twitchサブスクの状態をEventSubとスケジューラで監視し、Discord側のロールとチャンネルを完全自動化。OAuth認証からWebhook反映、本番環境のリバースプロキシ構築までを一気通貫で実装。"
 permalink: /portfolio/twitch-discord-bot/
 published: true
 ---
 
 ## プロジェクト概要
-Twitchのサブスク限定Discordサーバー向けに, サブスク認証とロール管理を全自動化した.  
-OAuth認可〜コールバック〜サブスクTier判定〜ロール付与/剥奪までを一気通貫で実装し, Uvicorn + Nginx リバースプロキシにより本番環境を安定稼働させた.  
-さらに, 月初の再リンク要求や未リンク者への自動DMなど運用オペレーションも自動化した.  
+Twitchのサブスク限定Discordサーバー向けに、サブスク認証とロール/チャンネル管理を全自動化。  
+視聴者は `/link` コマンドからOAuth認可を行うだけでロール付与が完了し、EventSub(Webhook)により再サブや解約も即時反映される。
 
-- **目的:** 手動によるサブスク確認・ロール付与作業をゼロとし, 管理負荷とヒューマンエラーを削減すること  
-- **成果:** サブスクTier別ロール自動付与・失効時の自動剥奪, HTTPS対応(win-acme), 24h稼働の安定運用, 運用リマインドの自動化を実現
-
-## 変更点(2025-08-17)
-- 月初の自動再リンク要求(streak維持・tier変動検出 / `relink_required` フラグ連動)  
-- 未リンク者の自動DM(参加時 / 1週間後のフォロー)  
-- Uvicornを利用したFastAPI実行(アプリ内で`uvicorn.run(app, host="0.0.0.0", port=8000)`を別スレッドで起動)  
-- Nginx + Uvicorn の本番構成(TLS終端とアプリ分離により安定稼働)  
-- JSONスキーマ拡張 / データ差分検知  
-- セキュリティ強化(アクセス制御・HSTS・ログ監視)  
+- **目的:** 手動によるサブスク確認・ロール付与をゼロにし、運用負荷とミスを排除すること  
+- **成果:** サブスクTier別ロール/チャンネル自動整備、再サブ検知・解約検知、月次再リンクDMと未解決再送、参加時の自動DM、HTTPS対応までを実現
 
 ## 実装内容
-- `/link` スラッシュコマンドを実装(認可URL生成・ephemeral返信)  
-- Twitch OAuth 2.0 認可コードフローを導入(`state=DiscordUserID`で安全突合)  
-- FastAPI `/twitch_callback` をUvicornによりアプリ内スレッドで常駐稼働  
-- サブスクTier取得とロール付与/剥奪(py-cord)  
-- JSONストアによるユーザー管理(将来的DB化を見越した設計)  
-- Let’s Encrypt + Nginx による HTTPS / Proxy 構成  
-
-## 技術スタック
-- **言語:** Python 3.12  
-- **主要ライブラリ:**  
-  - py-cord 2.6.1 — Discord Bot機能  
-  - twitchAPI 4.5.0 — OAuth2 + Helix API  
-  - FastAPI — コールバック処理  
-  - Uvicorn — ASGIサーバ(アプリ内スレッドで起動)  
-- **インフラ:** Windows Server, Nginx, win-acme  
+- `/link` スラッシュコマンドで認可URLを生成し、OAuth完了後にTierロールを自動付与  
+- FastAPIエンドポイント  
+  - `GET /twitch_callback` でトークン交換とリンク保存  
+  - `POST /twitch_eventsub` で `channel.subscribe` / `channel.subscription.message` / `channel.subscription.end` を処理  
+- APSchedulerで月初リマインドと7日後の未解決再送を自動化  
+- サーバー参加時の未リンク者へ自動DMを送信し、連携を促す  
+- サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し、アクセス権を管理  
+- Windows Server上でUvicornをポート8000で起動し、NginxでTLS終端したリバースプロキシ構成を実現
 
 ## インフラ構成
-- Uvicornはアプリ内で起動し, Discord Botと同一プロセスの別スレッドとして`:8000`をリッスンする  
-- Nginxが443(HTTPS)を受け持ち, `/callback`リクエストをUvicornにリバースプロキシする  
-- win-acmeが証明書自動更新(Let’s Encrypt)を担い, Nginxに反映する  
-- Discord Bot (py-cord) は独立プロセスとして稼働する  
+- Discord BotとFastAPIを同一プロセス内で稼働し、Uvicornを別スレッドで起動  
+- NginxがHTTPS(443)を受け持ち、`/twitch_callback` と `/twitch_eventsub` をUvicornへプロキシ  
+- win-acmeによるLet’s Encrypt証明書を自動更新し、Nginxに適用
 
 <div class="mermaid" markdown="0">
 flowchart LR
-  C[Client] -->|HTTPS 443| N["Nginx (TLS終端)"];
-  N -->|/callback| U["Uvicorn :8000 (FastAPI)"];
-  U --> F["FastAPI<br/>OAuth Callback"];
-  N -->|/| W["将来のWeb UI"];
+  C[Client] -->|HTTPS 443| N["Nginx (TLS終端)"]
+  N -->|/twitch_callback| U["Uvicorn :8000 (FastAPI)"]
+  N -->|/twitch_eventsub| U
+  U --> F["FastAPI<br/>OAuth Callback / EventSub"]
+  N -->|/| W["将来のWeb UI"]
 
   subgraph Host
     N
@@ -74,10 +59,11 @@ flowchart LR
     W
   end
 
-  N -.付与.-> H1[X-Forwarded-Proto];
-  N -.付与.-> H2[X-Forwarded-For];
-  N -.付与.-> H3[Host];
+  N -.付与.-> H1[X-Forwarded-Proto]
+  N -.付与.-> H2[X-Forwarded-For]
+  N -.付与.-> H3[Host]
 </div>
+
 <div class="mermaid" markdown="0">
 %%{init: {
   "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 25, "rankSpacing": 35 },
@@ -92,7 +78,8 @@ subgraph Layer1["インフラ"]
 end
 
 subgraph Layer2["FastAPI"]
-  CB[/ /twitch_callback /]
+  CB[/ GET /twitch_callback /]
+  ES[/ POST /twitch_eventsub /]
   VERIFY["アクセストークン検証<br/>サブスク確認"]
 end
 
@@ -121,6 +108,7 @@ end
 U -->|/link 実行| SC --> CMD
 CMD -->|認証URL生成| AUTH
 AUTH --> CB
+ES --> VERIFY
 CB --> VERIFY --> SUBS
 VERIFY --> USERS
 VERIFY --> ROLE_OPS --> SUBROLE
@@ -128,12 +116,11 @@ VERIFY --> ROLE_OPS --> SUBROLE
 CMD --> USERS
 FastAPI --> TOKENS
 WS --> Nginx --> Uvicorn --> CB
+Nginx --> Uvicorn --> ES
 </div>
 
-
 ## 運用とセキュリティ
-- Uvicorn + Nginx 構成により, 外部公開と内部アプリを分離した  
-- HSTS / HTTPSリダイレクトを導入し, 安全な認証フローを保証した  
-- 不正アクセス対策として, 軽量BAN機構とログ監視を導入した  
+- HSTS・HTTPSリダイレクトを導入して安全なOAuthフローを提供  
+- 不正アクセス対策としてアクセス制御とログ監視を実施
 
 GitHub: [NAKANORyunosuke/NeiBot]({{ page.repo_url }})
