@@ -1,6 +1,6 @@
 ---
 layout: project
-title: "Twitch連携 管理UI（Django）"
+title: "Twitch連携 管理UI(Django)"
 date: 2025-09-05
 period: "2025/08/20 - 2025/09/05"
 role: "設計 / 実装"
@@ -20,27 +20,36 @@ published: true
 ---
 
 ## 概要
-Twitchログイン（django-allauth）で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール.   
-Bot（py-cord + FastAPI）の管理APIと安全に連携し, メッセージテンプレート `{user}` の置換や未知プレースホルダの事前エラーを備える. 
+Twitchログイン(django-allauth)で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール.   
+Bot(py-cord + FastAPI)の管理APIと安全に連携し, メッセージテンプレート `{user}` の置換や未知プレースホルダの事前エラーを備える. 
 
 - 目的: 運営が非技術者でも安全・簡単にロール対象へ告知DMを送れるようにする
 - 効果: 案内・告知の即時配布, 誤送信・設定ミスの抑制, 添付ファイル付き配信の省力化
 
+## 現状
+- 状態: 基本機能は実装済み, ローカルで連携動作を確認.
+- 連携: Django(webadmin) と Bot(py-cord + FastAPI) の管理API連携は確認済み. Authorization: Bearer による保護を実装.
+- 送信: 送信ジョブの投入からBotによるDM送信まで確認. 0.3秒間隔で順次送信, DM拒否はログ化.
+- 制約: 添付は8MBまで, テンプレは `{user}` のみ対応, 未知の `{...}` はフォームとAPIで事前エラー.
+- 前提: `venv/token.json` に `admin_api_token` と `bot_admin_api_base` を設定. 未設定時は `http://127.0.0.1:8000` を利用し, UIのサーバー/ロール選択は空になる.
+- 配置: `nginx.conf` に本番ドメインとHTTPSのリバースプロキシ設定を用意. 公開では `/admin/` をブロックし, アプリは `127.0.0.1:8000` と `127.0.0.1:8001` にプロキシ.
+- 未実装: 送信進捗の可視化や再送制御の管理UIは未実装.
+
 ## 主要機能
-- 認証: Twitchログイン（django-allauth）
-    - 許可Twitchログイン名はスタッフ（`is_staff`）へ自動昇格
-- 権限: `is_staff` のみアクセス可能（非スタッフは 403）
+- 認証: Twitchログイン(django-allauth)
+    - 許可Twitchログイン名はスタッフ(`is_staff`)へ自動昇格
+- 権限: `is_staff` のみアクセス可能(非スタッフは 403)
 - 送信: 指定ロールの全メンバーへDM一括送信
-    - 添付ファイル対応（最大 8MB, Discord DM 制限に準拠）
+    - 添付ファイル対応(最大 8MB, Discord DM 制限に準拠)
     - テンプレ置換: メッセージ中の `{user}` を各メンバーの表示名へ置換
     - バリデーション: 未対応の `{...}` が含まれていれば送信前にエラー
-- 連携: Bot 管理API（Bearer 認証）からサーバー/ロール一覧を取得
+- 連携: Bot 管理API(Bearer 認証)からサーバー/ロール一覧を取得
 
 ## 画面フロー
 1) Twitch でログイン  
 2) 管理トップから「ロールDM送信」を開く  
-3) サーバーとロール, メッセージ, （任意で）添付ファイルを指定  
-4) 送信ボタンでキュー投入（Bot 側が順次送信・ログ記録）
+3) サーバーとロール, メッセージ, (任意で)添付ファイルを指定  
+4) 送信ボタンでキュー投入(Bot 側が順次送信・ログ記録)
 
 ヒント: `{user}` は各メンバーの表示名に置換されます. 未対応の `{...}` が含まれるとフォームでエラーになります. 
 
@@ -52,7 +61,7 @@ Bot（py-cord + FastAPI）の管理APIと安全に連携し, メッセージテ�
     - `POST /send_role_dm` … ロールDM送信ジョブをキュー投入
 - エラーハンドリング:
     - メッセージ中に未知の `{...}` が含まれていれば 400 を返却
-    - 送信処理はBot側で0.3秒間隔で順次DM. 失敗（DM閉鎖等）はログに記録
+    - 送信処理はBot側で0.3秒間隔で順次DM. 失敗(DM閉鎖等)はログに記録
 
 ### 送信リクエスト例
 ```bash
@@ -68,16 +77,16 @@ curl -X POST http://127.0.0.1:8000/send_role_dm \
 ```
 
 ### セキュリティ
-- Web: Twitchログイン＋スタッフ昇格（許可ログイン名のみ）で画面アクセスを制限
+- Web: Twitchログイン＋スタッフ昇格(許可ログイン名のみ)で画面アクセスを制限
 - API: Bot 側は Bearer トークンで保護し, Web からのみ正規リクエスト
 - 入力: メッセージのテンプレ置換は {user} のみ許可, 未知 {...} は送信前にブロック
 - 送信: ファイルはDjangoで受領後に公開URLを生成, BotがDLしてDMに添付
 
 ### セットアップ / 実行
-- 事前: Bot（FastAPI）がローカル :8000 で稼働
+- 事前: Bot(py-cord + FastAPI)がローカル :8000 で稼働
 - 設定:
-    - venv/token.json に admin_api_token と bot_admin_api_base を記載（未設定時は http://127.0.0.1:8000 を利用）
-    - 許可Twitchログイン名は環境変数 ALLOWED_TWITCH_LOGINS（カンマ区切り）または token.json の twitch_login/twitch_name 読み取りにより自動昇格
+    - venv/token.json に admin_api_token と bot_admin_api_base を記載(未設定時は http://127.0.0.1:8000 を利用)
+    - 許可Twitchログイン名は環境変数 ALLOWED_TWITCH_LOGINS(カンマ区切り)または token.json の twitch_login/twitch_name 読み取りにより自動昇格
 - インストール:
 ```bash
 pip install -r requirements.txt
@@ -88,12 +97,12 @@ cd webadmin
 python manage.py migrate
 python manage.py runserver 127.0.0.1:8001
 ```
-- アクセス: http://127.0.0.1:8001
+- アクセス: <a href="https://neige-subscription.com/">https://neige-subscription.com/</a>
 
 ### 実装ハイライト
 
 - 認証/権限: django-allauth + ログイン時シグナルで is_staff を昇格
-- 連携: requests で Bot 管理APIへ（Bearer付与, タイムアウト・エラーハンドリング）
+- 連携: requests で Bot 管理APIへ(Bearer付与, タイムアウト・エラーハンドリング)
 - UX: サーバー/ロールの動的選択, 未対応 {...} の即時バリデーション, ヒント表示
 - 保守性: 設定値は基本 venv/token.json から集約読込
 
