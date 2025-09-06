@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ポートフォリオ | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="ポートフォリオ" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="北海道大学大学院 理学院 数学専攻博士後期課程 在籍。研究分野は特殊関数（超幾何級数・テータ関数）, 代数多様体の周期写像。" />
+<meta property="og:description" content="北海道大学大学院 理学院 数学専攻博士後期課程 在籍。研究分野は特殊関数（超幾何級数・テータ関数）, 代数多様体の周期写像。" />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/portfolio/" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/portfolio/" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="ポートフォリオ" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"中野竜之介"},"description":"北海道大学大学院 理学院 数学専攻博士後期課程 在籍。研究分野は特殊関数（超幾何級数・テータ関数）, 代数多様体の周期写像。","headline":"ポートフォリオ","url":"https://nakanoryunosuke.github.io/portfolio/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon"               href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon"   href="/assets/img/favicon.jpg">
+<!-- end custom head snippets -->
+
+
+	<link rel="stylesheet" href="/assets/main.css">
+	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		new Splide('#image-slider', {
+		type   : 'loop',
+		perPage: 1,
+		autoplay: true,
+		pauseOnHover: true,
+		gap    : '1rem',
+		}).mount();
+	});
+	</script>
+	<!-- Mermaid (UMD) -->
+	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+	<!-- Mermaid 本体（v10） -->
+	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+
+	<!-- Mermaid 初期化（ライト/ダーク自動 & 変更時に再レンダリング） -->
+	<script defer>
+	(function () {
+		// 現在のテーマ判定
+		function currentTheme() {
+		return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'default';
+		}
+
+		// 初期化
+		function initMermaid(theme) {
+		mermaid.initialize({
+			startOnLoad: false,
+			securityLevel: 'loose',
+			theme: theme
+		});
+		}
+
+		// 再レンダリング（テーマ変更時）
+		function rerenderMermaid(theme) {
+		mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme });
+
+		const nodes = document.querySelectorAll('.mermaid');
+		nodes.forEach((el) => {
+			// 初回に保存した「生テキスト」を復元してから再描画
+			if (el.getAttribute('data-raw')) {
+			el.innerHTML = el.getAttribute('data-raw');
+			}
+		});
+		mermaid.run({ nodes });
+		}
+
+		// 初回レンダリング
+		window.addEventListener('DOMContentLoaded', async () => {
+		// 生テキストを保存（再描画に使う）
+		document.querySelectorAll('.mermaid').forEach((el) => {
+			if (!el.getAttribute('data-raw')) el.setAttribute('data-raw', el.textContent);
+		});
+
+		initMermaid(currentTheme());
+		await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+		});
+
+		// OSの配色切替（ライト/ダーク）に追従
+		if (window.matchMedia) {
+		const mq = window.matchMedia('(prefers-color-scheme: dark)');
+		mq.addEventListener('change', (e) => {
+			document.documentElement.classList.toggle('dark-mermaid', e.matches);
+			rerenderMermaid(e.matches ? 'dark' : 'default');
+		});
+		}
+
+		// 手動トグルAPI（任意：サイトのテーマ切替ボタンから呼べます）
+		window.setMermaidTheme = function (theme) {
+		if (theme !== 'default' && theme !== 'dark') return;
+		document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+		rerenderMermaid(theme);
+		};
+	})();
+	</script>
+</head>
+<body>
+	
+	<!-- 言語切り替えセレクタ -->
+	<div class="lang-switch">
+		<label for="lang-select">Language:</label>
+		<select id="lang-select" onchange="setLanguage(this.value)">
+			<option value="ja">日本語</option>
+			<option value="en">English</option>
+		</select>
+	</div>
+	<!-- ナビゲーションを include -->
+	<div id="sidebar-container">
+		<!-- _includes/sidebar.html -->
+<nav id="sidebar">
+	<div class="sidebar-inner">
+		<ul>
+			<li>
+				<a class="lang-ja" href="/">ホーム</a>
+				<a class="lang-en" href="/">Home</a>
+			</li>
+			<li>
+				<a class="lang-ja" href="/circum-vitae.html">履歴書</a>
+				<a class="lang-en" href="/circum-vitae.html">Circum Vitae</a>
+			</li>
+			<li>
+				<a class="lang-ja" href="/portfolio/">ポートフォリオ</a>
+				<a class="lang-en" href="/portfolio/">Portfolio</a>
+			</li>
+			<li>
+				<details class="lang-ja">
+					<summary>研究活動</summary>
+					<ul>
+						<li><a href="/research-activity.html">論文および講演</a></li>
+						<li><a href="/slides.html">講演資料</a></li>
+					</ul>
+				</details>
+				<details class="lang-en">
+					<summary>Research Activities</summary>
+					<ul>
+						<li><a href="/research-activity.html">Publications & Talks</a></li>
+						<li><a href="/slides.html">Presentation Materials</a></li>
+					</ul>
+				</details>
+			</li>
+			<li>
+				<details class="lang-ja">
+					<summary>その他活動</summary>
+					<ul>
+						<!-- <li><a href="/3d-project.html">3D Project</a></li> -->
+					</ul>
+				</details>
+				<details class="lang-en">
+					<summary>Other Activities</summary>
+					<ul>
+						<!-- <li><a href="/3d-project.html">3D Project</a></li> -->
+					</ul>
+				</details>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+	</div>
+	<!-- ハンバーガーボタン -->
+	<button class="menu-btn" onclick="toggleMenu(this)" aria-label="Toggle menu">☰</button>
+
+	<!-- メインコンテンツ -->
+	<main>
+		<style>
+/* ===== ポートフォリオ専用（このページだけ） ===== */
+.portfolio-page { max-width: 1080px; margin: 0 auto; padding: 2rem 1.25rem; }
+.portfolio-title { font-size: 1.8rem; margin: 0 0 1.25rem; }
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.p-card {
+    background: var(--card-bg, #111);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,.16);
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+@media (prefers-color-scheme: light) {
+    .p-card { background: #fff; border-color: #e9e9e9; }
+}
+
+.p-card a { color: inherit; text-decoration: none; display: block; height: 100%; }
+.p-hero {
+    width: 100%; height: 160px; object-fit: cover; display: block;
+    background: linear-gradient(90deg, #444, #333);
+}
+.p-body { padding: .9rem 1rem 1rem; }
+.p-title { font-size: 1.05rem; margin: 0 0 .35rem; line-height: 1.35; }
+.p-summary { color: #9aa; margin: .25rem 0 .6rem; font-size: .92rem; }
+@media (prefers-color-scheme: light) { .p-summary { color: #555; } }
+
+.p-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.p-tag {
+    font-size: .78rem; padding: .22rem .5rem; border-radius: 999px;
+    background: rgba(128,128,255,.12); border: 1px solid rgba(128,128,255,.18);
+}
+.p-meta { font-size: .78rem; color: #8a8a8a; margin-top: .6rem; }
+
+.p-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    border-color: rgba(128,128,255,.35);
+}
+
+.p-footer {
+    text-align: center; color: #8a8a8a; font-size: .86rem;
+    margin-top: 1.4rem;
+}
+</style>
+
+<main class="portfolio-page">
+    <h1 class="portfolio-title">ポートフォリオ</h1>
+
+    <div class="portfolio-grid"><article class="p-card">
+            <a href="/portfolio/twitch-discord-admin/"><img class="p-hero" src="/assets/img/portfolio/twitch-discord-bot/hero.png" alt="Twitch連携 管理UI(Django)"><div class="p-body">
+                <h2 class="p-title">Twitch連携 管理UI(Django)</h2><p class="p-summary">Twitchログインでスタッフを認証し, Discordの指定ロールの全メンバーに一括DMを送る管理UI. ファイル添付, テンプレ置換, 事前バリデーション, Bot管理API連携を実装. </p><ul class="p-tags">
+                    
+                        
+                            <span class="tag">Django</span>
+                        
+                            <span class="tag">Allauth</span>
+                        
+                            <span class="tag">Admin</span>
+                        
+                            <span class="tag">Web</span>
+                        
+                            <span class="tag">FastAPI</span>
+                        
+                            <span class="tag">Discord</span>
+                        
+                    
+                </ul><div class="p-meta">最終更新: 2025/09/05</div>
+            </div>
+            </a>
+        </article><article class="p-card">
+            <a href="/portfolio/twitch-discord-bot/"><img class="p-hero" src="/assets/img/portfolio/twitch-discord-bot/hero.png" alt="Twitchサブスク連携Discord Bot"><div class="p-body">
+                <h2 class="p-title">Twitchサブスク連携Discord Bot</h2><p class="p-summary">Twitchサブスクの状態をEventSubとスケジューラで監視し, Discord側のロールとチャンネルを完全自動化. OAuth認証からWebhook反映, 本番環境のリバースプロキシ構築までを実装. </p><ul class="p-tags">
+                    
+                        
+                            <span class="tag">Discord</span>
+                        
+                            <span class="tag">Twitch</span>
+                        
+                            <span class="tag">OAuth2</span>
+                        
+                            <span class="tag">Bot</span>
+                        
+                            <span class="tag">FastAPI</span>
+                        
+                            <span class="tag">Uvicorn</span>
+                        
+                            <span class="tag">Nginx</span>
+                        
+                            <span class="tag">ReverseProxy</span>
+                        
+                            <span class="tag">EventSub</span>
+                        
+                    
+                </ul><div class="p-meta">最終更新: 2025/09/05</div>
+            </div>
+            </a>
+        </article></div>
+
+</main>
+
+	</main>
+
+	<!-- 共通JS -->
+	<script src="/assets/lang-switch.js"></script>
+	<script src="/assets/menu.js" defer></script>
+
+	<footer class="site-footer" style="text-align:center; padding:2em 1em; font-size:0.9em; color:var(--text-color);">
+	<p class="lang-ja">
+		最終更新: <span id="last-updated-ja">-</span>
+	</p>
+	<p class="lang-en">
+		Last updated: <span id="last-updated-en">-</span>
+	</p>
+	</footer>
+
+	<script>
+		// 最終更新日時を取得
+		const d = new Date(document.lastModified);
+
+		// 2桁ゼロ埋めヘルパー
+		const z2 = n => String(n).padStart(2, '0');
+
+		// 各パーツを取得
+		const yyyy = d.getFullYear();          // 4桁の西暦
+		const mm   = z2(d.getMonth() + 1);     // 月
+		const dd   = z2(d.getDate());          // 日
+		const hh   = z2(d.getHours());         // 時
+		const mi   = z2(d.getMinutes());       // 分
+
+		// フォーマット（yyyy/mm/dd/hh/mi）
+		const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+
+		// 挿入
+		document.getElementById('last-updated-ja').textContent = formatted;
+		document.getElementById('last-updated-en').textContent = formatted;
+	</script>
+
+
+</body>
+</html>
