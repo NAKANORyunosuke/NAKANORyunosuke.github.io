@@ -152,5 +152,5 @@ flowchart LR
 - 保守性: 設定値は基本 venv/token.json から集約読込
 
 ### 関連
-- 本体: Twitchサブスク連携Discord Bot
+- 本体: [Twitchサブスク連携Discord Bot](/portfolio/twitch-discord-bot/)
 - リポジトリ: [NAKANORyunosuke/NeiBot]({{ page.repo_url }})
