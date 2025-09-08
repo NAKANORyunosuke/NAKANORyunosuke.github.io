@@ -15,7 +15,7 @@ sitemap: false
         {%- unless ext4 == '.css' or ext4 == '.xml' -%}
           <url>
             <loc>{{ doc.url | absolute_url }}</loc>
-            <changefreq>{{ doc.changefreq | default: 'monthly' }}</changefreq>
+            <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
             <priority>{{ doc.priority | default: 0.8 }}</priority>
           </url>
         {%- endunless -%}
@@ -28,7 +28,7 @@ sitemap: false
     {%- if doc.sitemap != false -%}
       <url>
         <loc>{{ doc.url | absolute_url }}</loc>
-        <changefreq>{{ doc.changefreq | default: 'monthly' }}</changefreq>
+        <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
         <priority>{{ doc.priority | default: 0.8 }}</priority>
       </url>
     {%- endif -%}
@@ -45,7 +45,7 @@ sitemap: false
             {%- unless ext4 == '.css' or ext4 == '.xml' -%}
               <url>
                 <loc>{{ doc.url | absolute_url }}</loc>
-                <changefreq>{{ doc.changefreq | default: 'monthly' }}</changefreq>
+                <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
                 <priority>{{ doc.priority | default: 0.8 }}</priority>
               </url>
             {%- endunless -%}
