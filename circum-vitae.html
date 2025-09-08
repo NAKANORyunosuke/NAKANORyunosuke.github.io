@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>履歴書 | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="履歴書" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="ja" />
+<meta name="description" content="学歴, 職歴, 教育歴, 幹事・世話人の情報を掲載" />
+<meta property="og:description" content="学歴, 職歴, 教育歴, 幹事・世話人の情報を掲載" />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/circum-vitae.html" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/circum-vitae.html" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="履歴書" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"中野竜之介"},"description":"学歴, 職歴, 教育歴, 幹事・世話人の情報を掲載","headline":"履歴書","url":"https://nakanoryunosuke.github.io/circum-vitae.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon"               href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon"   href="/assets/img/favicon.jpg">
+<!-- end custom head snippets -->
+
+
+	<link rel="stylesheet" href="/assets/main.css">
+	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		new Splide('#image-slider', {
+		type   : 'loop',
+		perPage: 1,
+		autoplay: true,
+		pauseOnHover: true,
+		gap    : '1rem',
+		}).mount();
+	});
+	</script>
+	<!-- Mermaid 本体（v10） -->
+	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+
+	<!-- Mermaid 初期化（ライト/ダーク自動 & 変更時に再レンダリング） -->
+	<script defer>
+	(function () {
+		// 現在のテーマ判定
+		function currentTheme() {
+		return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'default';
+		}
+
+		// 初期化
+		function initMermaid(theme) {
+		mermaid.initialize({
+			startOnLoad: false,
+			securityLevel: 'loose',
+			theme: theme,
+			fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+			flowchart: {
+			  htmlLabels: false,      // Avoid clipping issues with foreignObject
+			  useMaxWidth: true,
+			  wrap: true
+			},
+			themeVariables: {
+			  fontSize: '16px'
+			}
+		});
+		}
+
+		// 再レンダリング（テーマ変更時）
+		function rerenderMermaid(theme) {
+		mermaid.initialize({
+		  startOnLoad: false,
+		  securityLevel: 'loose',
+		  theme,
+		  fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+		  flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+		  themeVariables: { fontSize: '16px' }
+		});
+
+		const nodes = document.querySelectorAll('.mermaid');
+		nodes.forEach((el) => {
+			// 初回に保存した「生テキスト」を復元してから再描画
+			if (el.getAttribute('data-raw')) {
+			el.innerHTML = el.getAttribute('data-raw');
+			}
+		});
+		mermaid.run({ nodes });
+		}
+
+		// 初回レンダリング
+		window.addEventListener('DOMContentLoaded', async () => {
+		// 生テキストを保存（再描画に使う）
+		document.querySelectorAll('.mermaid').forEach((el) => {
+			if (!el.getAttribute('data-raw')) el.setAttribute('data-raw', el.textContent);
+		});
+
+		initMermaid(currentTheme());
+		await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+		});
+
+		// OSの配色切替（ライト/ダーク）に追従
+		if (window.matchMedia) {
+		const mq = window.matchMedia('(prefers-color-scheme: dark)');
+		mq.addEventListener('change', (e) => {
+			document.documentElement.classList.toggle('dark-mermaid', e.matches);
+			rerenderMermaid(e.matches ? 'dark' : 'default');
+		});
+		}
+
+		// 手動トグルAPI（任意：サイトのテーマ切替ボタンから呼べます）
+		window.setMermaidTheme = function (theme) {
+		if (theme !== 'default' && theme !== 'dark') return;
+		document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+		rerenderMermaid(theme);
+		};
+	})();
+	</script>
+</head>
+<body>
+	
+	<!-- 言語切り替えセレクタ -->
+	<div class="lang-switch">
+		<label for="lang-select">Language:</label>
+		<select id="lang-select" onchange="setLanguage(this.value)">
+			<option value="ja">日本語</option>
+			<option value="en">English</option>
+		</select>
+	</div>
+	<!-- ナビゲーションを include -->
+	<div id="sidebar-container">
+		<!-- _includes/sidebar.html -->
+<nav id="sidebar">
+	<div class="sidebar-inner">
+		<ul>
+			<li>
+				<a class="lang-ja" href="/">ホーム</a>
+				<a class="lang-en" href="/">Home</a>
+			</li>
+			<li>
+				<a class="lang-ja" href="/circum-vitae.html">履歴書</a>
+				<a class="lang-en" href="/circum-vitae.html">Circum Vitae</a>
+			</li>
+			<li>
+				<a class="lang-ja" href="/portfolio/">ポートフォリオ</a>
+				<a class="lang-en" href="/portfolio/">Portfolio</a>
+			</li>
+			<li>
+				<details class="lang-ja">
+					<summary>研究活動</summary>
+					<ul>
+						<li><a href="/research-activity.html">論文および講演</a></li>
+						<li><a href="/slides.html">講演資料</a></li>
+					</ul>
+				</details>
+				<details class="lang-en">
+					<summary>Research Activities</summary>
+					<ul>
+						<li><a href="/research-activity.html">Publications & Talks</a></li>
+						<li><a href="/slides.html">Presentation Materials</a></li>
+					</ul>
+				</details>
+			</li>
+			<li>
+				<details class="lang-ja">
+					<summary>その他活動</summary>
+					<ul>
+						<!-- <li><a href="/3d-project.html">3D Project</a></li> -->
+					</ul>
+				</details>
+				<details class="lang-en">
+					<summary>Other Activities</summary>
+					<ul>
+						<!-- <li><a href="/3d-project.html">3D Project</a></li> -->
+					</ul>
+				</details>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+	</div>
+	<!-- ハンバーガーボタン -->
+	<button class="menu-btn" onclick="toggleMenu(this)" aria-label="Toggle menu">☰</button>
+
+	<!-- メインコンテンツ -->
+	<main>
+		<div class="hero">
+	<h1 class="lang-ja">履歴書</h1>
+	<h1 class="lang-en">Circum Vitae</h1>
+	<figure>
+        <img src="assets/img/Ginkgo.jpg" alt="NAKANO Ryunosuke" class="profile-image">
+        <figcaption class="lang-ja">イチョウ並木</figcaption>
+        <figcaption class="lang-en">Ginkgo-lined street in Hokkaido Univ.</figcaption>
+    </figure>
+</div>
+
+<div class="cv">
+	<div class="lang-ja">
+		<h2>学歴</h2>
+		<ul class="timeline">
+			<li><span class="date">1999年9月14日</span><span class="desc">愛媛県伊予郡松前町に生まれる</span></li>
+			<li><span class="date">2015年4月〜2018年3月</span><span class="desc">愛媛県私立新田高等学校 特進コース</span></li>
+			<li><span class="date">2018年4月〜2020年3月</span><span class="desc">愛媛大学理学部数学科 学士課程</span></li>
+			<li><span class="date">2020年4月〜2022年3月</span><span class="desc">北海道大学理学部数学科 学士課程</span></li>
+			<li><span class="date">2022年4月〜2024年3月</span><span class="desc">北海道大学大学院理学院 数学専攻 修士課程（指導教員: 松本圭司）</span></li>
+			<li><span class="date">2024年4月〜現在</span><span class="desc">北海道大学大学院理学院 数学専攻 博士課程（指導教員: 松本圭司）</span></li>
+		</ul>
+		<h2>職歴</h2>
+		<ul class="timeline">
+			<li><span class="date">2024年12月〜2025年3月</span><span class="desc">理学研究院・先端生命科学研究院, Research Assistant</span></li>
+			<li><span class="date">2025年2月〜</span><span class="desc">株式会社en(業務委託): 道路可視化ツール向けAI開発(Python)</span></li>
+			<li><span class="date">2025年3月〜</span><span class="desc">数理・データサイエンス教育研究センター, Research Assistant</span></li>
+			<li><span class="date">2025年4月〜</span><span class="desc">北海道大学EXEX博士人材フェローシップ, フェローシップ生</span></li>
+			<li>
+				<span class="date">2025年8月〜</span><span class="desc">株式会社FONDO, プログラマ
+				<ol>
+					- Pythonを用いたデータ処理スクリプトの開発<br>
+					- C#及びPythonを用いたサーバーサイド機能の実装
+				</ol></span>
+			</li>
+		</ul>
+		<h2>教育歴</h2>
+		<ul class="timeline">
+			<li><span class="date">2024年10月〜2025年3月</span><span class="desc">基礎数学演習A2, Teaching Assistant</span></li>
+		</ul>
+		<h2>幹事・世話人</h2>
+		<ul class="timeline">
+			<li><span class="date">2024年4月〜2025年3月</span><span class="desc">第21回数学総合若手研究集会（@北海道大学）, 世話人</span></li>
+			<li><span class="date">2025年4月〜2026年3月</span><span class="desc">第22回数学総合若手研究集会（@北海道大学）, 世話人</span></li>
+		</ul>
+	</div>
+	<div class="lang-en">
+		<h2>Education</h2>
+		<ul class="timeline">
+			<li><span class="date">September 14, 1999</span><span class="desc">Born in Masaki Town, Iyo District, Ehime Prefecture, Japan</span></li>
+			<li><span class="date">April 2015 - March 2018</span><span class="desc">Nitta High School, Ehime Prefecture</span></li>
+			<li><span class="date">April 2018 - March 2020</span><span class="desc">Undergraduate Program in Mathematics, Faculty of Science, Ehime University</span></li>
+			<li><span class="date">April 2020 - March 2022</span><span class="desc">Undergraduate Program in Mathematics, Faculty of Science, Hokkaido University</span></li>
+			<li><span class="date">April 2022 - March 2024</span><span class="desc">Master’s Course in Mathematics, Graduate School of Science, Hokkaido University (Supervisor: Professor MATSUMOTO Keiji)</span></li>
+			<li><span class="date">April 2024 - Present</span><span class="desc">Doctoral Course in Mathematics, Graduate School of Science, Hokkaido University (Supervisor: Professor MATSUMOTO Keiji)</span></li>
+		</ul>
+		<h2>Employment History</h2>
+		<ul class="timeline">
+			<li><span class="date">December 2024 - March 2025</span><span class="desc">Research Assistant, Faculty of Science / Faculty of Advanced Life Science, Hokkaido University</span></li>
+			<li><span class="date">February 2025 - Present</span><span class="desc">en Co., Ltd. (business consignment): AI development for road visualization tools(Python)</span></li>
+			<li><span class="date">March 2025 - Present</span><span class="desc">Research Assistant, Center for Mathematical and Data Science Education and Research, Hokkaido University</span></li>
+			<li><span class="date">April 2025 - Present</span><span class="desc">Fellow, Hokkaido University EXEX Doctoral Fellowship Program</span></li>
+			<span class="date">
+			<li><span class="date">August 2025 - Present</span><span class="desc">FONDO Inc., Programmer
+				<ul>
+					<li>- Developed data processing scripts using Python</li>
+					<li>- Implemented server-side functionality using C# and Python</li>
+				</ul></span>
+			</li>
+		</ul>
+		<h2>Teaching Experience</h2>
+		<ul class="timeline">
+			<li><span class="date">October 2024 - March 2025</span><span class="desc">Teaching Assistant, Exercises on Basic Mathematics A2, Department of Mathematics, Hokkaido University</span></li>
+		</ul>
+		<h2>Organizer / Committee Service</h2>
+		<ul class="timeline">
+			<li><span class="date">April, 2024 - March, 2025</span><span class="desc">Co-organizer, The 21st Spring Conference for Young Mathematicians, Hokkaido University, Sapporo, Japan</span></li>
+			<li><span class="date">April, 2025 - March, 2026</span><span class="desc">Co-organizer, The 22nd Spring Conference for Young Mathematicians, Hokkaido University, Sapporo, Japan</span></li>
+		</ul>
+	</div>
+</div>
+
+	</main>
+
+	<!-- 共通JS -->
+	<script src="/assets/lang-switch.js"></script>
+	<script src="/assets/menu.js" defer></script>
+
+	<footer class="site-footer" style="text-align:center; padding:2em 1em; font-size:0.9em; color:var(--text-color);">
+	<p class="lang-ja">
+		最終更新: <span id="last-updated-ja">-</span>
+	</p>
+	<p class="lang-en">
+		Last updated: <span id="last-updated-en">-</span>
+	</p>
+	</footer>
+
+	<script>
+		// 最終更新日時を取得
+		const d = new Date(document.lastModified);
+
+		// 2桁ゼロ埋めヘルパー
+		const z2 = n => String(n).padStart(2, '0');
+
+		// 各パーツを取得
+		const yyyy = d.getFullYear();          // 4桁の西暦
+		const mm   = z2(d.getMonth() + 1);     // 月
+		const dd   = z2(d.getDate());          // 日
+		const hh   = z2(d.getHours());         // 時
+		const mi   = z2(d.getMinutes());       // 分
+
+		// フォーマット（yyyy/mm/dd/hh/mi）
+		const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+
+		// 挿入
+		document.getElementById('last-updated-ja').textContent = formatted;
+		document.getElementById('last-updated-en').textContent = formatted;
+	</script>
+
+	<!-- Mermaid pan/zoom controls -->
+	<script src="/assets/js/mermaid-panzoom.js" defer></script>
+
+
+</body>
+</html>
