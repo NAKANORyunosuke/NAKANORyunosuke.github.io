@@ -363,8 +363,57 @@ body {
 //   }
 // }
 /* === Mermaid background fix (light/dark) === */
-.mermaid svg { background-color: #ffffff !important; }
+.mermaid svg { background-color: #ffffff !important; overflow: visible; }
 .dark-mermaid .mermaid svg { background-color: #1e1e1e !important; }
+
+/* Mermaid pan/zoom controls */
+.mermaid {
+  position: relative;
+  display: block;
+  overflow: auto;
+  max-width: 100%;
+  padding: 16px 12px;        // 上下に余白を確保（白い帯）
+  background: #ffffff;       // 白背景をコンテナ側にも適用
+  border-radius: 6px;
+}
+.dark-mermaid .mermaid {
+  background: #1e1e1e;      // ダーク時はダーク背景
+}
+.mermaid .panzoom-controls {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.mermaid .panzoom-controls .pz-btn {
+  line-height: 1;
+  padding: 2px 6px;
+  border: 1px solid var(--border-color, #bbb);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.85);
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+}
+/* UX: grab cursor and disable text selection while interacting */
+.mermaid svg {
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.mermaid svg:active {
+  cursor: grabbing;
+}
+@media (prefers-color-scheme: dark) {
+  .mermaid .panzoom-controls .pz-btn {
+    background: rgba(30,30,30,0.85);
+    color: #f0f0f0;
+    border-color: #444;
+  }
+}
 
 
 /* 英語の本文内リンク：リンク内は改行禁止, リンク直後も改行させない */

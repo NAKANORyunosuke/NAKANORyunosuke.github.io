@@ -20,8 +20,6 @@ lang: ja
 		}).mount();
 	});
 	</script>
-	<!-- Mermaid (UMD) -->
-	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
 	<!-- Mermaid 本体（v10） -->
 	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
 
@@ -40,13 +38,29 @@ lang: ja
 		mermaid.initialize({
 			startOnLoad: false,
 			securityLevel: 'loose',
-			theme: theme
+			theme: theme,
+			fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+			flowchart: {
+			  htmlLabels: false,      // Avoid clipping issues with foreignObject
+			  useMaxWidth: true,
+			  wrap: true
+			},
+			themeVariables: {
+			  fontSize: '16px'
+			}
 		});
 		}
 
 		// 再レンダリング（テーマ変更時）
 		function rerenderMermaid(theme) {
-		mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme });
+		mermaid.initialize({
+		  startOnLoad: false,
+		  securityLevel: 'loose',
+		  theme,
+		  fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+		  flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+		  themeVariables: { fontSize: '16px' }
+		});
 
 		const nodes = document.querySelectorAll('.mermaid');
 		nodes.forEach((el) => {
@@ -143,6 +157,9 @@ lang: ja
 		document.getElementById('last-updated-ja').textContent = formatted;
 		document.getElementById('last-updated-en').textContent = formatted;
 	</script>
+
+	<!-- Mermaid pan/zoom controls -->
+	<script src="{{ '/assets/js/mermaid-panzoom.js' | relative_url }}" defer></script>
 
 
 </body>

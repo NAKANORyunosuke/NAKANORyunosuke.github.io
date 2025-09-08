@@ -50,7 +50,7 @@ flowchart LR
   N -->|/twitch_callback| U["Uvicorn :8000 (FastAPI)"]
   N -->|/twitch_eventsub| U
   U --> F["FastAPI<br/>OAuth Callback / EventSub"]
-  N -->|/| W["将来のWeb UI"]
+  N -->|/| W["管理画面"]
 
   subgraph Host
     N
@@ -64,10 +64,12 @@ flowchart LR
   N -.付与.-> H3[Host]
 </div>
 
+<br>
+
 <div class="mermaid" markdown="0">
 %%{init: {
-  "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 25, "rankSpacing": 35 },
-  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif" }
+  "flowchart": { "htmlLabels": false, "useMaxWidth": true, "nodeSpacing": 25, "rankSpacing": 35, "wrap": true },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif", "fontSize": "16px" }
 }}%%
 flowchart TD
 

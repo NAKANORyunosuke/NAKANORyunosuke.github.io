@@ -13,14 +13,25 @@
     if (window.mermaid) {
       window.mermaid.initialize({
         startOnLoad: true,
-        theme: theme
+        theme: theme,
+        securityLevel: 'loose',
+        fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+        flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+        themeVariables: { fontSize: '16px' }
       });
     }
   }
 
   function rerender(theme) {
     if (!window.mermaid) return;
-    window.mermaid.initialize({ startOnLoad: false, theme: theme });
+    window.mermaid.initialize({
+      startOnLoad: false,
+      theme: theme,
+      securityLevel: 'loose',
+      fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+      flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+      themeVariables: { fontSize: '16px' }
+    });
 
     const blocks = document.querySelectorAll('.mermaid');
     blocks.forEach((el) => {

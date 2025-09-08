@@ -3,7 +3,7 @@ layout: project
 title: "Twitch連携 管理UI(Django)"
 date: 2025-09-05
 period: "2025/08/20 - 2025/09/05"
-role: "設計 / 実装"
+role: "設計 / 実装 / 運用"
 tech:
   - Python 3.12
   - Django
@@ -15,7 +15,7 @@ repo_url: "https://github.com/NAKANORyunosuke/NeiBot"
 hero: "/assets/img/portfolio/twitch-discord-bot/hero.png"
 tags: ["Django","Allauth","Admin","Web","FastAPI","Discord"]
 summary: "Twitchログインでスタッフを認証し, Discordの指定ロールの全メンバーに一括DMを送る管理UI. ファイル添付, テンプレ置換, 事前バリデーション, Bot管理API連携を実装. "
-permalink: /portfolio/twitch-discord-admin/
+permalink: /portfolio/twitch-discord-django/
 published: true
 ---
 
@@ -97,6 +97,51 @@ cd webadmin
 python manage.py migrate
 python manage.py runserver 127.0.0.1:8001
 ```
+
+- Bot 管理API 設定: `venv/token.json` に `admin_api_token`, `bot_admin_api_base` を設定. 既定の接続先は `http://127.0.0.1:8000`.
+- Twitch クレデンシャル: `venv/token.json` または環境変数 `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET` を使用. allauth へ自動反映.
+- スタッフ昇格: `ALLOWED_TWITCH_LOGINS` に含まれる Twitch ログインでのサインインで `is_staff` を自動付与.
+- 送信仕様: `{user}` は送信時に表示名へ置換. 未知プレースホルダは 400 を返す. 添付は 8MB まで.
+- 保存場所: 添付は `MEDIA_ROOT/uploads` に保存し, `file_url` と `file_path` を Bot へ引き渡す.
+- 運用補助: `python manage.py bootstrap_inbox` で DB テーブルを初期化. `python manage.py bootstrap_twitch_app` で SocialApp を作成.
+
+<div class="mermaid" markdown="0" style="font-size:20px; overflow-x:auto; max-width:100%;">
+%%{init: {
+  "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 35, "rankSpacing": 45 },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif", "fontSize": "20px" }
+}}%%
+flowchart LR
+  Staff["Staff(User)"] --> UI["Django /broadcast"]
+  UI -->|GET /guilds| GAPI["Bot Admin API /guilds"]
+  GAPI --> UI
+  UI -->|GET /roles?guild_id| RAPI["Bot Admin API<br/>/roles"]
+  RAPI --> UI
+  UI -->|POST /send_role_dm| PAPI["Bot Admin API<br/>/send_role_dm"]
+  PAPI --> BOT["Bot(py-cord)<br/>queue"]
+  BOT --> LOOP["notify_role_members<br/>0.3s interval"]
+  LOOP --> DM["DM to Role Members"]
+  subgraph Uploads
+    UI --> SAVE["Save attachment<br/>to MEDIA uploads"]
+    SAVE -->|file_url + file_path| PAPI
+  end
+</div>
+
+<br>
+
+<div class="mermaid" markdown="0" style="font-size:20px; overflow-x:auto; max-width:100%;">
+%%{init: {
+  "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 35, "rankSpacing": 45 },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif", "fontSize": "20px" }
+}}%%
+flowchart LR
+  U["User"] --> ALLAUTH["allauth<br/>Twitch login"]
+  ALLAUTH --> CB["Callback"]
+  CB --> SIG["user_logged_in<br/>signal"]
+  SIG --> CK["Check<br/>ALLOWED_TWITCH_LOGINS"]
+  CK -->|allowed| STAFF["set is_staff = True"]
+  CK -->|not allowed| NOOP["no change"]
+</div>
+
 - アクセス: <a href="https://neige-subscription.com/">https://neige-subscription.com/</a>
 
 ### 実装ハイライト
