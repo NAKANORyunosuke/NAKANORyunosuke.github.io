@@ -1,8 +1,9 @@
 ---
 ---
 
+{% assign page_lang = page.lang | default: 'ja' %}
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: 'ja' }}">
+<html lang="{{ page_lang }}" data-lang="{{ page_lang }}">
 <head>
   {% include head.html %}
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">

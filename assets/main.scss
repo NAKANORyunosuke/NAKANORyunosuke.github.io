@@ -444,8 +444,13 @@ a:focus-visible {
   }
 }
 
-.lang-ja { display: block; }
-.lang-en { display: none !important; }
+html[data-lang="ja"] .lang-en {
+  display: none !important;
+}
+
+html[data-lang="en"] .lang-ja {
+  display: none !important;
+}
 
 .hero {
   display: grid;
