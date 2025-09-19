@@ -1,37 +1,21 @@
 ---
 layout: default
 ---
-<main class="container project">
-    <header class="project-header">
-        <h1>{{ page.title }}</h1>
-        {%- if page.period -%}
-        <p class="project-meta">
-            {{ page.period }}{% if page.role %} / {{ page.role }}{% endif %}
-        </p>
-        {%- endif -%}
-        {%- if page.hero -%}
-        <img class="project-hero" src="{{ page.hero | relative_url }}" alt="{{ page.title }}">
-        {%- endif -%}
-    </header>
-
-    <section class="project-body">
-        {{ content }}
-    </section>
-
-    <!-- {%- if page.tech -%}
-    <section class="project-tech">
-        <h2>技術スタック</h2>
-        <ul>
-        {%- for t in page.tech -%}
-            <li>{{ t }}</li>
-        {%- endfor -%}
-        </ul>
-    </section>
-    {%- endif -%} -->
-
-    <!-- {%- if page.repo_url -%}
-    <p class="project-repo">
-        <a href="{{ page.repo_url }}" target="_blank" rel="noopener">GitHubリポジトリを見る →</a>
+<article class="project-detail glass-panel">
+  <header class="project-detail__header">
+    <h1 class="project-detail__title">{{ page.title }}</h1>
+    {% if page.period or page.role %}
+    <p class="project-detail__meta">
+      {% if page.period %}{{ page.period }}{% endif %}{% if page.period and page.role %} / {% endif %}{% if page.role %}{{ page.role }}{% endif %}
     </p>
-    {%- endif -%} -->
-</main>
+    {% endif %}
+    {% if page.hero %}
+    <div class="project-detail__hero">
+      <img src="{{ page.hero | relative_url }}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+  </header>
+  <div class="project-detail__body">
+    {{ content }}
+  </div>
+</article>

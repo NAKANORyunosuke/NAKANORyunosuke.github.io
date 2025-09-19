@@ -1,55 +1,60 @@
-"use strict";
-// ===== クッキー設定／取得用関数 =====
+﻿"use strict";
+
 function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
 }
+
 function getCookie(name) {
-    return document.cookie
-        .split('; ')
-        .reduce((r, v) => {
-        const parts = v.split('=');
-        return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+  return document.cookie
+    .split('; ')
+    .reduce((result, part) => {
+      const [key, val] = part.split('=');
+      return key === name ? decodeURIComponent(val) : result;
     }, null);
 }
-// ===== 言語切り替え関数 =====
+
 function setLanguage(lang) {
-    // クッキーに保存
-    setCookie('lang', lang, 30);
-    // DOM中の .lang-ja/.lang-en を切り替え
-    document.querySelectorAll('.lang-ja').forEach(el => {
-        el.style.setProperty('display', lang === 'ja' ? 'block' : 'none', 'important');
-    });
-    document.querySelectorAll('.lang-en').forEach(el => {
-        el.style.setProperty('display', lang === 'en' ? 'block' : 'none', 'important');
-    });
-    // プルダウンの選択値を合わせる
-    const selector = document.getElementById('lang-select');
-    if (selector) {
-        selector.value = lang;
-    }
+  setCookie('lang', lang, 30);
+
+  document.querySelectorAll('.lang-ja').forEach((el) => {
+    el.style.setProperty('display', lang === 'ja' ? 'block' : 'none', 'important');
+  });
+  document.querySelectorAll('.lang-en').forEach((el) => {
+    el.style.setProperty('display', lang === 'en' ? 'block' : 'none', 'important');
+  });
+
+  const selector = document.getElementById('lang-select');
+  if (selector && selector.value !== lang) {
+    selector.value = lang;
+  }
 }
-/**
- * URL のクエリ文字列から lang パラメータを取得
- * 例: https://example.com/?lang=en → 'en'
- */
+
 function getUrlLang() {
-    const params = new URLSearchParams(window.location.search);
-    const l = params.get('lang');
-    if (l === 'ja' || l === 'en') {
-        return l;
-    }
-    return null;
+  const params = new URLSearchParams(window.location.search);
+  const l = params.get('lang');
+  return l === 'ja' || l === 'en' ? l : null;
 }
-// ===== 初回読み込み時の言語判定 =====
-window.addEventListener('DOMContentLoaded', () => {
-    const urlLang = getUrlLang();
-    if (urlLang) {
-        setLanguage(urlLang);
-        return;
-    }
-    const cookieLang = getCookie('lang');
-    const browserLang = navigator.language.startsWith('ja') ? 'ja' : 'en';
-    const initialLang = (cookieLang === 'ja' || cookieLang === 'en') ? cookieLang : browserLang;
-    setLanguage(initialLang);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selector = document.getElementById('lang-select');
+  if (selector) {
+    selector.addEventListener('change', (event) => {
+      const value = event.target.value;
+      if (value === 'ja' || value === 'en') {
+        setLanguage(value);
+      }
+    });
+  }
+
+  const urlLang = getUrlLang();
+  if (urlLang) {
+    setLanguage(urlLang);
+    return;
+  }
+
+  const cookieLang = getCookie('lang');
+  const browserLang = navigator.language && navigator.language.startsWith('ja') ? 'ja' : 'en';
+  const initialLang = cookieLang === 'ja' || cookieLang === 'en' ? cookieLang : browserLang;
+  setLanguage(initialLang);
 });

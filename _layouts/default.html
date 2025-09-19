@@ -1,166 +1,150 @@
 ---
-title: "デフォルト"
-lang: ja
 ---
 
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: 'ja' }}">
 <head>
-	{% include head.html %}
-	<link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
-	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
-	<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		new Splide('#image-slider', {
-		type   : 'loop',
-		perPage: 1,
-		autoplay: true,
-		pauseOnHover: true,
-		gap    : '1rem',
-		}).mount();
-	});
-	</script>
-	<!-- Mermaid 本体（v10） -->
-	<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  {% include head.html %}
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('image-slider');
+    if (slider) {
+      new Splide(slider, {
+        type: 'loop',
+        perPage: 1,
+        autoplay: true,
+        pauseOnHover: true,
+        gap: '1rem'
+      }).mount();
+    }
+  });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+  (function () {
+    function currentTheme() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'default';
+    }
 
-	<!-- Mermaid 初期化（ライト/ダーク自動 & 変更時に再レンダリング） -->
-	<script defer>
-	(function () {
-		// 現在のテーマ判定
-		function currentTheme() {
-		return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-			? 'dark'
-			: 'default';
-		}
+    function initMermaid(theme) {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+        flowchart: {
+          htmlLabels: false,
+          useMaxWidth: true,
+          wrap: true
+        },
+        themeVariables: {
+          fontSize: '16px'
+        }
+      });
+    }
 
-		// 初期化
-		function initMermaid(theme) {
-		mermaid.initialize({
-			startOnLoad: false,
-			securityLevel: 'loose',
-			theme: theme,
-			fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-			flowchart: {
-			  htmlLabels: false,      // Avoid clipping issues with foreignObject
-			  useMaxWidth: true,
-			  wrap: true
-			},
-			themeVariables: {
-			  fontSize: '16px'
-			}
-		});
-		}
+    function rerenderMermaid(theme) {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme,
+        fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+        flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+        themeVariables: { fontSize: '16px' }
+      });
 
-		// 再レンダリング（テーマ変更時）
-		function rerenderMermaid(theme) {
-		mermaid.initialize({
-		  startOnLoad: false,
-		  securityLevel: 'loose',
-		  theme,
-		  fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-		  flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
-		  themeVariables: { fontSize: '16px' }
-		});
+      const nodes = document.querySelectorAll('.mermaid');
+      nodes.forEach((el) => {
+        if (el.getAttribute('data-raw')) {
+          el.innerHTML = el.getAttribute('data-raw');
+        }
+      });
+      mermaid.run({ nodes });
+    }
 
-		const nodes = document.querySelectorAll('.mermaid');
-		nodes.forEach((el) => {
-			// 初回に保存した「生テキスト」を復元してから再描画
-			if (el.getAttribute('data-raw')) {
-			el.innerHTML = el.getAttribute('data-raw');
-			}
-		});
-		mermaid.run({ nodes });
-		}
+    window.addEventListener('DOMContentLoaded', async () => {
+      document.querySelectorAll('.mermaid').forEach((el) => {
+        if (!el.getAttribute('data-raw')) {
+          el.setAttribute('data-raw', el.textContent);
+        }
+      });
 
-		// 初回レンダリング
-		window.addEventListener('DOMContentLoaded', async () => {
-		// 生テキストを保存（再描画に使う）
-		document.querySelectorAll('.mermaid').forEach((el) => {
-			if (!el.getAttribute('data-raw')) el.setAttribute('data-raw', el.textContent);
-		});
+      initMermaid(currentTheme());
+      await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+    });
 
-		initMermaid(currentTheme());
-		await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
-		});
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      mq.addEventListener('change', (e) => {
+        document.documentElement.classList.toggle('dark-mermaid', e.matches);
+        rerenderMermaid(e.matches ? 'dark' : 'default');
+      });
+    }
 
-		// OSの配色切替（ライト/ダーク）に追従
-		if (window.matchMedia) {
-		const mq = window.matchMedia('(prefers-color-scheme: dark)');
-		mq.addEventListener('change', (e) => {
-			document.documentElement.classList.toggle('dark-mermaid', e.matches);
-			rerenderMermaid(e.matches ? 'dark' : 'default');
-		});
-		}
-
-		// 手動トグルAPI（任意：サイトのテーマ切替ボタンから呼べます）
-		window.setMermaidTheme = function (theme) {
-		if (theme !== 'default' && theme !== 'dark') return;
-		document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
-		rerenderMermaid(theme);
-		};
-	})();
-	</script>
+    window.setMermaidTheme = function (theme) {
+      if (theme !== 'default' && theme !== 'dark') return;
+      document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+      rerenderMermaid(theme);
+    };
+  })();
+  </script>
 </head>
 <body>
-	
-	<!-- 言語切り替えセレクタ -->
-	<div class="lang-switch">
-		<label for="lang-select">Language:</label>
-		<select id="lang-select" onchange="setLanguage(this.value)">
-			<option value="ja">日本語</option>
-			<option value="en">English</option>
-		</select>
-	</div>
-	<!-- ナビゲーションを include -->
-	<div id="sidebar-container">
-		{% include sidebar.html %}
-	</div>
-	<!-- ハンバーガーボタン -->
-	<button class="menu-btn" onclick="toggleMenu(this)" aria-label="Toggle menu">☰</button>
+  <div class="site-shell">
+    <header class="site-header glass-panel">
+      <div class="site-header__top">
+        <a class="site-brand" href="{{ '/' | relative_url }}">
+          <span class="brand-mark">NR</span>
+          <span class="brand-texts">
+            <span class="lang-ja">中野竜之介</span>
+            <span class="lang-en">Ryunosuke Nakano</span>
+          </span>
+        </a>
+        <div class="header-controls">
+          <label class="lang-switch">
+            <span class="lang-ja">言語</span>
+            <span class="lang-en">Language</span>
+            <select id="lang-select" name="language">
+              <option value="ja">日本語</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation" onclick="toggleMenu()">☰</button>
+        </div>
+      </div>
+      {% include sidebar.html %}
+    </header>
 
-	<!-- メインコンテンツ -->
-	<main>
-		{{ content }}
-	</main>
+    <main class="site-main">
+      {{ content }}
+    </main>
 
-	<!-- 共通JS -->
-	<script src="{{ '/assets/lang-switch.js' | relative_url }}"></script>
-	<script src="{{ '/assets/menu.js'				| relative_url }}" defer></script>
+    <footer class="site-footer">
+      <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+      <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+    </footer>
+  </div>
 
-	<footer class="site-footer" style="text-align:center; padding:2em 1em; font-size:0.9em; color:var(--text-color);">
-	<p class="lang-ja">
-		最終更新: <span id="last-updated-ja">-</span>
-	</p>
-	<p class="lang-en">
-		Last updated: <span id="last-updated-en">-</span>
-	</p>
-	</footer>
-
-	<script>
-		// 最終更新日時を取得
-		const d = new Date(document.lastModified);
-
-		// 2桁ゼロ埋めヘルパー
-		const z2 = n => String(n).padStart(2, '0');
-
-		// 各パーツを取得
-		const yyyy = d.getFullYear();          // 4桁の西暦
-		const mm   = z2(d.getMonth() + 1);     // 月
-		const dd   = z2(d.getDate());          // 日
-		const hh   = z2(d.getHours());         // 時
-		const mi   = z2(d.getMinutes());       // 分
-
-		// フォーマット（yyyy/mm/dd/hh/mi）
-		const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
-
-		// 挿入
-		document.getElementById('last-updated-ja').textContent = formatted;
-		document.getElementById('last-updated-en').textContent = formatted;
-	</script>
-
-	<!-- Mermaid pan/zoom controls -->
-	<script src="{{ '/assets/js/mermaid-panzoom.js' | relative_url }}" defer></script>
-
-
+  <script src="{{ '/assets/lang-switch.js' | relative_url }}"></script>
+  <script src="{{ '/assets/menu.js' | relative_url }}" defer></script>
+  <script>
+    const d = new Date(document.lastModified);
+    const z2 = (n) => String(n).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    const mm = z2(d.getMonth() + 1);
+    const dd = z2(d.getDate());
+    const hh = z2(d.getHours());
+    const mi = z2(d.getMinutes());
+    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+    const lastJa = document.getElementById('last-updated-ja');
+    const lastEn = document.getElementById('last-updated-en');
+    if (lastJa) lastJa.textContent = formatted;
+    if (lastEn) lastEn.textContent = formatted;
+  </script>
+  <script src="{{ '/assets/js/mermaid-panzoom.js' | relative_url }}" defer></script>
 </body>
 </html>

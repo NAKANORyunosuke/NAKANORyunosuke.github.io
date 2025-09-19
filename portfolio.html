@@ -4,97 +4,52 @@ title: ポートフォリオ
 permalink: /portfolio/
 ---
 
-<style>
-/* ===== ポートフォリオ専用（このページだけ） ===== */
-.portfolio-page { max-width: 1080px; margin: 0 auto; padding: 2rem 1.25rem; }
-.portfolio-title { font-size: 1.8rem; margin: 0 0 1.25rem; }
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
-}
-
-.p-card {
-    background: var(--card-bg, #111);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,.16);
-    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-}
-@media (prefers-color-scheme: light) {
-    .p-card { background: #fff; border-color: #e9e9e9; }
-}
-
-.p-card a { color: inherit; text-decoration: none; display: block; height: 100%; }
-.p-hero {
-    width: 100%; height: 160px; object-fit: cover; display: block;
-    background: linear-gradient(90deg, #444, #333);
-}
-.p-body { padding: .9rem 1rem 1rem; }
-.p-title { font-size: 1.05rem; margin: 0 0 .35rem; line-height: 1.35; }
-.p-summary { color: #9aa; margin: .25rem 0 .6rem; font-size: .92rem; }
-@media (prefers-color-scheme: light) { .p-summary { color: #555; } }
-
-.p-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
-.p-tag {
-    font-size: .78rem; padding: .22rem .5rem; border-radius: 999px;
-    background: rgba(128,128,255,.12); border: 1px solid rgba(128,128,255,.18);
-}
-.p-meta { font-size: .78rem; color: #8a8a8a; margin-top: .6rem; }
-
-.p-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,.22);
-    border-color: rgba(128,128,255,.35);
-}
-
-.p-footer {
-    text-align: center; color: #8a8a8a; font-size: .86rem;
-    margin-top: 1.4rem;
-}
-</style>
-
-<main class="portfolio-page">
-    <h1 class="portfolio-title">{{ page.title }}</h1>
-
-    <div class="portfolio-grid">
-        {%- assign items = site.projects | default: empty | sort: 'date' | reverse -%}
-        {%- for p in items -%}
-        <article class="p-card">
-            <a href="{{ p.url | relative_url }}">
-            {%- if p.hero -%}
-                <img class="p-hero" src="{{ p.hero | relative_url }}" alt="{{ p.title }}">
-            {%- else -%}
-                <div class="p-hero" aria-hidden="true"></div>
-            {%- endif -%}
-
-            <div class="p-body">
-                <h2 class="p-title">{{ p.title }}</h2>
-                {%- if p.summary -%}
-                <p class="p-summary">{{ p.summary }}</p>
-                {%- endif -%}
-
-                {%- if p.tags -%}
-                <ul class="p-tags">
-                    {% if p.tags %}
-                        {% for t in p.tags %}
-                            <span class="tag">{{ t }}</span>
-                        {% endfor %}
-                    {% endif %}
-                </ul>
-                {%- endif -%}
-
-                <div class="p-meta">
-                {%- if p.date -%}
-                    最終更新: {{ p.date | date: "%Y/%m/%d" }}
-                {%- endif -%}
-                </div>
-            </div>
-            </a>
-        </article>
-        {%- endfor -%}
+<section class="hero glass-panel">
+  <div class="hero__grid">
+    <div class="hero__text">
+      <span class="hero__eyebrow lang-ja">制作実績</span>
+      <span class="hero__eyebrow lang-en">Selected Work</span>
+      <h1 class="lang-ja">{{ page.title }}</h1>
+      <h1 class="lang-en">Portfolio</h1>
+      <p class="lang-ja">開発したプロジェクトや研究関連の取り組みをまとめています。</p>
+      <p class="lang-en">Highlights of projects and research-driven initiatives I have built.</p>
     </div>
+  </div>
+</section>
 
-</main>
+<section class="section-card glass-panel">
+  <div class="section-heading">
+    <h2 class="lang-ja">プロジェクト一覧</h2>
+    <h2 class="lang-en">Projects</h2>
+    <p class="section-description lang-ja">カードをクリックすると詳細をご覧いただけます。</p>
+    <p class="section-description lang-en">Select a card to read the full project write-up.</p>
+  </div>
+  <div class="portfolio-grid">
+    {%- assign items = site.projects | default: empty | sort: 'date' | reverse -%}
+    {%- for p in items -%}
+    <a class="portfolio-card" href="{{ p.url | relative_url }}">
+      <div class="portfolio-thumb">
+        {%- if p.hero -%}
+        <img src="{{ p.hero | relative_url }}" alt="{{ p.title }}">
+        {%- endif -%}
+      </div>
+      <div class="portfolio-body">
+        <h2 class="portfolio-title">{{ p.title }}</h2>
+        {%- if p.summary -%}
+        <p class="portfolio-summary">{{ p.summary }}</p>
+        {%- endif -%}
+        {%- if p.tags -%}
+        <ul class="tag-list">
+          {%- for t in p.tags -%}
+          <li class="tag">{{ t }}</li>
+          {%- endfor -%}
+        </ul>
+        {%- endif -%}
+        {%- if p.date -%}
+        <div class="portfolio-meta"><span class="lang-ja">更新日: {{ p.date | date: "%Y/%m/%d" }}</span><span class="lang-en">Last updated: {{ p.date | date: "%Y/%m/%d" }}</span></div>
+        {%- endif -%}
+      </div>
+    </a>
+    {%- endfor -%}
+  </div>
+</section>
