@@ -1,16 +1,23 @@
-﻿"use strict";
+"use strict";
 
 function setCookie(name, value, days) {
   const expires = new Date(Date.now() + days * 864e5).toUTCString();
-  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
 }
 
 function getCookie(name) {
+  if (!document.cookie) return null;
+
   return document.cookie
-    .split('; ')
+    .split(';')
+    .map((part) => part.trim())
     .reduce((result, part) => {
-      const [key, val] = part.split('=');
-      return key === name ? decodeURIComponent(val) : result;
+      if (result !== null || !part) return result;
+      const separator = part.indexOf('=');
+      if (separator === -1) return result;
+      const key = part.slice(0, separator);
+      if (key !== name) return result;
+      return decodeURIComponent(part.slice(separator + 1));
     }, null);
 }
 
