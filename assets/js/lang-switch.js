@@ -1,4 +1,3 @@
-"use strict";
 const LANGUAGE_COOKIE = 'lang';
 const LANGUAGE_STORAGE_KEY = 'preferred-lang';
 const COOKIE_LIFETIME_DAYS = 30;
