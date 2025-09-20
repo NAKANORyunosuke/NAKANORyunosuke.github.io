@@ -130,7 +130,11 @@
     </footer>
   </div>
 
-  <script src="{{ '/assets/lang-switch.js' | relative_url }}"></script>
+  {% assign cache_bust = site.github.build_revision %}
+  {% unless cache_bust %}
+    {% assign cache_bust = site.time | date: '%s' %}
+  {% endunless %}
+  <script src="{{ '/assets/lang-switch.js' | relative_url }}?v={{ cache_bust }}"></script>
   <script src="{{ '/assets/menu.js' | relative_url }}" defer></script>
   <script>
     const d = new Date(document.lastModified);
