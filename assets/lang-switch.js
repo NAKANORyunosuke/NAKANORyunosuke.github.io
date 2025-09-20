@@ -15,18 +15,16 @@ function getCookie(name) {
 }
 
 function setLanguage(lang) {
-  setCookie('lang', lang, 30);
+  const normalized = lang === 'ja' ? 'ja' : 'en';
+  setCookie('lang', normalized, 30);
 
-  document.querySelectorAll('.lang-ja').forEach((el) => {
-    el.style.setProperty('display', lang === 'ja' ? 'block' : 'none', 'important');
-  });
-  document.querySelectorAll('.lang-en').forEach((el) => {
-    el.style.setProperty('display', lang === 'en' ? 'block' : 'none', 'important');
-  });
+  const root = document.documentElement;
+  root.setAttribute('lang', normalized);
+  root.setAttribute('data-lang', normalized);
 
   const selector = document.getElementById('lang-select');
-  if (selector && selector.value !== lang) {
-    selector.value = lang;
+  if (selector && selector.value !== normalized) {
+    selector.value = normalized;
   }
 }
 
