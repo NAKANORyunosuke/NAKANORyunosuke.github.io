@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+<head>
+  <!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>トップページ | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="トップページ" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="ja" />
+<meta name="description" content="中野竜之介のウェブサイトトップページ" />
+<meta property="og:description" content="中野竜之介のウェブサイトトップページ" />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="トップページ" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"中野竜之介"},"description":"中野竜之介のウェブサイトトップページ","headline":"トップページ","name":"中野竜之介 (NAKANO Ryunosuke)","url":"https://nakanoryunosuke.github.io/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon"               href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon"   href="/assets/img/favicon.jpg">
+<!-- end custom head snippets -->
+
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('image-slider');
+    if (slider) {
+      new Splide(slider, {
+        type: 'loop',
+        perPage: 1,
+        autoplay: true,
+        pauseOnHover: true,
+        gap: '1rem'
+      }).mount();
+    }
+  });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+  (function () {
+    function currentTheme() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'default';
+    }
+
+    function initMermaid(theme) {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: theme,
+        fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+        flowchart: {
+          htmlLabels: false,
+          useMaxWidth: true,
+          wrap: true
+        },
+        themeVariables: {
+          fontSize: '16px'
+        }
+      });
+    }
+
+    function rerenderMermaid(theme) {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme,
+        fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+        flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+        themeVariables: { fontSize: '16px' }
+      });
+
+      const nodes = document.querySelectorAll('.mermaid');
+      nodes.forEach((el) => {
+        if (el.getAttribute('data-raw')) {
+          el.innerHTML = el.getAttribute('data-raw');
+        }
+      });
+      mermaid.run({ nodes });
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      document.querySelectorAll('.mermaid').forEach((el) => {
+        if (!el.getAttribute('data-raw')) {
+          el.setAttribute('data-raw', el.textContent);
+        }
+      });
+
+      initMermaid(currentTheme());
+      await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+    });
+
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      mq.addEventListener('change', (e) => {
+        document.documentElement.classList.toggle('dark-mermaid', e.matches);
+        rerenderMermaid(e.matches ? 'dark' : 'default');
+      });
+    }
+
+    window.setMermaidTheme = function (theme) {
+      if (theme !== 'default' && theme !== 'dark') return;
+      document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+      rerenderMermaid(theme);
+    };
+  })();
+  </script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header glass-panel">
+      <div class="site-header__top">
+        <a class="site-brand" href="/">
+          <span class="brand-mark">NR</span>
+          <span class="brand-texts">
+            <span class="lang-ja">中野竜之介</span>
+            <span class="lang-en">Ryunosuke Nakano</span>
+          </span>
+        </a>
+        <div class="header-controls">
+          <label class="lang-switch">
+            <span class="lang-ja">言語</span>
+            <span class="lang-en">Language</span>
+            <select id="lang-select" name="language">
+              <option value="ja">日本語</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation" onclick="toggleMenu()">☰</button>
+        </div>
+      </div>
+      <nav id="sidebar" class="site-nav" aria-label="Primary navigation">
+  <div class="nav-groups">
+    <div class="nav-group" data-default-open="true">
+      <button class="nav-toggle" type="button" aria-expanded="true">
+        <span class="lang-ja">主要ページ</span>
+        <span class="lang-en">Main pages</span>
+      </button>
+      <ul class="nav-links">
+        <li>
+          <a class="nav-link lang-ja" href="/">ホーム</a>
+          <a class="nav-link lang-en" href="/">Home</a>
+        </li>
+        <li>
+          <a class="nav-link lang-ja" href="/circum-vitae.html">履歴書</a>
+          <a class="nav-link lang-en" href="/circum-vitae.html">Circum Vitae</a>
+        </li>
+        <li>
+          <a class="nav-link lang-ja" href="/portfolio/">ポートフォリオ</a>
+          <a class="nav-link lang-en" href="/portfolio/">Portfolio</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-group" data-default-open="true">
+      <button class="nav-toggle" type="button" aria-expanded="true">
+        <span class="lang-ja">研究活動</span>
+        <span class="lang-en">Research</span>
+      </button>
+      <ul class="nav-links">
+        <li>
+          <a class="nav-link lang-ja" href="/research-activity.html">論文および講演</a>
+          <a class="nav-link lang-en" href="/research-activity.html">Publications &amp; Talks</a>
+        </li>
+        <li>
+          <a class="nav-link lang-ja" href="/slides.html">講演資料</a>
+          <a class="nav-link lang-en" href="/slides.html">Presentation Materials</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-group" data-default-open="true">
+      <button class="nav-toggle" type="button" aria-expanded="true">
+        <span class="lang-ja">その他</span>
+        <span class="lang-en">Other</span>
+      </button>
+      <ul class="nav-links">
+        <li>
+          <a class="nav-link lang-ja" href="/3d-project.html">3D Project</a>
+          <a class="nav-link lang-en" href="/3d-project.html">3D Project</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+
+    <main class="site-main">
+      <section class="hero glass-panel">
+  <div class="hero__grid">
+    <div class="hero__text">
+      <span class="hero__eyebrow lang-ja">ようこそ</span>
+      <span class="hero__eyebrow lang-en">Welcome</span>
+      <h1 class="lang-ja">中野竜之介のウェブサイトです</h1>
+      <h1 class="lang-en">This is the website of NAKANO Ryunosuke</h1>
+      <p class="lang-ja">言語を変更するには、右上のプルダウンをご利用ください。</p>
+      <p class="lang-en">Change the language using the dropdown at the top right.</p>
+    </div>
+    <figure class="hero__figure">
+      <img src="assets/img/smoking.jpg" alt="NAKANO Ryunosuke" class="hero__image">
+      <figcaption class="hero__caption lang-ja">MCYR21の懇親会。左から中野、<a href="https://yuheikogo.github.io/">古郷さん</a>、<a href="https://sites.google.com/view/ryu--ueno/">上野さん</a></figcaption>
+      <figcaption class="hero__caption lang-en">The banquet of MCYR21: From left to right — NAKANO, <a href="https://yuheikogo.github.io/">Mr. Kogo</a>, and <a href="https://sites.google.com/view/ryu--ueno/">Mr. Ueno</a>.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section-card glass-panel">
+  <div class="section-heading">
+    <h2 class="lang-ja">プロフィール</h2>
+    <h2 class="lang-en">Profile</h2>
+    <p class="section-description lang-ja">研究活動やこれまでの歩み、連絡先などを掲載しています。</p>
+    <p class="section-description lang-en">Overview of my background, research focus, and ways to get in touch.</p>
+  </div>
+  <div class="dual-column">
+    <div class="lang-ja">
+      <ul class="info-list">
+        <li class="info-line"><span class="info-term">名前</span><span class="info-value">中野竜之介</span></li>
+        <li class="info-line"><span class="info-term">生年月日</span><span class="info-value">1999年9月14日</span></li>
+        <li class="info-line"><span class="info-term">所属</span><span class="info-value">北海道大学大学院 理学研究院 数学専攻 博士後期課程2年</span></li>
+      </ul>
+      <div class="highlight-card">
+        <h3>研究分野</h3>
+        <ul class="bullet-list">
+          <li>代数多様体上の周期写像とテータ関数</li>
+          <li>超幾何級数</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lang-en">
+      <ul class="info-list">
+        <li class="info-line"><span class="info-term">Name</span><span class="info-value">NAKANO Ryunosuke</span></li>
+        <li class="info-line"><span class="info-term">Date of birth</span><span class="info-value">September 14, 1999</span></li>
+        <li class="info-line"><span class="info-term">Affiliation</span><span class="info-value">Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</span></li>
+      </ul>
+      <div class="highlight-card">
+        <h3>Research Interests</h3>
+        <ul class="bullet-list">
+          <li>Special functions – especially hypergeometric series</li>
+          <li>Theta functions and period maps on algebraic varieties</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="highlight-card">
+    <div class="dual-column">
+      <div class="lang-ja contact-links">
+        <span><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</span>
+        <span><strong>Researchmap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></span>
+        <span><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank" rel="noopener noreferrer">@RNakano_theta</a></span>
+        <span><strong>GitHub :</strong> <a href="https://github.com/NAKANORyunosuke" target="_blank" rel="noopener noreferrer">https://github.com/NAKANORyunosuke</a></span>
+      </div>
+      <div class="lang-en contact-links">
+        <span><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</span>
+        <span><strong>Researchmap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></span>
+        <span><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank" rel="noopener noreferrer">@RNakano_theta</a></span>
+        <span><strong>GitHub :</strong> <a href="https://github.com/NAKANORyunosuke" target="_blank" rel="noopener noreferrer">https://github.com/NAKANORyunosuke</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-card glass-panel">
+  <div class="section-heading">
+    <h2 class="lang-ja">最新情報</h2>
+    <h2 class="lang-en">Updates</h2>
+    <p class="section-description lang-ja">研究活動の予定や発表情報をまとめています。</p>
+    <p class="section-description lang-en">Key announcements and upcoming engagements.</p>
+  </div>
+  <div class="card-grid">
+    <div class="highlight-card">
+      <h3 class="lang-ja">今後の予定</h3>
+      <h3 class="lang-en">Upcoming Schedule</h3>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date lang-ja">準備中</span>
+          <span class="timeline-date lang-en">TBA</span>
+          <span class="timeline-desc lang-ja">公開準備中です。</span>
+          <span class="timeline-desc lang-en">Details will be shared soon.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="highlight-card">
+      <h3 class="lang-ja">お知らせ</h3>
+      <h3 class="lang-en">Announcements</h3>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date lang-ja">2025年8月9日</span>
+          <span class="timeline-date lang-en">August 9, 2025</span>
+          <span class="timeline-desc lang-ja"><a href="/portfolio/">ポートフォリオを公開しました。</a></span>
+          <span class="timeline-desc lang-en"><a href="/portfolio/">Published my portfolio.</a></span>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date lang-ja">2025年8月18日〜21日</span>
+          <span class="timeline-date lang-en">August 18–21, 2025</span>
+          <span class="timeline-desc lang-ja"><a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">函数方程式論サマーセミナー2025</a>で発表しました。</span>
+          <span class="timeline-desc lang-en">Presented at the <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">Summer Seminar of Functional Equation Theory 2025</a>.</span>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date lang-ja">2025年8月28日</span>
+          <span class="timeline-date lang-en">August 28, 2025</span>
+          <span class="timeline-desc lang-ja"><a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>で講演しました。</span>
+          <span class="timeline-desc lang-en">Spoke at the <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">34th Hokkaido Seminar on Special Functions</a>.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+      <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+    </footer>
+  </div>
+
+  
+  
+  <script src="/assets/lang-switch.js?v=1c58fa170643c9a1b7acb978af631586f0f9a913"></script>
+  <script src="/assets/menu.js" defer></script>
+  <script>
+    const d = new Date(document.lastModified);
+    const z2 = (n) => String(n).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    const mm = z2(d.getMonth() + 1);
+    const dd = z2(d.getDate());
+    const hh = z2(d.getHours());
+    const mi = z2(d.getMinutes());
+    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+    const lastJa = document.getElementById('last-updated-ja');
+    const lastEn = document.getElementById('last-updated-en');
+    if (lastJa) lastJa.textContent = formatted;
+    if (lastEn) lastEn.textContent = formatted;
+  </script>
+  <script src="/assets/js/mermaid-panzoom.js" defer></script>
+</body>
+</html>
