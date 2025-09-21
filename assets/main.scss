@@ -1,4 +1,4 @@
----
+﻿---
 sitemap: false
 ---
 
@@ -780,18 +780,72 @@ html[data-lang="en"] .lang-ja {
 
 @media (max-width: 640px) {
   .site-shell {
-    padding: 2.2rem 1.1rem 3rem;
+    padding: 2.1rem 1rem 2.8rem;
   }
 
   .section-card,
   .hero {
-    padding: 1.85rem 1.6rem 2.1rem;
+    padding: 1.75rem 1.35rem 1.95rem;
+  }
+
+  .site-header {
+    padding: 1.5rem 1.15rem 1.2rem;
+    gap: 1.1rem;
+  }
+
+  .site-header__top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .site-brand {
+    width: 100%;
+    gap: 0.9rem;
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    font-size: 1.26rem;
+  }
+
+  .header-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
   }
 
   .lang-switch {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.45rem 0.7rem;
     font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .lang-switch span {
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
+  }
+
+  .lang-switch select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .menu-btn {
+    width: 42px;
+    height: 42px;
+    align-self: flex-end;
   }
 }
+
 
 .lang-switch select option {
   background: var(--surface-primary);
@@ -885,3 +939,6 @@ html[data-lang="en"] .lang-ja {
   gap: 1rem;
   padding: 0.6rem 0.85rem;
 }
+
+
+
