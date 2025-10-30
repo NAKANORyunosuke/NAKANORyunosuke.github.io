@@ -1,0 +1,8 @@
+- id: "speaking"
+  title: "講演・セミナー依頼"
+  title_en: "Talks & Seminars"
+  summary_ja: "学会・研究会向けに、最新の研究トピックや計算ノートのワークフローを紹介します。"
+  summary_en: "Talks on current research themes and computational note workflows for conferences and seminars."
+  action_label_ja: "希望日時を送る"
+  action_label_en: "Propose a slot"
+  url: "mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp?subject=Talk%20Request"

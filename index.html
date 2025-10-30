@@ -1,126 +1,196 @@
 ---
 layout: default
 title: トップページ
-description: "中野竜之介のウェブサイトトップページ"
+description: "数学研究者兼プログラマ 中野竜之介のノート・研究・コードのハブ。"
 lang: ja
 ---
 
-<section class="hero glass-panel">
-  <div class="hero__grid">
-    <div class="hero__text">
-      <span class="hero__eyebrow lang-ja">ようこそ</span>
-      <span class="hero__eyebrow lang-en">Welcome</span>
-      <h1 class="lang-ja">中野竜之介のウェブサイトです</h1>
-      <h1 class="lang-en">This is the website of NAKANO Ryunosuke</h1>
-      <p class="lang-ja">言語を変更するには、右上のプルダウンをご利用ください。</p>
-      <p class="lang-en">Change the language using the dropdown at the top right.</p>
+<section class="section" aria-labelledby="welcome-heading">
+    <header class="stack">
+        <span class="badge">
+            <span class="lang-ja">現在の焦点</span>
+            <span class="lang-en">Current Focus</span>
+        </span>
+        <h1 id="welcome-heading">
+            <span class="lang-ja">思考の構造を共有する場所</span>
+            <span class="lang-en">A Space for Structured Thinking</span>
+        </h1>
+        <p class="section__subtitle lang-ja">
+            研究ノート・証明断片・コードの更新を同じグリッドに載せ、研究の現在地を公開します。
+        </p>
+        <p class="section__subtitle lang-en">
+            Research notes, proof fragments, and code updates share one grid so progress and questions stay visible.
+        </p>
+    </header>
+
+    <div class="grid-7">
+        <div class="col-span-4 col-start-1 stack">
+            <div class="stack">
+                <h2 class="section__title">
+                    <span class="lang-ja">最新ノート</span>
+                    <span class="lang-en">Latest Notes</span>
+                </h2>
+                <p class="section__subtitle lang-ja">計算ログ・証明メモ・コード設計の断片を高速リリース</p>
+                <p class="section__subtitle lang-en">Fast releases of computation logs, proof sketches, and tooling
+                    memos.</p>
+            </div>
+            <div data-toc-ignore>
+                <ul class="note-list">
+                    {% assign latest_notes = site.data.latest_notes | slice: 0, 3 %}
+                    {% for note in latest_notes %}
+                    <li class="note-card">
+                        <div class="note-card__meta">
+                            <span>
+                                <span class="lang-ja">{{ note.date | date: "%Y年%m月%d日" }}</span>
+                                <span class="lang-en">{{ note.date | date: "%b %-d, %Y" }}</span>
+                            </span>
+                            <span class="inline-cluster">
+                                {% for tag in note.tags %}
+                                <span class="badge">{{ tag }}</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                        <h3 class="note-card__title" data-toc-exclude>
+                            <a class="lang-ja" href="{{ note.url }}">{{ note.title }}</a>
+                            <a class="lang-en" href="{{ note.url }}">{{ note.title_en }}</a>
+                        </h3>
+                        <p class="note-card__summary lang-ja">{{ note.summary_ja }}</p>
+                        <p class="note-card__summary lang-en">{{ note.summary_en }}</p>
+                        <a class="note-card__cta lang-ja" href="{{ note.url }}">ノートを読む</a>
+                        <a class="note-card__cta lang-en" href="{{ note.url }}">Read note</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
-    <figure class="hero__figure">
-      <img src="assets/img/smoking.jpg" alt="NAKANO Ryunosuke" class="hero__image">
-      <figcaption class="hero__caption lang-ja">MCYR21の懇親会。左から中野、<a href="https://yuheikogo.github.io/">古郷さん</a>、<a href="https://sites.google.com/view/ryu--ueno/">上野さん</a></figcaption>
-      <figcaption class="hero__caption lang-en">The banquet of MCYR21: From left to right — NAKANO, <a href="https://yuheikogo.github.io/">Mr. Kogo</a>, and <a href="https://sites.google.com/view/ryu--ueno/">Mr. Ueno</a>.</figcaption>
-    </figure>
-  </div>
 </section>
 
-<section class="section-card glass-panel">
-  <div class="section-heading">
-    <h2 class="lang-ja">プロフィール</h2>
-    <h2 class="lang-en">Profile</h2>
-    <p class="section-description lang-ja">自己紹介</p>
-    <p class="section-description lang-en">Overview of my background, research focus.</p>
-  </div>
-  <div class="dual-column">
-    <div class="lang-ja">
-      <ul class="info-list">
-        <li class="info-line"><span class="info-term">名前</span><span class="info-value">中野竜之介</span></li>
-        <li class="info-line"><span class="info-term">生年月日</span><span class="info-value">1999年9月14日</span></li>
-        <li class="info-line"><span class="info-term">所属</span><span class="info-value">北海道大学大学院 理学研究院 数学専攻 博士後期課程2年</span></li>
-      </ul>
-      <div class="highlight-card">
-        <h3>研究分野</h3>
-        <ul class="bullet-list">
-          <li>代数多様体上の周期写像とテータ関数</li>
-          <li>超幾何級数</li>
-        </ul>
-      </div>
+<section class="theme-index-panel section" data-theme-index>
+    <div class="stack">
+        <h2 class="section__title" data-toc-exclude>
+            <span class="lang-ja">研究テーマ索引</span>
+            <span class="lang-en">Research Themes Index</span>
+        </h2>
+        <p class="section__subtitle lang-ja">共同研究・講演・採用への導線を簡潔に整理</p>
+        <p class="section__subtitle lang-en">Concise entry points for collaborations, talks, and hiring conversations.
+        </p>
     </div>
-    <div class="lang-en">
-      <ul class="info-list">
-        <li class="info-line"><span class="info-term">Name</span><span class="info-value">NAKANO Ryunosuke</span></li>
-        <li class="info-line"><span class="info-term">Date of birth</span><span class="info-value">September 14, 1999</span></li>
-        <li class="info-line"><span class="info-term">Affiliation</span><span class="info-value">Second-year doctoral student, Department of Mathematics, Graduate School of Science, Hokkaido University</span></li>
-      </ul>
-      <div class="highlight-card">
-        <h3>Research Interests</h3>
-        <ul class="bullet-list">
-          <li>Special functions – especially hypergeometric series</li>
-          <li>Theta functions and period maps on algebraic varieties</li>
-        </ul>
-      </div>
+    <div class="theme-index">
+        {% for theme in site.data.research_themes %}
+        <article class="theme-index__group" id="theme-{{ theme.id }}">
+            <h3 class="theme-index__title" data-toc-exclude>
+                <span class="lang-ja">{{ theme.title }}</span>
+                <span class="lang-en">{{ theme.title_en }}</span>
+            </h3>
+            <p class="theme-index__summary lang-ja">{{ theme.summary_ja }}</p>
+            <p class="theme-index__summary lang-en">{{ theme.summary_en }}</p>
+            <a class="theme-index__link lang-ja" href="{{ theme.url }}">{{ theme.link_label_ja }}</a>
+            <a class="theme-index__link lang-en" href="{{ theme.url }}">{{ theme.link_label_en }}</a>
+        </article>
+        {% endfor %}
     </div>
-  </div>
-  <div class="highlight-card">
-    <div class="dual-column">
-      <div class="lang-ja contact-links">
-        <span><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp（[at]を@に置き換えてください）</span>
-        <span><strong>Researchmap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></span>
-        <span><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank" rel="noopener noreferrer">@RNakano_theta</a></span>
-        <span><strong>GitHub :</strong> <a href="https://github.com/NAKANORyunosuke" target="_blank" rel="noopener noreferrer">https://github.com/NAKANORyunosuke</a></span>
-      </div>
-      <div class="lang-en contact-links">
-        <span><strong>Email :</strong> nakano.ryunosuke.i3[at]elms.hokudai.ac.jp (replace [at] with @)</span>
-        <span><strong>Researchmap :</strong> <a href="https://researchmap.jp/NAKANO-R">https://researchmap.jp/NAKANO-R</a></span>
-        <span><strong>Twitter :</strong> <a href="https://x.com/RNakano_theta" target="_blank" rel="noopener noreferrer">@RNakano_theta</a></span>
-        <span><strong>GitHub :</strong> <a href="https://github.com/NAKANORyunosuke" target="_blank" rel="noopener noreferrer">https://github.com/NAKANORyunosuke</a></span>
-      </div>
-    </div>
-  </div>
 </section>
 
-<section class="section-card glass-panel">
-  <div class="section-heading">
-    <h2 class="lang-ja">最新情報</h2>
-    <h2 class="lang-en">Updates</h2>
-    <p class="section-description lang-ja">研究活動の予定や発表情報をまとめています。</p>
-    <p class="section-description lang-en">Key announcements and upcoming engagements.</p>
-  </div>
-  <div class="card-grid">
-    <div class="highlight-card">
-      <h3 class="lang-ja">今後の予定</h3>
-      <h3 class="lang-en">Upcoming Schedule</h3>
-      <ul class="timeline">
-        <li class="timeline-item">
-          <span class="timeline-date lang-ja">準備中</span>
-          <span class="timeline-date lang-en">TBA</span>
-          <span class="timeline-desc lang-ja">公開準備中です。</span>
-          <span class="timeline-desc lang-en">Details will be shared soon.</span>
-        </li>
-      </ul>
+<section class="section" aria-labelledby="structure-heading">
+    <div class="stack">
+        <h2 id="structure-heading" class="section__title">
+            <span class="lang-ja">ノートと研究の構造</span>
+            <span class="lang-en">Structure of Work</span>
+        </h2>
+        <p class="section__subtitle lang-ja">
+            論文後方支援の計算ノート／講義メモ／コードを三層で管理しています。
+        </p>
+        <p class="section__subtitle lang-en">
+            Research threads are paced by three intertwined layers: canonical papers, working notebooks, and
+            reproducible code.
+        </p>
     </div>
-    <div class="highlight-card">
-      <h3 class="lang-ja">お知らせ</h3>
-      <h3 class="lang-en">Announcements</h3>
-      <ul class="timeline">
-        <li class="timeline-item">
-          <span class="timeline-date lang-ja">2025年8月9日</span>
-          <span class="timeline-date lang-en">August 9, 2025</span>
-          <span class="timeline-desc lang-ja"><a href="{{ '/portfolio/' | relative_url }}">ポートフォリオを公開しました。</a></span>
-          <span class="timeline-desc lang-en"><a href="{{ '/portfolio/' | relative_url }}">Published my portfolio.</a></span>
-        </li>
-        <li class="timeline-item">
-          <span class="timeline-date lang-ja">2025年8月18日〜21日</span>
-          <span class="timeline-date lang-en">August 18–21, 2025</span>
-          <span class="timeline-desc lang-ja"><a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">函数方程式論サマーセミナー2025</a>で発表しました。</span>
-          <span class="timeline-desc lang-en">Presented at the <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">Summer Seminar of Functional Equation Theory 2025</a>.</span>
-        </li>
-        <li class="timeline-item">
-          <span class="timeline-date lang-ja">2025年8月28日</span>
-          <span class="timeline-date lang-en">August 28, 2025</span>
-          <span class="timeline-desc lang-ja"><a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>で講演しました。</span>
-          <span class="timeline-desc lang-en">Spoke at the <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">34th Hokkaido Seminar on Special Functions</a>.</span>
-        </li>
-      </ul>
+    <div class="structure-grid" data-toc-ignore>
+        <article class="section structure-card stack">
+            <h3 data-toc-exclude>
+                <span class="lang-ja">Research Threads</span>
+                <span class="lang-en">Research Threads</span>
+            </h3>
+            <p class="section__subtitle lang-ja">周期写像と特殊関数の二本柱。テーマごとに前提・課題・公開成果を更新。</p>
+            <p class="section__subtitle lang-en">Two axes: period maps and special functions. Each theme records
+                prerequisites, open questions, and published outputs.</p>
+            <ul>
+                <li class="lang-ja">退化モジュラー曲線の数値調整</li>
+                <li class="lang-ja">テータ核の圏論的表現</li>
+                <li class="lang-en">Numerical control of degenerating modular curves</li>
+                <li class="lang-en">Categorical presentations of theta kernels</li>
+            </ul>
+        </article>
+        <article class="section structure-card stack">
+            <h3 data-toc-exclude>
+                <span class="lang-ja">Note Stream</span>
+                <span class="lang-en">Note Stream</span>
+            </h3>
+            <p class="section__subtitle lang-ja">ラフな演算ログ → 構造化ノート → 投稿論文草稿の順で整形。</p>
+            <p class="section__subtitle lang-en">Pipeline: raw computation logs → structured notebooks → submission
+                drafts.</p>
+            <ul>
+                <li class="lang-ja">MathJax での式断片を Git 履歴と同期</li>
+                <li class="lang-en">Math fragments stay versioned through Git + MathJax</li>
+                <li class="lang-ja">ノート同士を YAML メタデータでリンク</li>
+                <li class="lang-en">Cross-link notebooks through lightweight YAML metadata</li>
+            </ul>
+        </article>
+        <article class="section structure-card stack">
+            <h3 data-toc-exclude>
+                <span class="lang-ja">Tooling</span>
+                <span class="lang-en">Tooling</span>
+            </h3>
+            <p class="section__subtitle lang-ja">Rust / Python / Jupyter を同じリポジトリで運用し、証明と実装の往復を短縮。</p>
+            <p class="section__subtitle lang-en">Rust, Python, and Jupyter operate inside one repository to shorten the
+                loop between proof sketches and prototypes.</p>
+            <ul>
+                <li class="lang-ja">Rust: meromorphic kernel ライブラリ</li>
+                <li class="lang-en">Rust: meromorphic kernel library</li>
+                <li class="lang-ja">Python: 数値実験の可視化 pipeline</li>
+                <li class="lang-en">Python: visualization pipelines for numerical experiments</li>
+                <li class="lang-ja">CI: TeX → PDF 生成とコードの lint を統合</li>
+                <li class="lang-en">CI: unified TeX-to-PDF and code lint checks</li>
+            </ul>
+        </article>
     </div>
-  </div>
 </section>
+
+<section class="section" aria-labelledby="engage-heading">
+    <div class="stack">
+        <h2 id="engage-heading" class="section__title">
+            <span class="lang-ja">共同研究・講演・メンタリング</span>
+            <span class="lang-en">Collaborations, Talks, Mentoring</span>
+        </h2>
+        <p class="section__subtitle lang-ja">目的に応じた入口からご連絡ください。48時間以内に返信します。</p>
+        <p class="section__subtitle lang-en">Choose the entry point that fits your goal—responses within 48 hours.</p>
+    </div>
+    <div class="callout-grid">
+        {% for channel in site.data.engagement_channels %}
+        <article class="callout" id="engage-{{ channel.id }}" data-toc-ignore>
+            <h3 class="callout__title" data-toc-exclude>
+                <span class="lang-ja">{{ channel.title }}</span>
+                <span class="lang-en">{{ channel.title_en }}</span>
+            </h3>
+            <p class="callout__text lang-ja">{{ channel.summary_ja }}</p>
+            <p class="callout__text lang-en">{{ channel.summary_en }}</p>
+            <div class="callout__actions">
+                <a class="button button--accent lang-ja" href="{{ channel.url }}">{{ channel.action_label_ja }}</a>
+                <a class="button button--accent lang-en" href="{{ channel.url }}">{{ channel.action_label_en }}</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const panel = document.querySelector('[data-theme-index]');
+        const toc = document.getElementById('page-toc');
+        if (!panel || !toc) return;
+
+        panel.classList.add('site-toc__extra');
+        toc.appendChild(panel);
+    });
+</script>

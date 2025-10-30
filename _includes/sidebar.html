@@ -1,52 +1,50 @@
-﻿<nav id="sidebar" class="site-nav" aria-label="Primary navigation">
-  <div class="nav-groups">
-    <div class="nav-group" data-default-open="true">
-      <button class="nav-toggle" type="button" aria-expanded="true">
-        <span class="lang-ja">主要ページ</span>
-        <span class="lang-en">Main pages</span>
-      </button>
-      <ul class="nav-links">
-        <li>
-          <a class="nav-link lang-ja" href="{{ '/' | relative_url }}">ホーム</a>
-          <a class="nav-link lang-en" href="{{ '/' | relative_url }}">Home</a>
-        </li>
-        <li>
-          <a class="nav-link lang-ja" href="{{ '/circum-vitae.html' | relative_url }}">履歴書</a>
-          <a class="nav-link lang-en" href="{{ '/circum-vitae.html' | relative_url }}">Circum Vitae</a>
-        </li>
-        <li>
-          <a class="nav-link lang-ja" href="{{ '/portfolio/' | relative_url }}">ポートフォリオ</a>
-          <a class="nav-link lang-en" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
-        </li>
-      </ul>
-    </div>
-    <div class="nav-group" data-default-open="true">
-      <button class="nav-toggle" type="button" aria-expanded="true">
-        <span class="lang-ja">研究活動</span>
-        <span class="lang-en">Research</span>
-      </button>
-      <ul class="nav-links">
-        <li>
-          <a class="nav-link lang-ja" href="{{ '/research-activity.html' | relative_url }}">論文および講演</a>
-          <a class="nav-link lang-en" href="{{ '/research-activity.html' | relative_url }}">Publications &amp; Talks</a>
-        </li>
-        <li>
-          <a class="nav-link lang-ja" href="{{ '/slides.html' | relative_url }}">講演資料</a>
-          <a class="nav-link lang-en" href="{{ '/slides.html' | relative_url }}">Presentation Materials</a>
-        </li>
-      </ul>
-    </div>
-    <div class="nav-group" data-default-open="true">
-      <button class="nav-toggle" type="button" aria-expanded="true">
-        <span class="lang-ja">その他</span>
-        <span class="lang-en">Other</span>
-      </button>
-      <ul class="nav-links">
-        <li>
-          <a class="nav-link lang-ja" href="{{ '/3d-project.html' | relative_url }}">3D Project</a>
-          <a class="nav-link lang-en" href="{{ '/3d-project.html' | relative_url }}">3D Project</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+<nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">概要</span>
+      <span class="lang-en">Overview</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="{{ '/' | relative_url }}">トップ</a>
+        <a class="primary-nav__link lang-en" href="{{ '/' | relative_url }}">Home</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="{{ '/circum-vitae.html' | relative_url }}">履歴書</a>
+        <a class="primary-nav__link lang-en" href="{{ '/circum-vitae.html' | relative_url }}">Circum Vitae</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="{{ '/portfolio/' | relative_url }}">ポートフォリオ</a>
+        <a class="primary-nav__link lang-en" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">研究活動</span>
+      <span class="lang-en">Research</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="{{ '/research-activity.html' | relative_url }}">論文・講演</a>
+        <a class="primary-nav__link lang-en" href="{{ '/research-activity.html' | relative_url }}">Publications &amp; Talks</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="{{ '/slides.html' | relative_url }}">講演資料</a>
+        <a class="primary-nav__link lang-en" href="{{ '/slides.html' | relative_url }}">Presentation Materials</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">実験プロジェクト</span>
+      <span class="lang-en">Projects</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="{{ '/3d-project.html' | relative_url }}">3D Project</a>
+        <a class="primary-nav__link lang-en" href="{{ '/3d-project.html' | relative_url }}">3D Project</a>
+      </li>
+    </ul>
+  </section>
 </nav>
