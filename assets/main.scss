@@ -1006,28 +1006,39 @@ mjx-container {
 mjx-container[display="true"] {
     max-width: var(--measure-max);
     margin: var(--space-3) auto !important;
-    text-align: center !important;
     display: block !important;
+    text-align: center !important;
+}
+
+mjx-container[display="true"] mjx-math {
+    display: inline-block;
+    margin-inline: auto;
 }
 
 mjx-container:not([display="true"]) {
-    display: inline !important;
-    vertical-align: baseline !important;
+    display: inline-flex !important;
+    align-items: baseline;
     margin: 0 0.1em !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
 }
 
 .MathJax_Display,
 .math-display {
     max-width: var(--measure-max);
     margin: var(--space-3) auto !important;
-    text-align: center !important;
     display: block !important;
+    text-align: center !important;
+}
+
+.MathJax_Display .MathJax,
+.math-display .MathJax {
+    display: inline-block !important;
+    margin-inline: auto;
 }
 
 .MathJax {
-    display: inline !important;
-    vertical-align: baseline !important;
+    display: inline-flex !important;
+    align-items: baseline;
 }
 
 @media (min-width: 880px) {
