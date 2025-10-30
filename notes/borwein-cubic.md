@@ -9,12 +9,20 @@ lang: ja
 
 ## 導入 / Overview
 Borwein cubic AGM[^Bor91]で導入された2種2項平均
+
 $$
     \begin{align}
         a_{n+1} &= \frac{a_n+2b_n}{3},& b_{n+1} &= \sqrt[3]{b_n \frac{a_n^2+a_nb_n+b_n^2}{3}} &&(0<b <a,\quad a_0 = a, b_0=b )
     \end{align}
 $$
-は共通の極限 $\mathrm{AG}_3(a,b)$ に収束し, Gaussの超幾何級数 $F\left(\frac13,\frac23,1;x\right)$ と $A_2$-格子上のテータ定数
+
+は共通の極限 $\mathrm{AG}_3(a,b)$ に収束し, Gaussの超幾何級数 $F\left(\frac13,\frac23,1;x\right)$ を用いて表示される:
+
+$$
+    \dfrac{a_0}{\mathrm{AG}_3(a_0,b_0)} = F\left(\frac13,\frac23,1;1-\frac{b_0^3}{a_0^3}\right) 
+$$
+更に, Jacobiの周期公式の類似として, $A_2$-格子上のテータ定数
+
 $$
     \begin{align}
         \theta_0(\tau) &= \sum_{\mu \in \mathbb{Z}[\omega]} q^{N(\mu)} = \sum_{m,n\in \mathbb{Z}} \left(e^{2\pi i \tau/3} \right)^{m^2-mn+n^2},\\
@@ -22,10 +30,13 @@ $$
         q &= e^{2\pi i \tau /3}, \quad N(\mu) = \mu \bar{\mu},
     \end{align}
 $$
-を用いて表示される:
+
+と超幾何級数の間の関係式も与えられている: $s = \dfrac{\theta_1(\tau)}{\theta_0(\tau)}$ に対して
+
 $$
-    \dfrac{a_0}{\mathrm{AG}_3(a_0,b_0)} = F\left(\frac13,\frac23,1;1-\frac{b_0^3}{a_0^3}\right) 
+    F\left(\frac13,\frac23,1;1-s^3\right) = \theta_0(\tau)
 $$
+
 
 <p class="lang-en measure">This notebook follows the degeneration of Siegel modular forms along boundary components via parametric theta kernels. The Jupyter sketch reproduces calculations across the Langlands boundary and visualises the collapse of level curves near the cusp.</p>
 

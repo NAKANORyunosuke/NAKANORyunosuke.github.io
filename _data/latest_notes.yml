@@ -1,15 +1,7 @@
-- title: "境界でのシーゲルモジュラー形式の挙動"
-  title_en: "Boundary Behaviour of Siegel Modular Forms"
-  date: "2025-09-24"
-  summary_ja: "三次元アーベル多様体上のシーゲルモジュラー形式について、テータ核の退化を追跡した計算ノート。簡易な Python 実装付き。"
-  summary_en: "Working note on tracking the degeneration of theta kernels for Siegel modular forms on 3D abelian varieties, with a compact Python prototype."
-  url: "/notes/siegel-boundary"
-  tags: ["research-note", "theta-functions"]
-
-- title: "Borwein cubic AGMの数値実験"
-  title_en: "Numerical experiments on Borwein cubic AGM"
-  date: "2025-10-31"
-  summary_ja: "Borwein cubic AGMとその拡張の数値計算"
-  summary_en: "Numerical calculations of Borwein cubic AGM and its extensions."
-  url: "/notes/borwein-cubic"
-  tags: ["research-note", "theta-functions"]
+# - title: "Borwein cubic AGMの数値実験"
+#   title_en: "Numerical experiments on Borwein cubic AGM"
+#   date: "2025-10-31"
+#   summary_ja: "Borwein cubic AGMとその拡張の数値計算"
+#   summary_en: "Numerical calculations of Borwein cubic AGM and its extensions."
+#   url: "/notes/borwein-cubic"
+#   tags: ["research-note", "theta-functions"]

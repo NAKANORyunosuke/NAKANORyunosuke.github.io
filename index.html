@@ -1,29 +1,61 @@
 ---
 layout: default
 title: トップページ
-description: "数学研究者兼プログラマ 中野竜之介のノート・研究・コードのハブ。"
+description: "研究員兼プログラマ 中野竜之介のノート・研究・コードのハブ。"
 lang: ja
 ---
 
 <section class="section" aria-labelledby="welcome-heading">
     <header class="stack">
         <span class="badge">
-            <span class="lang-ja">現在の焦点</span>
-            <span class="lang-en">Current Focus</span>
+            <span class="lang-ja">中野竜之介</span>
+            <span class="lang-en">NAKANO Ryunosuke</span>
         </span>
         <h1 id="welcome-heading">
-            <span class="lang-ja">思考の構造を共有する場所</span>
-            <span class="lang-en">A Space for Structured Thinking</span>
+            <span class="lang-ja">連絡先と窓口</span>
+            <span class="lang-en">Contact Channels</span>
         </h1>
         <p class="section__subtitle lang-ja">
-            研究ノート・証明断片・コードの更新を同じグリッドに載せ、研究の現在地を公開します。
+            連絡先一覧です。
         </p>
         <p class="section__subtitle lang-en">
-            Research notes, proof fragments, and code updates share one grid so progress and questions stay visible.
+            Reach out for collaborations, talks, or media requests through the channels below.
         </p>
+        <ul class="contact-list" role="list">
+            <li class="contact-list__item">
+                <p class="lang-ja contact-list__entry">
+                    <span class="contact-list__label">メール</span>
+                    <a href="mailto:nakano.ryunosuke.i3@elms.hokudai.ac.jp">nakano.ryunosuke.i3@elms.hokudai.ac.jp</a>
+                </p>
+                <p class="lang-en contact-list__entry">
+                    <span class="contact-list__label">Email</span>
+                    <a href="mailto:nakano.ryunosuke.i3@elms.hokudai.ac.jp">nakano.ryunosuke.i3@elms.hokudai.ac.jp</a>
+                </p>
+            </li>
+            <li class="contact-list__item">
+                <p class="lang-ja contact-list__entry">
+                    <span class="contact-list__label">Twitter</span>
+                    <a href="https://x.com/RNakano_theta">@RNakano_theta</a>
+                </p>
+                <p class="lang-en contact-list__entry">
+                    <span class="contact-list__label">Twitter</span>
+                    <a href="https://x.com/RNakano_theta">@RNakano_theta</a>
+                </p>
+            </li>
+            <li class="contact-list__item">
+                <p class="lang-ja contact-list__entry">
+                    <span class="contact-list__label">researchmap</span>
+                    <a href="https://researchmap.jp/NAKANO-R">NAKANO-R</a>
+                </p>
+                <p class="lang-en contact-list__entry">
+                    <span class="contact-list__label">researchmap</span>
+                    <a href="https://researchmap.jp/NAKANO-R">NAKANO-R</a>
+                </p>
+            </li>
+        </ul>
     </header>
 
-    <div class="grid-7">
+    <!-- <div class="grid-7">
         <div class="col-span-4 col-start-1 stack">
             <div class="stack">
                 <h2 class="section__title">
@@ -63,10 +95,10 @@ lang: ja
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
 </section>
 
-<section class="theme-index-panel section" data-theme-index>
+<!-- <section class="theme-index-panel section" data-theme-index>
     <div class="stack">
         <h2 class="section__title" data-toc-exclude>
             <span class="lang-ja">研究テーマ索引</span>
@@ -90,9 +122,9 @@ lang: ja
         </article>
         {% endfor %}
     </div>
-</section>
+</section> -->
 
-<section class="section" aria-labelledby="structure-heading">
+<!-- <section class="section" aria-labelledby="structure-heading">
     <div class="stack">
         <h2 id="structure-heading" class="section__title">
             <span class="lang-ja">ノートと研究の構造</span>
@@ -155,16 +187,14 @@ lang: ja
             </ul>
         </article>
     </div>
-</section>
+</section> -->
 
 <section class="section" aria-labelledby="engage-heading">
     <div class="stack">
         <h2 id="engage-heading" class="section__title">
-            <span class="lang-ja">共同研究・講演・メンタリング</span>
-            <span class="lang-en">Collaborations, Talks, Mentoring</span>
+            <span class="lang-ja">講演</span>
+            <span class="lang-en">Talks</span>
         </h2>
-        <p class="section__subtitle lang-ja">目的に応じた入口からご連絡ください。48時間以内に返信します。</p>
-        <p class="section__subtitle lang-en">Choose the entry point that fits your goal—responses within 48 hours.</p>
     </div>
     <div class="callout-grid">
         {% for channel in site.data.engagement_channels %}
