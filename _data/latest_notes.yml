@@ -5,3 +5,10 @@
 #   summary_en: "Numerical calculations of Borwein cubic AGM and its extensions."
 #   url: "/notes/borwein-cubic"
 #   tags: ["research-note", "theta-functions"]
+- title: "ライフゲーム"
+  title_en: "Game of Life"
+  date: "2025-11-01"
+  summary_ja: "ライフゲームを実装しました"
+  summary_en: "I have implemented Conway's Game of Life."
+  url: "/notes/life-game"
+  tags: ["life-game"]

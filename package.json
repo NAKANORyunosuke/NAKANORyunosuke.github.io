@@ -1,4 +1,4 @@
-﻿{
+{
 	"name": "nakanoryunosuke.github.io",
 	"version": "1.0.0",
 	"main": "index.js",
@@ -6,6 +6,7 @@
 		"array-union": "^2.1.0",
 		"async": "^3.2.6",
 		"braces": "^3.0.3",
+		"canvas": "^3.2.0",
 		"chokidar": "^4.0.3",
 		"commander": "^13.1.0",
 		"commondir": "^1.0.1",
@@ -67,8 +68,8 @@
 		"typescript": "^5.8.3"
 	},
 	"scripts": {
-        "build:ts": "tsc ts-src/lang-switch.ts --target es2016 --lib dom,es2016 --outDir assets/js --rootDir ts-src",
-        "watch:ts": "tsc --watch ts-src/lang-switch.ts --target es2016 --lib dom,es2016 --outDir assets/js --rootDir ts-src"
+		"build:ts": "tsc ts-src/lang-switch.ts --target es2016 --lib dom,es2016 --outDir assets/js --rootDir ts-src",
+		"watch:ts": "tsc --watch ts-src/lang-switch.ts --target es2016 --lib dom,es2016 --outDir assets/js --rootDir ts-src"
 	},
 	"repository": {
 		"type": "git",
@@ -83,8 +84,3 @@
 	"homepage": "https://github.com/nakanoryunosuke/nakanoryunosuke.github.io#readme",
 	"description": ""
 }
-
-
-
-
-

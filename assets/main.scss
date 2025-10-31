@@ -1186,3 +1186,8 @@ mjx-container:not([display="true"]) {
         scroll-behavior: auto !important;
     }
 }
+
+canvas {
+    border: 1px solid black;
+    background-color: white;
+}
