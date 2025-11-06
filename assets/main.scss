@@ -1105,7 +1105,7 @@ mjx-container:not([display="true"]) {
 
     .site-main {
         grid-column: 1 / -1;
-        order: 2;
+        order: 3;
     }
 
     .grid-7 {
@@ -1113,15 +1113,12 @@ mjx-container:not([display="true"]) {
     }
 
     .site-toc {
-        margin-inline-start: 0;
-        max-width: none;
-    }
-
-    .site-toc {
         grid-column: 1 / -1;
+        order: 2;
         position: relative;
         top: auto;
-        order: 3;
+        margin-inline-start: 0;
+        max-width: none;
         margin-top: 0;
     }
 }
