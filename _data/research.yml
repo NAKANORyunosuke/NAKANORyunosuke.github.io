@@ -1,0 +1,51 @@
+sections:
+    - id: peer_reviewed
+      title:
+          ja: "査読付き論文"
+          en: "Peer-reviewed Papers"
+      items: []
+      empty_message:
+          ja: "Coming soon..."
+          en: "Coming soon..."
+    - id: preprints
+      title:
+          ja: "プレプリント"
+          en: "Preprints"
+      items: []
+      empty_message:
+          ja: "Coming soon..."
+          en: "Coming soon..."
+    - id: talks
+      title:
+          ja: "口頭発表"
+          en: "Talks"
+      items:
+          - date:
+                ja: "2024年1月30日"
+                en: "30 January 2024"
+            description:
+                ja: '中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/11475">第30回北海道特殊関数セミナー：修士論文講演会</a>, 北海道大学, 2024年1月30日'
+                en: '中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/11475">第30回北海道特殊関数セミナー：修士論文講演会</a>, 北海道大学, 2024年1月30日'
+          - date:
+                ja: "2025年3月3日"
+                en: "3 March 2025"
+            description:
+                ja: '中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/ja/index.html">第21回数学総合若手研究集会〜数学の交叉点〜</a>, 北海道大学, 2025年3月3日'
+                en: '中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/ja/index.html">第21回数学総合若手研究集会〜数学の交叉点〜</a>, 北海道大学, 2025年3月3日'
+          - date:
+                ja: "2025年8月19日"
+                en: "19 August 2025"
+            description:
+                ja: '中野竜之介, "4項平均反復極限に潜む代数幾何学", <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a>, いこいの村はりま, 2025年8月19日'
+                en: '中野竜之介, "4項平均反復極限に潜む代数幾何学", <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a>, いこいの村はりま, 2025年8月19日'
+          - date:
+                ja: "2025年8月28日"
+                en: "28 August 2025"
+            description:
+                ja: '中野竜之介, "4種4項平均の反復極限定理の代数幾何学的考察"(招待講演), <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>, 北海道大学, 2025年8月28日'
+                en: '中野竜之介, "4種4項平均の反復極限定理の代数幾何学的考察"(招待講演), <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>, 北海道大学, 2025年8月28日'
+          - date:
+                ja: "2025年12月5日"
+                en: "5 December 2025"
+            description:
+                ja: '中野竜之介, "4種4項平均の反復極限定理のテータ定数を用いた導出 "(招待講演), <a href="https://sites.google.com/view/workshopinkanazawa/">セミナー・ワークショップ「幾何学における代数的・組み合わせ論的視点」</a> 金沢大学, 2025年12月5日'

@@ -1,0 +1,112 @@
+sections:
+  - id: education
+    title:
+      ja: "学歴"
+      en: "Education"
+    items:
+      - date:
+          ja: "1999年9月14日"
+          en: "September 14, 1999"
+        description:
+          ja: "愛媛県伊予郡松前町に生まれる"
+          en: "Born in Masaki Town, Iyo District, Ehime Prefecture, Japan"
+      - date:
+          ja: "2015年4月〜2018年3月"
+          en: "April 2015 - March 2018"
+        description:
+          ja: "愛媛県私立新田高等学校 特進コース"
+          en: "Nitta High School, Ehime Prefecture"
+      - date:
+          ja: "2018年4月〜2020年3月"
+          en: "April 2018 - March 2020"
+        description:
+          ja: "愛媛大学理学部数学科 学士課程"
+          en: "Undergraduate Program in Mathematics, Faculty of Science, Ehime University"
+      - date:
+          ja: "2020年4月〜2022年3月"
+          en: "April 2020 - March 2022"
+        description:
+          ja: "北海道大学理学部数学科 学士課程"
+          en: "Undergraduate Program in Mathematics, Faculty of Science, Hokkaido University"
+      - date:
+          ja: "2022年4月〜2024年3月"
+          en: "April 2022 - March 2024"
+        description:
+          ja: "北海道大学大学院理学研究院 数学専攻 修士課程（指導教員: 松本圭司）"
+          en: "Master's Course in Mathematics, Graduate School of Science, Hokkaido University (Supervisor: Professor MATSUMOTO Keiji)"
+      - date:
+          ja: "2024年4月〜現在"
+          en: "April 2024 - Present"
+        description:
+          ja: "北海道大学大学院理学研究院 数学専攻 博士課程（指導教員: 松本圭司）"
+          en: "Doctoral Course in Mathematics, Graduate School of Science, Hokkaido University (Supervisor: Professor MATSUMOTO Keiji)"
+  - id: employment
+    title:
+      ja: "職歴"
+      en: "Employment"
+    items:
+      - date:
+          ja: "2024年12月〜2025年3月"
+          en: "December 2024 - March 2025"
+        description:
+          ja: "理学研究院・先端生命科学研究院 Research Assistant"
+          en: "Research Assistant, Faculty of Science / Faculty of Advanced Life Science, Hokkaido University"
+      - date:
+          ja: "2025年2月〜現在"
+          en: "February 2025 - Present"
+        description:
+          ja: "株式会社en（業務委託: 道路可視化ツール向けAI開発 / Python）"
+          en: "en Co., Ltd. (contract): AI development for road-visualisation tools (Python)"
+      - date:
+          ja: "2025年3月〜現在"
+          en: "March 2025 - Present"
+        description:
+          ja: "数理・データサイエンス教育研究センター Research Assistant"
+          en: "Research Assistant, Center for Mathematical and Data Science Education and Research, Hokkaido University"
+      - date:
+          ja: "2025年4月〜現在"
+          en: "April 2025 - Present"
+        description:
+          ja: "北海道大学EXEX博士人材フェローシップ フェローシップ採用"
+          en: "Fellow, Hokkaido University EXEX Doctoral Fellowship Program"
+      - date:
+          ja: "2025年8月〜現在"
+          en: "August 2025 - Present"
+        description:
+          ja: "株式会社FONDO プログラマー"
+          en: "FONDO Inc., Programmer"
+        bullets:
+          ja:
+            - "Pythonを用いたデータ処理スクリプトの開発"
+            - "C#およびPythonによるサーバーサイド機能の実装"
+          en:
+            - "Developed data processing scripts using Python"
+            - "Implemented server-side functionality in C# and Python"
+  - id: teaching
+    title:
+      ja: "教育歴"
+      en: "Teaching"
+    items:
+      - date:
+          ja: "2024年10月〜2025年3月"
+          en: "October 2024 - March 2025"
+        description:
+          ja: "基礎数学演習A2 Teaching Assistant"
+          en: "Teaching Assistant, Exercises on Basic Mathematics A2, Department of Mathematics, Hokkaido University"
+  - id: service
+    title:
+      ja: "幹事・世話人"
+      en: "Organizer / Committee Service"
+    items:
+      - date:
+          ja: "2024年4月〜2025年3月"
+          en: "April 2024 - March 2025"
+        description:
+          ja: "第21回数学総合若手研究集会 in 北海道大学 世話人"
+          en: "Co-organizer, The 21st Spring Conference for Young Mathematicians, Hokkaido University, Sapporo, Japan"
+      - date:
+          ja: "2025年4月〜2026年3月"
+          en: "April 2025 - March 2026"
+        description:
+          ja: "第22回数学総合若手研究集会 in 北海道大学 世話人"
+          en: "Co-organizer, The 22nd Spring Conference for Young Mathematicians, Hokkaido University, Sapporo, Japan"

@@ -8,68 +8,70 @@ og_description: "査読付き論文, プレプリント, 口頭発表の一覧�
 ---
 
 <section class="hero glass-panel">
-  <div class="hero__grid">
-    <div class="hero__text">
-      <span class="hero__eyebrow lang-ja">研究成果</span>
-      <span class="hero__eyebrow lang-en">Research</span>
-      <h1 class="lang-ja">論文および講演</h1>
-      <h1 class="lang-en">Publications and Talks</h1>
-      <p class="lang-ja">論文・プレプリント・学会や研究集会での発表履歴をまとめています。</p>
-      <p class="lang-en">A catalogue of publications, preprints, and recent talks.</p>
+    <div class="hero__grid">
+        <div class="hero__text">
+            <span class="hero__eyebrow lang-ja">研究成果</span>
+            <span class="hero__eyebrow lang-en">Research</span>
+            <h1 class="lang-ja">論文および講演</h1>
+            <h1 class="lang-en">Publications and Talks</h1>
+            <p class="lang-ja">論文・プレプリント・学会や研究集会での発表履歴をまとめています。</p>
+            <p class="lang-en">A catalogue of publications, preprints, and recent talks.</p>
+        </div>
+        <figure class="hero__figure">
+            <img src="assets/img/ehime.JPG" alt="Courtyard of Ehime University" class="hero__image">
+            <figcaption class="hero__caption lang-ja">愛媛大学理学部の中庭</figcaption>
+            <figcaption class="hero__caption lang-en">Courtyard of the Faculty of Science at Ehime University
+            </figcaption>
+        </figure>
     </div>
-    <figure class="hero__figure">
-      <img src="assets/img/ehime.JPG" alt="Courtyard of Ehime University" class="hero__image">
-      <figcaption class="hero__caption lang-ja">愛媛大学理学部の中庭</figcaption>
-      <figcaption class="hero__caption lang-en">Courtyard of the Faculty of Science at Ehime University</figcaption>
-    </figure>
-  </div>
 </section>
 
 <section class="section-card glass-panel">
-  <div class="section-heading">
-    <h2 class="lang-ja">一覧</h2>
-    <h2 class="lang-en">Overview</h2>
-    <p class="section-description lang-ja">最新の成果から順に掲載しています。論文は公開次第追加します。</p>
-    <p class="section-description lang-en">Entries are listed chronologically. Publications will be added as they become available.</p>
+    <div class="section-heading">
+        <h2 class="lang-ja">一覧</h2>
+        <h2 class="lang-en">Overview</h2>
+        <p class="section-description lang-ja">最新の成果から順に掲載しています。論文は公開次第追加します。</p>
+        <p class="section-description lang-en">Entries are listed chronologically. Publications will be added as they
+            become
+            available.</p>
+    </div>
+  {% assign research_sections = site.data.research.sections %}
+  <div class="lang-ja">
+    {% for section in research_sections %}
+    <div class="highlight-card">
+      <h3>{{ section.title.ja }}</h3>
+      {% assign item_count = section.items | size %}
+      {% if item_count > 0 %}
+      <ul class="timeline">
+        {% for item in section.items %}
+        <li class="timeline-item"><span class="timeline-date">{{ item.date.ja }}</span>
+          <div class="timeline-desc">{{ item.description.ja }}</div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% elsif section.empty_message %}
+      <p class="section-description">{{ section.empty_message.ja }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
   </div>
-  <div class="dual-column">
-    <div class="lang-ja">
-      <div class="highlight-card">
-        <h3>査読付き論文</h3>
-        <p class="section-description">Coming soon...</p>
-      </div>
-      <div class="highlight-card">
-        <h3>プレプリント</h3>
-        <p class="section-description">Coming soon...</p>
-      </div>
-      <div class="highlight-card">
-        <h3>口頭発表</h3>
-        <ul class="timeline">
-          <li class="timeline-item"><span class="timeline-date">2024年1月30日</span><div class="timeline-desc">中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/11475">第30回北海道特殊関数セミナー：修士論文講演会</a>, 北海道大学, 2024年1月30日</div></li>
-          <li class="timeline-item"><span class="timeline-date">2025年3月3日</span><div class="timeline-desc">中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/ja/index.html">第21回数学総合若手研究集会〜数学の交叉点〜</a>, 北海道大学, 2025年3月3日</div></li>
-          <li class="timeline-item"><span class="timeline-date">2025年8月19日</span><div class="timeline-desc">中野竜之介, "4項平均反復極限に潜む代数幾何学", <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a>, いこいの村はりま, 2025年8月19日</div></li>
-          <li class="timeline-item"><span class="timeline-date">2025年8月28日</span><div class="timeline-desc">中野竜之介, "4種4項平均の反復極限定理の代数幾何学的考察"(招待講演), <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>, 北海道大学, 2025年8月28日</div></li>
-        </ul>
-      </div>
+  <div class="lang-en">
+    {% for section in research_sections %}
+    <div class="highlight-card">
+      <h3>{{ section.title.en }}</h3>
+      {% assign item_count = section.items | size %}
+      {% if item_count > 0 %}
+      <ul class="timeline">
+        {% for item in section.items %}
+        <li class="timeline-item"><span class="timeline-date">{{ item.date.en }}</span>
+          <div class="timeline-desc">{{ item.description.en }}</div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% elsif section.empty_message %}
+      <p class="section-description">{{ section.empty_message.en }}</p>
+      {% endif %}
     </div>
-    <div class="lang-en">
-      <div class="highlight-card">
-        <h3>Peer-reviewed Papers</h3>
-        <p class="section-description">Coming soon...</p>
-      </div>
-      <div class="highlight-card">
-        <h3>Preprints</h3>
-        <p class="section-description">Coming soon...</p>
-      </div>
-      <div class="highlight-card">
-        <h3>Talks</h3>
-        <ul class="timeline">
-          <li class="timeline-item"><span class="timeline-date">30 January 2024</span><div class="timeline-desc">Ryunosuke Nakano, "Period integrals of a quadruple cover of the projective line branched at six points", <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/11475">30th Hokkaido Seminar on Special Functions: Master's Thesis Session</a>, Hokkaido University, 30 January 2024</div></li>
-          <li class="timeline-item"><span class="timeline-date">3 March 2025</span><div class="timeline-desc">Ryunosuke Nakano, "Period integrals of a quadruple cover of the projective line branched at six points", <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/en/index.html">21st Mathematics Conference for Young Researchers - Mathematical Crossroads</a>, Hokkaido University, 3 March 2025</div></li>
-          <li class="timeline-item"><span class="timeline-date">19 August 2025</span><div class="timeline-desc">Ryunosuke Nakano, "Algebro-geometric aspects of four-term mean iteration limits", <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">Summer Seminar of Functional Equation Theory 2025</a>, Ikoi no Mura Harima, 19 August 2025</div></li>
-          <li class="timeline-item"><span class="timeline-date">28 August 2025</span><div class="timeline-desc">Ryunosuke Nakano, "Algebro-geometric study on limit theorems for four types of four-term means" (invited talk), <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">34th Hokkaido Seminar on Special Functions</a>, Hokkaido University, 28 August 2025</div></li>
-        </ul>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </section>
