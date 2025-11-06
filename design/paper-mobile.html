@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Paper IA Mobile Sketch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../assets/main.css">
+  <style>
+    body {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="site-header__brand" href="#">
+        <span>
+          <span class="site-header__name">論文レイアウト</span>
+        </span>
+        <span>
+          <span class="site-header__descriptor">Mobile</span>
+        </span>
+      </a>
+      <div class="site-header__controls">
+        <button class="menu-btn" type="button">Menu</button>
+      </div>
+    </header>
+    <div class="site-body">
+      <aside class="site-nav-col">
+        <nav class="primary-nav is-open">
+          <section class="primary-nav__section">
+            <span class="primary-nav__title">論文</span>
+            <ul class="primary-nav__list">
+              <li><a class="primary-nav__link" href="#">査読論文</a></li>
+              <li><a class="primary-nav__link" href="#">プレプリント</a></li>
+            </ul>
+          </section>
+        </nav>
+      </aside>
+      <main class="site-main">
+        <article class="section">
+          <h2 class="section__title">査読論文</h2>
+          <div class="stack" data-toc-ignore>
+            <div>
+              <strong>2025</strong><br>
+              Degenerations of Theta Maps<br>
+              <a href="#">PDF</a>
+            </div>
+            <div>
+              <strong>2024</strong><br>
+              Four-fold Mean Iterations<br>
+              <a href="#">arXiv</a>
+            </div>
+          </div>
+        </article>
+        <article class="section">
+          <h2 class="section__title">補助資料</h2>
+          <div class="stack" data-toc-ignore>
+            <div class="section">
+              <h3 data-toc-exclude>ノート</h3>
+              <ul>
+                <li>Siegel boundary</li>
+                <li>Hypergeometric series</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h3 data-toc-exclude>コード</h3>
+              <ul>
+                <li>Rust sampling API</li>
+                <li>Visualization scripts</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </main>
+      <aside class="site-toc">
+        <div class="site-toc__title">Outline</div>
+        <nav>
+          <ul class="site-toc__list">
+            <li class="site-toc__item"><a class="site-toc__link" href="#">査読論文</a></li>
+            <li class="site-toc__item"><a class="site-toc__link" href="#">補助資料</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+npx tsc --outDir assets --rootDir ts-src & bundle exec jekyll clean & bundle exec jekyll serve

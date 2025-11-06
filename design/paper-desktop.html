@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Paper IA Desktop Sketch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../assets/main.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="site-header__brand" href="#">
+        <span>
+          <span class="site-header__name">中野竜之介</span>
+        </span>
+        <span>
+          <span class="site-header__descriptor">Paper-first IA</span>
+        </span>
+      </a>
+      <div class="site-header__controls">
+        <div class="lang-switch">
+          <label for="lang-select-paper-d">Language</label>
+          <select id="lang-select-paper-d">
+            <option>日本語</option>
+            <option>English</option>
+          </select>
+        </div>
+      </div>
+    </header>
+    <div class="site-body">
+      <aside class="site-nav-col">
+        <nav class="primary-nav is-open">
+          <section class="primary-nav__section">
+            <span class="primary-nav__title">論文</span>
+            <ul class="primary-nav__list">
+              <li><a class="primary-nav__link" href="#">査読論文</a></li>
+              <li><a class="primary-nav__link" href="#">プレプリント</a></li>
+              <li><a class="primary-nav__link" href="#">引用データ</a></li>
+            </ul>
+          </section>
+          <section class="primary-nav__section">
+            <span class="primary-nav__title">補助資料</span>
+            <ul class="primary-nav__list">
+              <li><a class="primary-nav__link" href="#">ノート索引</a></li>
+              <li><a class="primary-nav__link" href="#">コードリポジトリ</a></li>
+            </ul>
+          </section>
+        </nav>
+      </aside>
+      <main class="site-main">
+        <article class="section">
+          <h1 class="section__title">査読論文ダイジェスト</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>年</th>
+                <th>タイトル</th>
+                <th>ジャーナル</th>
+                <th>リンク</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2025</td>
+                <td>Degenerations of Theta Maps</td>
+                <td>Journal of Number Theory</td>
+                <td><a href="#">PDF</a></td>
+              </tr>
+              <tr>
+                <td>2024</td>
+                <td>Four-fold Mean Iterations</td>
+                <td>Advances in Mathematics</td>
+                <td><a href="#">arXiv</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="section">
+          <h2 class="section__title">補注と補助資料</h2>
+          <div class="dual-column" data-toc-ignore>
+            <div class="stack">
+              <h3 data-toc-exclude>ノート</h3>
+              <ul>
+                <li>Siegel Boundary notebook</li>
+                <li>Hypergeometric asymptotics log</li>
+              </ul>
+            </div>
+            <div class="stack">
+              <h3 data-toc-exclude>コード</h3>
+              <ul>
+                <li>Rust kernel sampling API</li>
+                <li>Python visual analytics</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </main>
+      <aside class="site-toc">
+        <div class="site-toc__title">Outline</div>
+        <nav>
+          <ul class="site-toc__list">
+            <li class="site-toc__item"><a class="site-toc__link" href="#">査読論文ダイジェスト</a></li>
+            <li class="site-toc__item"><a class="site-toc__link" href="#">補注と補助資料</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
