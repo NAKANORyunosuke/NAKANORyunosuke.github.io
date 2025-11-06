@@ -49,6 +49,11 @@ permalink: /portfolio/
         <div class="portfolio-meta"><span class="lang-ja">更新日: {{ p.date | date: "%Y/%m/%d" }}</span><span class="lang-en">Last updated: {{ p.date | date: "%Y/%m/%d" }}</span></div>
         {%- endif -%}
       </div>
+      <div class="portfolio-footer">
+        <span class="portfolio-cta lang-ja">詳しく見る</span>
+        <span class="portfolio-cta lang-en">View details</span>
+        <span class="portfolio-cta-icon" aria-hidden="true">&rarr;</span>
+      </div>
     </a>
     {%- endfor -%}
   </div>

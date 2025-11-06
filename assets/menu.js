@@ -21,22 +21,22 @@ function updateMenuButton(button, isOpen) {
 function toggleMenu() {
     const nav = document.getElementById('primary-nav');
     const button = document.querySelector('.menu-btn');
-    if (!nav || !(button instanceof HTMLButtonElement))
+    if (!nav || !button)
         return;
     const isOpen = nav.classList.toggle('is-open');
     updateMenuButton(button, isOpen);
 }
 document.addEventListener('preferredlanguagechange', () => {
     const button = document.querySelector('.menu-btn');
-    if (!(button instanceof HTMLButtonElement))
+    if (!button)
         return;
     const nav = document.getElementById('primary-nav');
-    const isOpen = !!(nav === null || nav === void 0 ? void 0 : nav.classList.contains('is-open'));
+    const isOpen = Boolean(nav === null || nav === void 0 ? void 0 : nav.classList.contains('is-open'));
     updateMenuButton(button, isOpen);
 });
 document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector('.menu-btn');
-    if (!(button instanceof HTMLButtonElement))
+    if (!button)
         return;
     const nav = document.getElementById('primary-nav');
     if (!nav)
