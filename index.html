@@ -5,6 +5,7 @@ description: "研究員兼プログラマ 中野竜之介のノート・研究�
 lang: ja
 ---
 
+{% if site.data.research_themes.size > 0 %}
 <div class="stack">
     {% for theme in site.data.research_themes %}
     <article class="section reveal-on-scroll">
@@ -52,6 +53,7 @@ lang: ja
     </article>
     {% endfor %}
 </div>
+{% endif %}
 
 <section class="section reveal-on-scroll" aria-labelledby="engage-heading">
     <h2 id="engage-heading" class="section__title">
