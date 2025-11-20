@@ -4,7 +4,7 @@ description: "北海道大学大学院 理学院 数学専攻博士後期課程 
 keywords: "中野竜之介,中野,竜之介, NAKANO Ryunosuke,NAKANO, Ryunosuke, 北海道大学, 北海道, 数学, 超幾何級数, テータ関数, 周期写像"
 mathjax: true
 
-# ─── 多言語対応／著者情報 ───
+# ─── 多言語対応/著者情報 ───
 author:
   name: "中野竜之介"
   en_name: "NAKANO Ryunosuke"
@@ -16,11 +16,11 @@ author:
     - "https://x.com/RNakano_theta"
     - "https://researchmap.jp/NAKANO-R"
 
-# ─── サイト URL／ベースパス ───
+# ─── サイト URL/ベースパス ───
 url: "https://nakanoryunosuke.github.io"
 baseurl: ""
 
-# ─── SNS／認証キーなどのオプション変数 ───
+# ─── SNS/認証キーなどのオプション変数 ───
 twitter: "@RNakano_theta"
 google_verify: "VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE"
 google_analytics: G-1QXJERSDWQ
