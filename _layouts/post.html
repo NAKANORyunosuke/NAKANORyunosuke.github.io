@@ -2,13 +2,56 @@
 layout: default
 ---
 
-<small>{{ page.date | date: "%-d %B %Y" }}</small>
-<h1>{{ page.title }}</h1>
-
-<p class="view">by {{ page.author | default: site.author }}</p>
-
-{{content}}
-
-{% if page.tags %}
-  <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
+{% if site.adsense_client %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense_client }}"
+  crossorigin="anonymous"></script>
 {% endif %}
+
+<article class="section stack post">
+  <header class="post__header stack">
+    <p class="post__eyebrow">
+      <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+      {% if page.categories and page.categories.size > 0 %}
+      <span class="inline-cluster">
+        {% for category in page.categories %}
+        <span class="badge">{{ category }}</span>
+        {% endfor %}
+      </span>
+      {% endif %}
+    </p>
+    <h1 class="section__title">
+      <span class="lang-ja">{{ page.title_ja | default: page.title }}</span>
+      <span class="lang-en">{{ page.title }}</span>
+    </h1>
+    {% if page.description or page.description_ja %}
+    <p class="section__subtitle">
+      <span class="lang-ja">{{ page.description_ja | default: page.description }}</span>
+      <span class="lang-en">{{ page.description | default: page.description_ja }}</span>
+    </p>
+    {% endif %}
+    {% include adsense.html slot=page.adsense_slot position="header" %}
+  </header>
+
+  <div class="post__content content-area">
+    {{ content }}
+  </div>
+
+  <div class="post__ads">
+    {% include adsense.html slot=page.adsense_slot_mid position="mid-article" %}
+  </div>
+
+  <footer class="post__footer">
+    <div class="post__meta">
+      <div>
+        <strong>Author:</strong> {{ page.author | default: site.author.name | default: site.title }}
+      </div>
+      {% if page.tags %}
+      <div class="inline-cluster">
+        {% for tag in page.tags %}
+        <span class="badge">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </footer>
+</article>

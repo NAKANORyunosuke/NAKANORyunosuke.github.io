@@ -126,9 +126,17 @@
 
     <footer class="site-footer">
       <div class="site-footer__links">
-        <a href="{{ '/privacy-policy.html' | relative_url }}">
+        <a href="{{ '/privacy-policy/' | relative_url }}">
           <span class="lang-ja">プライバシーポリシー</span>
           <span class="lang-en">Privacy Policy</span>
+        </a>
+        <a href="{{ '/disclaimer/' | relative_url }}">
+          <span class="lang-ja">免責事項</span>
+          <span class="lang-en">Disclaimer</span>
+        </a>
+        <a href="{{ '/contact/' | relative_url }}">
+          <span class="lang-ja">お問い合わせ</span>
+          <span class="lang-en">Contact</span>
         </a>
       </div>
       <div>
@@ -142,25 +150,9 @@
   {% unless cache_bust %}
   {% assign cache_bust = site.time | date: '%s' %}
   {% endunless %}
-  <script src="{{ '/assets/js/lang-switch.js' | relative_url }}?v={{ cache_bust }}"></script>
-  <script src="{{ '/assets/menu.js' | relative_url }}" defer></script>
-  <script src="{{ '/assets/js/animations.js' | relative_url }}?v={{ cache_bust }}" defer></script>
+  <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ cache_bust }}" defer></script>
   <script src="{{ '/assets/js/mermaid-panzoom.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/toc.js' | relative_url }}?v={{ cache_bust }}" defer></script>
-  <script>
-    const d = new Date(document.lastModified);
-    const z2 = (n) => String(n).padStart(2, '0');
-    const yyyy = d.getFullYear();
-    const mm = z2(d.getMonth() + 1);
-    const dd = z2(d.getDate());
-    const hh = z2(d.getHours());
-    const mi = z2(d.getMinutes());
-    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
-    const lastJa = document.getElementById('last-updated-ja');
-    const lastEn = document.getElementById('last-updated-en');
-    if (lastJa) lastJa.textContent = formatted;
-    if (lastEn) lastEn.textContent = formatted;
-  </script>
 </body>
 
 </html>

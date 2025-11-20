@@ -1,14 +1,44 @@
 ---
 layout: default
-title: 境界でのシーゲルモジュラー形式の挙動
-description: "Siegel modular forms near the toroidal boundary; computational notebook."
+title: Borwein cubic AGM
+description: "Borwein cubic AGM; computational notebook."
 lang: ja
 ---
 
-# <span class="lang-ja">境界でのシーゲルモジュラー形式の挙動</span><span class="lang-en">Boundary Behaviour of Siegel Modular Forms</span>
+# <span class="lang-ja">Borwein cubic AGMの数値実験</span><span class="lang-en">Numerical experiments on Borwein cubic AGM</span>
 
 ## 導入 / Overview
-境界成分に沿うシーゲルモジュラー形式の退化を、テータ核のパラメトリック表現で追跡したノートです。Langlands 境界を跨ぐ計算を Jupyter で再現し、境界付近での等温線の崩れを図示しました。  
+Borwein cubic AGM[^Bor91]で導入された2種2項平均
+
+$$
+    \begin{aligned}
+        a_{n+1} &= \frac{a_n+2b_n}{3},& b_{n+1} &= \sqrt[3]{b_n \frac{a_n^2+a_nb_n+b_n^2}{3}} &&(0<b <a,\quad a_0 = a, b_0=b )
+    \end{aligned}
+$$
+
+は共通の極限 $\mathrm{AG}_3(a,b)$ に収束し, Gaussの超幾何級数 $F\left(\frac13,\frac23,1;x\right)$ を用いて表示される:
+
+$$
+    \dfrac{a_0}{\mathrm{AG}_3(a_0,b_0)} = F\left(\frac13,\frac23,1;1-\frac{b_0^3}{a_0^3}\right) 
+$$
+
+更に, Jacobiの周期公式の類似として, $A_2$-格子上のテータ定数
+
+$$
+    \begin{aligned}
+        \theta_0(\tau) &= \sum_{\mu \in \mathbb{Z}[\omega]} q^{N(\mu)} = \sum_{m,n\in \mathbb{Z}} \left(e^{2\pi i \tau/3} \right)^{m^2-mn+n^2},\\
+        \theta_1(\tau) &= \sum_{\mu \in \mathbb{Z}[\omega]} e^{2\pi i (m+n)/3}q^{N(\mu)} = \sum_{m,n\in \mathbb{Z}} e^{2\pi i (m+n)/3} \left(e^{2\pi i \tau/3} \right)^{m^2-mn+n^2},\\
+        q &= e^{2\pi i \tau /3}, \quad N(\mu) = \mu \bar{\mu},
+    \end{aligned}
+$$
+
+と超幾何級数の間の関係式も与えられている: $s = \dfrac{\theta_1(\tau)}{\theta_0(\tau)}$ に対して
+
+$$
+    F\left(\frac13,\frac23,1;1-s^3\right) = \theta_0(\tau)
+$$
+
+
 <p class="lang-en measure">This notebook follows the degeneration of Siegel modular forms along boundary components via parametric theta kernels. The Jupyter sketch reproduces calculations across the Langlands boundary and visualises the collapse of level curves near the cusp.</p>
 
 ## コア計算 / Core Computations
@@ -37,4 +67,6 @@ def theta_kernel(tau, z, n_terms=12):
 4. <span class="lang-en">Sync comparisons with the meromorphic kernel implementation in Rust.</span>
 
 <p class="lang-ja">議論やフィードバックは <a href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a> まで。</p>
+[^Bor91]: J. M. Borwein and P. B. Borwein, "A CUBIC COUNTERPART OF JACOBI'S IDENTITY AND THE AGM" *AMERICAN MATHEMATICAL SOCIETY*, 1991.
+
 <p class="lang-en">Feedback and discussion: <a href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a>.</p>

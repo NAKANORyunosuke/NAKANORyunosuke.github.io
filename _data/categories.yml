@@ -1,0 +1,23 @@
+- id: math
+  name: Math Notes
+  description: Complex analysis, modular forms, and period maps.
+
+- id: geometry
+  name: Geometry
+  description: Birational geometry, surfaces, and moduli considerations.
+
+- id: integrable
+  name: Integrable Systems
+  description: Painleve equations, tau-functions, and asymptotics.
+
+- id: programming
+  name: Programming
+  description: Automation and performance work to support research.
+
+- id: tooling
+  name: Tooling
+  description: Reproducibility, visualization, and documentation workflows.
+
+- id: frontend
+  name: Frontend
+  description: Interfaces to present research outputs accessibly.

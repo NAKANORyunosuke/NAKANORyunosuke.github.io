@@ -1,38 +1,53 @@
 ---
 layout: default
-title: ノート
-description: "数学とプログラミングに関する技術ノート"
-lang: ja
+title: Notes
+description: "Research and development notes."
+permalink: /notes/
 ---
 
-<section class="section glass-panel stack">
-    <div class="section-heading">
-        <h1 class="lang-ja">ノート</h1>
-        <h1 class="lang-en">Notes</h1>
-        <p class="section-description lang-ja">数学とプログラミングに関する技術的なメモと解説。</p>
-        <p class="section-description lang-en">Technical notes on mathematics and programming.</p>
-    </div>
+<section class="section stack">
+  <div class="section-heading">
+    <h1>
+      <span class="lang-ja">ノート</span>
+      <span class="lang-en">Notes</span>
+    </h1>
+    <p class="section__subtitle">
+      <span class="lang-ja">研究アップデート、ツールチェーン改善、再現性チェックリスト。</span>
+      <span class="lang-en">Research updates, toolchain improvements, and reproducibility checklists.</span>
+    </p>
+  </div>
 
-    <div class="card-grid">
-        {% for note in site.data.latest_notes %}
-        <a href="{{ note.url | relative_url }}" class="portfolio-card">
-            <div class="portfolio-body">
-                <h2 class="portfolio-title">
-                    <span class="lang-ja">{{ note.title }}</span>
-                    <span class="lang-en">{{ note.title_en }}</span>
-                </h2>
-                <p class="portfolio-summary">
-                    <span class="lang-ja">{{ note.summary_ja }}</span>
-                    <span class="lang-en">{{ note.summary_en }}</span>
-                </p>
-                <div class="portfolio-meta">
-                    <span>{{ note.date | date: "%Y-%m-%d" }}</span>
-                    {% for tag in note.tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-            </div>
+  <div class="note-list">
+    {% assign posts_sorted = site.posts | sort: 'date' | reverse %}
+    {% for post in posts_sorted %}
+    <article class="note-card">
+      <div class="note-card__meta">
+        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+        {% if post.categories and post.categories.size > 0 %}
+        <span class="inline-cluster">
+          {% for category in post.categories %}
+          <span class="badge">{{ category }}</span>
+          {% endfor %}
+        </span>
+        {% endif %}
+      </div>
+      <h2 class="note-card__title">
+        <a href="{{ post.url | relative_url }}">
+          <span class="lang-ja">{{ post.title_ja | default: post.title }}</span>
+          <span class="lang-en">{{ post.title }}</span>
         </a>
-        {% endfor %}
-    </div>
+      </h2>
+      {% if post.description or post.description_ja %}
+      <p class="note-card__summary">
+        <span class="lang-ja">{{ post.description_ja | default: post.description }}</span>
+        <span class="lang-en">{{ post.description | default: post.description_ja }}</span>
+      </p>
+      {% endif %}
+      <a class="note-card__cta" href="{{ post.url | relative_url }}">
+        <span class="lang-ja">読む</span>
+        <span class="lang-en">Read</span>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
 </section>

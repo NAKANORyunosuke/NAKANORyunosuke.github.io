@@ -64,12 +64,13 @@
 		"universalify": "^2.0.1",
 		"vite": "^6.3.5"
 	},
-	"devDependencies": {
+ "devDependencies": {
 		"typescript": "^5.8.3"
 	},
 	"scripts": {
-		"build:ts": "tsc ts-src/lang-switch.ts --target es2016 --lib dom,es2016 --outDir assets/js --rootDir ts-src",
-		"watch:ts": "tsc --watch ts-src/lang-switch.ts --target es2016 --lib dom,es2016 --outDir assets/js --rootDir ts-src"
+		"build": "npm run build:ts",
+		"build:ts": "esbuild src/ts/main.ts --bundle --format=iife --target=es2018 --sourcemap --outfile=assets/js/main.js",
+		"watch:ts": "esbuild src/ts/main.ts --bundle --format=iife --target=es2018 --sourcemap --outfile=assets/js/main.js --watch"
 	},
 	"repository": {
 		"type": "git",

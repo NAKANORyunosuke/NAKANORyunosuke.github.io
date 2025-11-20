@@ -7,18 +7,35 @@
 <link rel="shortcut icon" type="image/x-icon" href="{{ '/assets/img/favicon.jpg' | relative_url }}">
 <link rel="icon" href="{{ '/assets/img/favicon.jpg' | relative_url }}" type="image/x-icon">
 <link rel="apple-touch-icon" href="{{ '/assets/img/favicon.jpg' | relative_url }}">
-<script>
-    window.MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']],
-            displayAlign: 'center',
-            displayIndent: '0em',
-            processEscapes: true
-        },
-        svg: { fontCache: 'global' }
-    };
+
+<!-- KaTeX -->
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer>
+  function renderKatex() {
+    if (typeof renderMathInElement !== 'function') return;
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+      ],
+      throwOnError: false,
+      strict: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'code', 'pre'],
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderKatex);
+  window.addEventListener('load', renderKatex);
+  if (document.readyState !== 'loading') {
+    renderKatex();
+  }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
 
 <!-- end custom head snippets -->
