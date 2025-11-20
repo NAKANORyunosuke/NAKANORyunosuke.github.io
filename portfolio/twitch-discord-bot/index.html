@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+
+<head>
+  <!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Twitchサブスク連携Discord Bot | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Twitchサブスク連携Discord Bot" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="プロジェクト概要 Twitchのサブスク限定Discordサーバー向けに, サブスク認証とロール/チャンネル管理を全自動化. 視聴者は /link コマンドからOAuth認可を行うだけでロール付与が完了し, EventSub(Webhook)により再サブや解約も即時反映される. 目的: 手動によるサブスク確認・ロール付与をゼロにし, 運用負荷とミスを排除すること 成果: サブスクTier別ロール/チャンネル自動整備, 再サブ検知・解約検知, 月次再リンクDMと未解決再送, 参加時の自動DM, HTTPS対応までを実現 実装内容 /link スラッシュコマンドで認可URLを生成し, OAuth完了後にTierロールを自動付与 FastAPIエンドポイント GET /twitch_callback でトークン交換とリンク保存 POST /twitch_eventsub で channel.subscribe / channel.subscription.message / channel.subscription.end を処理 APSchedulerで月初リマインドと7日後の未解決再送を自動化 サーバー参加時の未リンク者へ自動DMを送信し, 連携を促す サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し, アクセス権を管理 Windows Server上でUvicornをポート8000で起動し, NginxでTLS終端したリバースプロキシ構成を実現 インフラ構成 Discord BotとFastAPIを同一プロセス内で稼働し, Uvicornを別スレッドで起動 NginxがHTTPS(443)を受け持ち, /twitch_callback と /twitch_eventsub をUvicornへプロキシ win-acmeによるLet’s Encrypt証明書を自動更新し, Nginxに適用 flowchart LR C[Client] –&gt;|HTTPS 443| N[“Nginx (TLS終端)”] N –&gt;|/twitch_callback| U[“Uvicorn :8000 (FastAPI)”] N –&gt;|/twitch_eventsub| U U –&gt; F[“FastAPIOAuth Callback / EventSub”] N –&gt;|/| W[“管理画面”] subgraph Host N U F W end N -.付与.-&gt; H1[X-Forwarded-Proto] N -.付与.-&gt; H2[X-Forwarded-For] N -.付与.-&gt; H3[Host] %%{init: { “flowchart”: { “htmlLabels”: false, “useMaxWidth”: true, “nodeSpacing”: 25, “rankSpacing”: 35, “wrap”: true }, “themeVariables”: { “fontFamily”: “Noto Sans JP, Meiryo, Arial, sans-serif”, “fontSize”: “16px” } }}%% flowchart TD subgraph Layer1[“インフラ”] WS[“Windows Server”] Nginx[“Nginx(Reverse Proxy＋SSL)”] Uvicorn[“Uvicorn(FastAPI 実行)”] end subgraph Layer2[“FastAPI”] CB[/ GET /twitch_callback /] ES[/ POST /twitch_eventsub /] VERIFY[“アクセストークン検証サブスク確認”] end subgraph Layer3[“Twitch API”] AUTH[“OAuth2 認証”] SUBS[“サブスク情報取得”] end subgraph Layer4[“Storage (venv JSON)”] TOKENS[“token.json”] USERS[“linked_users.json”] end subgraph Layer5[“Bot (py-cord)”] CMD[“スラッシュコマンド処理”] ROLE_OPS[“ロール付与・剥奪”] end subgraph Layer6[“Discord サーバー”] U[ユーザー] SC[/Slash Command/] SUBROLE[“@Subscriber ロール”] end %% フロー U –&gt;|/link 実行| SC –&gt; CMD CMD –&gt;|認証URL生成| AUTH AUTH –&gt; CB ES –&gt; VERIFY CB –&gt; VERIFY –&gt; SUBS VERIFY –&gt; USERS VERIFY –&gt; ROLE_OPS –&gt; SUBROLE CMD –&gt; USERS FastAPI –&gt; TOKENS WS –&gt; Nginx –&gt; Uvicorn –&gt; CB Nginx –&gt; Uvicorn –&gt; ES 運用とセキュリティ HSTS・HTTPSリダイレクトを導入して安全なOAuthフローを提供 不正アクセス対策としてアクセス制御とログ監視を実施 GitHub: NAKANORyunosuke/NeiBot" />
+<meta property="og:description" content="プロジェクト概要 Twitchのサブスク限定Discordサーバー向けに, サブスク認証とロール/チャンネル管理を全自動化. 視聴者は /link コマンドからOAuth認可を行うだけでロール付与が完了し, EventSub(Webhook)により再サブや解約も即時反映される. 目的: 手動によるサブスク確認・ロール付与をゼロにし, 運用負荷とミスを排除すること 成果: サブスクTier別ロール/チャンネル自動整備, 再サブ検知・解約検知, 月次再リンクDMと未解決再送, 参加時の自動DM, HTTPS対応までを実現 実装内容 /link スラッシュコマンドで認可URLを生成し, OAuth完了後にTierロールを自動付与 FastAPIエンドポイント GET /twitch_callback でトークン交換とリンク保存 POST /twitch_eventsub で channel.subscribe / channel.subscription.message / channel.subscription.end を処理 APSchedulerで月初リマインドと7日後の未解決再送を自動化 サーバー参加時の未リンク者へ自動DMを送信し, 連携を促す サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し, アクセス権を管理 Windows Server上でUvicornをポート8000で起動し, NginxでTLS終端したリバースプロキシ構成を実現 インフラ構成 Discord BotとFastAPIを同一プロセス内で稼働し, Uvicornを別スレッドで起動 NginxがHTTPS(443)を受け持ち, /twitch_callback と /twitch_eventsub をUvicornへプロキシ win-acmeによるLet’s Encrypt証明書を自動更新し, Nginxに適用 flowchart LR C[Client] –&gt;|HTTPS 443| N[“Nginx (TLS終端)”] N –&gt;|/twitch_callback| U[“Uvicorn :8000 (FastAPI)”] N –&gt;|/twitch_eventsub| U U –&gt; F[“FastAPIOAuth Callback / EventSub”] N –&gt;|/| W[“管理画面”] subgraph Host N U F W end N -.付与.-&gt; H1[X-Forwarded-Proto] N -.付与.-&gt; H2[X-Forwarded-For] N -.付与.-&gt; H3[Host] %%{init: { “flowchart”: { “htmlLabels”: false, “useMaxWidth”: true, “nodeSpacing”: 25, “rankSpacing”: 35, “wrap”: true }, “themeVariables”: { “fontFamily”: “Noto Sans JP, Meiryo, Arial, sans-serif”, “fontSize”: “16px” } }}%% flowchart TD subgraph Layer1[“インフラ”] WS[“Windows Server”] Nginx[“Nginx(Reverse Proxy＋SSL)”] Uvicorn[“Uvicorn(FastAPI 実行)”] end subgraph Layer2[“FastAPI”] CB[/ GET /twitch_callback /] ES[/ POST /twitch_eventsub /] VERIFY[“アクセストークン検証サブスク確認”] end subgraph Layer3[“Twitch API”] AUTH[“OAuth2 認証”] SUBS[“サブスク情報取得”] end subgraph Layer4[“Storage (venv JSON)”] TOKENS[“token.json”] USERS[“linked_users.json”] end subgraph Layer5[“Bot (py-cord)”] CMD[“スラッシュコマンド処理”] ROLE_OPS[“ロール付与・剥奪”] end subgraph Layer6[“Discord サーバー”] U[ユーザー] SC[/Slash Command/] SUBROLE[“@Subscriber ロール”] end %% フロー U –&gt;|/link 実行| SC –&gt; CMD CMD –&gt;|認証URL生成| AUTH AUTH –&gt; CB ES –&gt; VERIFY CB –&gt; VERIFY –&gt; SUBS VERIFY –&gt; USERS VERIFY –&gt; ROLE_OPS –&gt; SUBROLE CMD –&gt; USERS FastAPI –&gt; TOKENS WS –&gt; Nginx –&gt; Uvicorn –&gt; CB Nginx –&gt; Uvicorn –&gt; ES 運用とセキュリティ HSTS・HTTPSリダイレクトを導入して安全なOAuthフローを提供 不正アクセス対策としてアクセス制御とログ監視を実施 GitHub: NAKANORyunosuke/NeiBot" />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/portfolio/twitch-discord-bot/" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/portfolio/twitch-discord-bot/" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-05T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Twitchサブスク連携Discord Bot" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"中野竜之介"},"dateModified":"2025-09-05T00:00:00+00:00","datePublished":"2025-09-05T00:00:00+00:00","description":"プロジェクト概要 Twitchのサブスク限定Discordサーバー向けに, サブスク認証とロール/チャンネル管理を全自動化. 視聴者は /link コマンドからOAuth認可を行うだけでロール付与が完了し, EventSub(Webhook)により再サブや解約も即時反映される. 目的: 手動によるサブスク確認・ロール付与をゼロにし, 運用負荷とミスを排除すること 成果: サブスクTier別ロール/チャンネル自動整備, 再サブ検知・解約検知, 月次再リンクDMと未解決再送, 参加時の自動DM, HTTPS対応までを実現 実装内容 /link スラッシュコマンドで認可URLを生成し, OAuth完了後にTierロールを自動付与 FastAPIエンドポイント GET /twitch_callback でトークン交換とリンク保存 POST /twitch_eventsub で channel.subscribe / channel.subscription.message / channel.subscription.end を処理 APSchedulerで月初リマインドと7日後の未解決再送を自動化 サーバー参加時の未リンク者へ自動DMを送信し, 連携を促す サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し, アクセス権を管理 Windows Server上でUvicornをポート8000で起動し, NginxでTLS終端したリバースプロキシ構成を実現 インフラ構成 Discord BotとFastAPIを同一プロセス内で稼働し, Uvicornを別スレッドで起動 NginxがHTTPS(443)を受け持ち, /twitch_callback と /twitch_eventsub をUvicornへプロキシ win-acmeによるLet’s Encrypt証明書を自動更新し, Nginxに適用 flowchart LR C[Client] –&gt;|HTTPS 443| N[“Nginx (TLS終端)”] N –&gt;|/twitch_callback| U[“Uvicorn :8000 (FastAPI)”] N –&gt;|/twitch_eventsub| U U –&gt; F[“FastAPIOAuth Callback / EventSub”] N –&gt;|/| W[“管理画面”] subgraph Host N U F W end N -.付与.-&gt; H1[X-Forwarded-Proto] N -.付与.-&gt; H2[X-Forwarded-For] N -.付与.-&gt; H3[Host] %%{init: { “flowchart”: { “htmlLabels”: false, “useMaxWidth”: true, “nodeSpacing”: 25, “rankSpacing”: 35, “wrap”: true }, “themeVariables”: { “fontFamily”: “Noto Sans JP, Meiryo, Arial, sans-serif”, “fontSize”: “16px” } }}%% flowchart TD subgraph Layer1[“インフラ”] WS[“Windows Server”] Nginx[“Nginx(Reverse Proxy＋SSL)”] Uvicorn[“Uvicorn(FastAPI 実行)”] end subgraph Layer2[“FastAPI”] CB[/ GET /twitch_callback /] ES[/ POST /twitch_eventsub /] VERIFY[“アクセストークン検証サブスク確認”] end subgraph Layer3[“Twitch API”] AUTH[“OAuth2 認証”] SUBS[“サブスク情報取得”] end subgraph Layer4[“Storage (venv JSON)”] TOKENS[“token.json”] USERS[“linked_users.json”] end subgraph Layer5[“Bot (py-cord)”] CMD[“スラッシュコマンド処理”] ROLE_OPS[“ロール付与・剥奪”] end subgraph Layer6[“Discord サーバー”] U[ユーザー] SC[/Slash Command/] SUBROLE[“@Subscriber ロール”] end %% フロー U –&gt;|/link 実行| SC –&gt; CMD CMD –&gt;|認証URL生成| AUTH AUTH –&gt; CB ES –&gt; VERIFY CB –&gt; VERIFY –&gt; SUBS VERIFY –&gt; USERS VERIFY –&gt; ROLE_OPS –&gt; SUBROLE CMD –&gt; USERS FastAPI –&gt; TOKENS WS –&gt; Nginx –&gt; Uvicorn –&gt; CB Nginx –&gt; Uvicorn –&gt; ES 運用とセキュリティ HSTS・HTTPSリダイレクトを導入して安全なOAuthフローを提供 不正アクセス対策としてアクセス制御とログ監視を実施 GitHub: NAKANORyunosuke/NeiBot","headline":"Twitchサブスク連携Discord Bot","mainEntityOfPage":{"@type":"WebPage","@id":"https://nakanoryunosuke.github.io/portfolio/twitch-discord-bot/"},"url":"https://nakanoryunosuke.github.io/portfolio/twitch-discord-bot/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon" href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon" href="/assets/img/favicon.jpg">
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            displayAlign: 'center',
+            displayIndent: '0em',
+            processEscapes: true
+        },
+        svg: { fontCache: 'global' }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+
+<!-- end custom head snippets -->
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.getElementById('image-slider');
+      if (slider) {
+        new Splide(slider, {
+          type: 'loop',
+          perPage: 1,
+          autoplay: true,
+          pauseOnHover: true,
+          gap: '1rem'
+        }).mount();
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    (function () {
+      const fontFamily = 'IBM Plex Sans, Spectral, serif';
+
+      function currentTheme() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'default';
+      }
+
+      function initMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: {
+            htmlLabels: false,
+            useMaxWidth: true,
+            wrap: true
+          },
+          themeVariables: {
+            fontSize: '16px'
+          }
+        });
+      }
+
+      function rerenderMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+          themeVariables: { fontSize: '16px' }
+        });
+
+        const nodes = document.querySelectorAll('.mermaid');
+        nodes.forEach((el) => {
+          if (el.getAttribute('data-raw')) {
+            el.innerHTML = el.getAttribute('data-raw');
+          }
+        });
+        mermaid.run({ nodes });
+      }
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        document.querySelectorAll('.mermaid').forEach((el) => {
+          if (!el.getAttribute('data-raw')) {
+            el.setAttribute('data-raw', el.textContent);
+          }
+        });
+
+        initMermaid(currentTheme());
+        await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+      });
+
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener('change', (e) => {
+          document.documentElement.classList.toggle('dark-mermaid', e.matches);
+          rerenderMermaid(e.matches ? 'dark' : 'default');
+        });
+      }
+
+      window.setMermaidTheme = function (theme) {
+        if (theme !== 'default' && theme !== 'dark') return;
+        document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+        rerenderMermaid(theme);
+      };
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+  <a class="site-header__brand" href="/">
+    <span>
+      <span class="site-header__name lang-ja">中野竜之介</span>
+      <span class="site-header__name lang-en">Ryunosuke Nakano</span>
+    </span>
+    <span>
+      <span class="site-header__descriptor lang-ja">数学博士学生/プログラマ</span>
+      <span class="site-header__descriptor lang-en">Mathematics Researcher · Programmer</span>
+    </span>
+  </a>
+  <div class="site-header__controls">
+    <div class="lang-switch">
+      <label for="lang-select">
+        <span class="lang-ja">言語</span>
+        <span class="lang-en">Language</span>
+      </label>
+      <select id="lang-select" name="language">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav"
+      aria-label="Toggle navigation" onclick="toggleMenu()">Menu</button>
+  </div>
+</header>
+
+    <div class="site-body">
+      <aside class="site-nav-col">
+        <nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">概要</span>
+      <span class="lang-en">Overview</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/">トップ</a>
+        <a class="primary-nav__link lang-en" href="/">Home</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/notes/">ノート</a>
+        <a class="primary-nav__link lang-en" href="/notes/">Notes</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/circum-vitae.html">履歴書</a>
+        <a class="primary-nav__link lang-en" href="/circum-vitae.html">Circum Vitae</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/portfolio/">ポートフォリオ</a>
+        <a class="primary-nav__link lang-en" href="/portfolio/">Portfolio</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">研究活動</span>
+      <span class="lang-en">Research</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/research-activity.html">論文・講演</a>
+        <a class="primary-nav__link lang-en" href="/research-activity.html">Publications &amp;
+          Talks</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/slides.html">講演資料</a>
+        <a class="primary-nav__link lang-en" href="/slides.html">Presentation Materials</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">実験プロジェクト</span>
+      <span class="lang-en">Projects</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/3d-project.html">3D Project</a>
+        <a class="primary-nav__link lang-en" href="/3d-project.html">3D Project</a>
+      </li>
+    </ul>
+  </section>
+</nav>
+      </aside>
+      <main class="site-main">
+        <article class="content-area">
+          <article class="project-detail glass-panel">
+  <header class="project-detail__header">
+    <h1 class="project-detail__title">Twitchサブスク連携Discord Bot</h1>
+    
+    <p class="project-detail__meta">
+      2025/08/05 - 2025/09/05 / 設計 / 実装 / 運用
+    </p>
+    
+    
+    <div class="project-detail__hero">
+      <img src="/assets/img/portfolio/twitch-discord-bot/hero.png" alt="Twitchサブスク連携Discord Bot">
+    </div>
+    
+  </header>
+  <div class="project-detail__body">
+    <h2 id="プロジェクト概要">プロジェクト概要</h2>
+<p>Twitchのサブスク限定Discordサーバー向けに, サブスク認証とロール/チャンネル管理を全自動化. <br />
+視聴者は <code class="language-plaintext highlighter-rouge">/link</code> コマンドからOAuth認可を行うだけでロール付与が完了し, EventSub(Webhook)により再サブや解約も即時反映される.</p>
+
+<ul>
+  <li><strong>目的:</strong> 手動によるサブスク確認・ロール付与をゼロにし, 運用負荷とミスを排除すること</li>
+  <li><strong>成果:</strong> サブスクTier別ロール/チャンネル自動整備, 再サブ検知・解約検知, 月次再リンクDMと未解決再送, 参加時の自動DM, HTTPS対応までを実現</li>
+</ul>
+
+<h2 id="実装内容">実装内容</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/link</code> スラッシュコマンドで認可URLを生成し, OAuth完了後にTierロールを自動付与</li>
+  <li>FastAPIエンドポイント
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GET /twitch_callback</code> でトークン交換とリンク保存</li>
+      <li><code class="language-plaintext highlighter-rouge">POST /twitch_eventsub</code> で <code class="language-plaintext highlighter-rouge">channel.subscribe</code> / <code class="language-plaintext highlighter-rouge">channel.subscription.message</code> / <code class="language-plaintext highlighter-rouge">channel.subscription.end</code> を処理</li>
+    </ul>
+  </li>
+  <li>APSchedulerで月初リマインドと7日後の未解決再送を自動化</li>
+  <li>サーバー参加時の未リンク者へ自動DMを送信し, 連携を促す</li>
+  <li>サブスクTierに応じたロール・カテゴリ・チャンネルを動的生成し, アクセス権を管理</li>
+  <li>Windows Server上でUvicornをポート8000で起動し, NginxでTLS終端したリバースプロキシ構成を実現</li>
+</ul>
+
+<h2 id="インフラ構成">インフラ構成</h2>
+<ul>
+  <li>Discord BotとFastAPIを同一プロセス内で稼働し, Uvicornを別スレッドで起動</li>
+  <li>NginxがHTTPS(443)を受け持ち, <code class="language-plaintext highlighter-rouge">/twitch_callback</code> と <code class="language-plaintext highlighter-rouge">/twitch_eventsub</code> をUvicornへプロキシ</li>
+  <li>win-acmeによるLet’s Encrypt証明書を自動更新し, Nginxに適用</li>
+</ul>
+
+<div class="mermaid">
+flowchart LR
+  C[Client] --&gt;|HTTPS 443| N["Nginx (TLS終端)"]
+  N --&gt;|/twitch_callback| U["Uvicorn :8000 (FastAPI)"]
+  N --&gt;|/twitch_eventsub| U
+  U --&gt; F["FastAPI<br />OAuth Callback / EventSub"]
+  N --&gt;|/| W["管理画面"]
+
+  subgraph Host
+    N
+    U
+    F
+    W
+  end
+
+  N -.付与.-&gt; H1[X-Forwarded-Proto]
+  N -.付与.-&gt; H2[X-Forwarded-For]
+  N -.付与.-&gt; H3[Host]
+</div>
+
+<p><br /></p>
+
+<div class="mermaid">
+%%{init: {
+  "flowchart": { "htmlLabels": false, "useMaxWidth": true, "nodeSpacing": 25, "rankSpacing": 35, "wrap": true },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif", "fontSize": "16px" }
+}}%%
+flowchart TD
+
+subgraph Layer1["インフラ"]
+  WS["Windows Server"]
+  Nginx["Nginx<br />(Reverse Proxy＋SSL)"]
+  Uvicorn["Uvicorn<br />(FastAPI 実行)"]
+end
+
+subgraph Layer2["FastAPI"]
+  CB[/ GET /twitch_callback /]
+  ES[/ POST /twitch_eventsub /]
+  VERIFY["アクセストークン検証<br />サブスク確認"]
+end
+
+subgraph Layer3["Twitch API"]
+  AUTH["OAuth2 認証"]
+  SUBS["サブスク情報取得"]
+end
+
+subgraph Layer4["Storage (venv JSON)"]
+  TOKENS["token.json"]
+  USERS["linked_users.json"]
+end
+
+subgraph Layer5["Bot (py-cord)"]
+  CMD["スラッシュコマンド処理"]
+  ROLE_OPS["ロール付与・剥奪"]
+end
+
+subgraph Layer6["Discord サーバー"]
+  U[ユーザー]
+  SC[/Slash Command/]
+  SUBROLE["@Subscriber ロール"]
+end
+
+%% フロー
+U --&gt;|/link 実行| SC --&gt; CMD
+CMD --&gt;|認証URL生成| AUTH
+AUTH --&gt; CB
+ES --&gt; VERIFY
+CB --&gt; VERIFY --&gt; SUBS
+VERIFY --&gt; USERS
+VERIFY --&gt; ROLE_OPS --&gt; SUBROLE
+
+CMD --&gt; USERS
+FastAPI --&gt; TOKENS
+WS --&gt; Nginx --&gt; Uvicorn --&gt; CB
+Nginx --&gt; Uvicorn --&gt; ES
+</div>
+
+<h2 id="運用とセキュリティ">運用とセキュリティ</h2>
+<ul>
+  <li>HSTS・HTTPSリダイレクトを導入して安全なOAuthフローを提供</li>
+  <li>不正アクセス対策としてアクセス制御とログ監視を実施</li>
+</ul>
+
+<p>GitHub: <a href="https://github.com/NAKANORyunosuke/NeiBot">NAKANORyunosuke/NeiBot</a></p>
+
+  </div>
+</article>
+
+        </article>
+      </main>
+      <aside class="site-toc" id="page-toc" data-toc>
+        <div class="site-toc__title">
+          <span class="lang-ja">目次</span>
+          <span class="lang-en">Outline</span>
+        </div>
+        <nav aria-label="On-page navigation">
+          <ul class="site-toc__list" data-toc-list>
+            <li class="site-toc__item site-toc__placeholder">
+              <span class="lang-ja">本文の見出しから自動生成されます。</span>
+              <span class="lang-en">Headings will appear here automatically.</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__links">
+        <a href="/privacy-policy.html">
+          <span class="lang-ja">プライバシーポリシー</span>
+          <span class="lang-en">Privacy Policy</span>
+        </a>
+      </div>
+      <div>
+        <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+        <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script src="/assets/js/lang-switch.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4"></script>
+  <script src="/assets/menu.js" defer></script>
+  <script src="/assets/js/animations.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script src="/assets/js/mermaid-panzoom.js" defer></script>
+  <script src="/assets/js/toc.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script>
+    const d = new Date(document.lastModified);
+    const z2 = (n) => String(n).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    const mm = z2(d.getMonth() + 1);
+    const dd = z2(d.getDate());
+    const hh = z2(d.getHours());
+    const mi = z2(d.getMinutes());
+    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+    const lastJa = document.getElementById('last-updated-ja');
+    const lastEn = document.getElementById('last-updated-en');
+    if (lastJa) lastJa.textContent = formatted;
+    if (lastEn) lastEn.textContent = formatted;
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+
+<head>
+  <!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Twitch連携 管理UI(Django) | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Twitch連携 管理UI(Django)" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="概要 Twitchログイン(django-allauth)で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール. Bot(py-cord + FastAPI)の管理APIと安全に連携し, メッセージテンプレート {user} の置換や未知プレースホルダの事前エラーを備える." />
+<meta property="og:description" content="概要 Twitchログイン(django-allauth)で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール. Bot(py-cord + FastAPI)の管理APIと安全に連携し, メッセージテンプレート {user} の置換や未知プレースホルダの事前エラーを備える." />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/portfolio/twitch-discord-django/" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/portfolio/twitch-discord-django/" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-05T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Twitch連携 管理UI(Django)" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"中野竜之介"},"dateModified":"2025-09-05T00:00:00+00:00","datePublished":"2025-09-05T00:00:00+00:00","description":"概要 Twitchログイン(django-allauth)で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール. Bot(py-cord + FastAPI)の管理APIと安全に連携し, メッセージテンプレート {user} の置換や未知プレースホルダの事前エラーを備える.","headline":"Twitch連携 管理UI(Django)","mainEntityOfPage":{"@type":"WebPage","@id":"https://nakanoryunosuke.github.io/portfolio/twitch-discord-django/"},"url":"https://nakanoryunosuke.github.io/portfolio/twitch-discord-django/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon" href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon" href="/assets/img/favicon.jpg">
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            displayAlign: 'center',
+            displayIndent: '0em',
+            processEscapes: true
+        },
+        svg: { fontCache: 'global' }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+
+<!-- end custom head snippets -->
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.getElementById('image-slider');
+      if (slider) {
+        new Splide(slider, {
+          type: 'loop',
+          perPage: 1,
+          autoplay: true,
+          pauseOnHover: true,
+          gap: '1rem'
+        }).mount();
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    (function () {
+      const fontFamily = 'IBM Plex Sans, Spectral, serif';
+
+      function currentTheme() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'default';
+      }
+
+      function initMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: {
+            htmlLabels: false,
+            useMaxWidth: true,
+            wrap: true
+          },
+          themeVariables: {
+            fontSize: '16px'
+          }
+        });
+      }
+
+      function rerenderMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+          themeVariables: { fontSize: '16px' }
+        });
+
+        const nodes = document.querySelectorAll('.mermaid');
+        nodes.forEach((el) => {
+          if (el.getAttribute('data-raw')) {
+            el.innerHTML = el.getAttribute('data-raw');
+          }
+        });
+        mermaid.run({ nodes });
+      }
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        document.querySelectorAll('.mermaid').forEach((el) => {
+          if (!el.getAttribute('data-raw')) {
+            el.setAttribute('data-raw', el.textContent);
+          }
+        });
+
+        initMermaid(currentTheme());
+        await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+      });
+
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener('change', (e) => {
+          document.documentElement.classList.toggle('dark-mermaid', e.matches);
+          rerenderMermaid(e.matches ? 'dark' : 'default');
+        });
+      }
+
+      window.setMermaidTheme = function (theme) {
+        if (theme !== 'default' && theme !== 'dark') return;
+        document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+        rerenderMermaid(theme);
+      };
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+  <a class="site-header__brand" href="/">
+    <span>
+      <span class="site-header__name lang-ja">中野竜之介</span>
+      <span class="site-header__name lang-en">Ryunosuke Nakano</span>
+    </span>
+    <span>
+      <span class="site-header__descriptor lang-ja">数学博士学生/プログラマ</span>
+      <span class="site-header__descriptor lang-en">Mathematics Researcher · Programmer</span>
+    </span>
+  </a>
+  <div class="site-header__controls">
+    <div class="lang-switch">
+      <label for="lang-select">
+        <span class="lang-ja">言語</span>
+        <span class="lang-en">Language</span>
+      </label>
+      <select id="lang-select" name="language">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav"
+      aria-label="Toggle navigation" onclick="toggleMenu()">Menu</button>
+  </div>
+</header>
+
+    <div class="site-body">
+      <aside class="site-nav-col">
+        <nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">概要</span>
+      <span class="lang-en">Overview</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/">トップ</a>
+        <a class="primary-nav__link lang-en" href="/">Home</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/notes/">ノート</a>
+        <a class="primary-nav__link lang-en" href="/notes/">Notes</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/circum-vitae.html">履歴書</a>
+        <a class="primary-nav__link lang-en" href="/circum-vitae.html">Circum Vitae</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/portfolio/">ポートフォリオ</a>
+        <a class="primary-nav__link lang-en" href="/portfolio/">Portfolio</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">研究活動</span>
+      <span class="lang-en">Research</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/research-activity.html">論文・講演</a>
+        <a class="primary-nav__link lang-en" href="/research-activity.html">Publications &amp;
+          Talks</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/slides.html">講演資料</a>
+        <a class="primary-nav__link lang-en" href="/slides.html">Presentation Materials</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">実験プロジェクト</span>
+      <span class="lang-en">Projects</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/3d-project.html">3D Project</a>
+        <a class="primary-nav__link lang-en" href="/3d-project.html">3D Project</a>
+      </li>
+    </ul>
+  </section>
+</nav>
+      </aside>
+      <main class="site-main">
+        <article class="content-area">
+          <article class="project-detail glass-panel">
+  <header class="project-detail__header">
+    <h1 class="project-detail__title">Twitch連携 管理UI(Django)</h1>
+    
+    <p class="project-detail__meta">
+      2025/08/20 - 2025/09/05 / 設計 / 実装 / 運用
+    </p>
+    
+    
+    <div class="project-detail__hero">
+      <img src="/assets/img/portfolio/twitch-discord-bot/hero.png" alt="Twitch連携 管理UI(Django)">
+    </div>
+    
+  </header>
+  <div class="project-detail__body">
+    <h2 id="概要">概要</h2>
+<p>Twitchログイン(django-allauth)で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツール. <br />
+Bot(py-cord + FastAPI)の管理APIと安全に連携し, メッセージテンプレート <code class="language-plaintext highlighter-rouge">{user}</code> の置換や未知プレースホルダの事前エラーを備える.</p>
+
+<ul>
+  <li>目的: 運営が非技術者でも安全・簡単にロール対象へ告知DMを送れるようにする</li>
+  <li>効果: 案内・告知の即時配布, 誤送信・設定ミスの抑制, 添付ファイル付き配信の省力化</li>
+</ul>
+
+<h2 id="現状">現状</h2>
+<ul>
+  <li>状態: 基本機能は実装済み, ローカルで連携動作を確認.</li>
+  <li>連携: Django(webadmin) と Bot(py-cord + FastAPI) の管理API連携は確認済み. Authorization: Bearer による保護を実装.</li>
+  <li>送信: 送信ジョブの投入からBotによるDM送信まで確認. 0.3秒間隔で順次送信, DM拒否はログ化.</li>
+  <li>制約: 添付は8MBまで, テンプレは <code class="language-plaintext highlighter-rouge">{user}</code> のみ対応, 未知の <code class="language-plaintext highlighter-rouge">{...}</code> はフォームとAPIで事前エラー.</li>
+  <li>前提: <code class="language-plaintext highlighter-rouge">venv/token.json</code> に <code class="language-plaintext highlighter-rouge">admin_api_token</code> と <code class="language-plaintext highlighter-rouge">bot_admin_api_base</code> を設定. 未設定時は <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000</code> を利用し, UIのサーバー/ロール選択は空になる.</li>
+  <li>配置: <code class="language-plaintext highlighter-rouge">nginx.conf</code> に本番ドメインとHTTPSのリバースプロキシ設定を用意. 公開では <code class="language-plaintext highlighter-rouge">/admin/</code> をブロックし, アプリは <code class="language-plaintext highlighter-rouge">127.0.0.1:8000</code> と <code class="language-plaintext highlighter-rouge">127.0.0.1:8001</code> にプロキシ.</li>
+  <li>未実装: 送信進捗の可視化や再送制御の管理UIは未実装.</li>
+</ul>
+
+<h2 id="主要機能">主要機能</h2>
+<ul>
+  <li>認証: Twitchログイン(django-allauth)
+    <ul>
+      <li>許可Twitchログイン名はスタッフ(<code class="language-plaintext highlighter-rouge">is_staff</code>)へ自動昇格</li>
+    </ul>
+  </li>
+  <li>権限: <code class="language-plaintext highlighter-rouge">is_staff</code> のみアクセス可能(非スタッフは 403)</li>
+  <li>送信: 指定ロールの全メンバーへDM一括送信
+    <ul>
+      <li>添付ファイル対応(最大 8MB, Discord DM 制限に準拠)</li>
+      <li>テンプレ置換: メッセージ中の <code class="language-plaintext highlighter-rouge">{user}</code> を各メンバーの表示名へ置換</li>
+      <li>バリデーション: 未対応の <code class="language-plaintext highlighter-rouge">{...}</code> が含まれていれば送信前にエラー</li>
+    </ul>
+  </li>
+  <li>連携: Bot 管理API(Bearer 認証)からサーバー/ロール一覧を取得</li>
+</ul>
+
+<h2 id="画面フロー">画面フロー</h2>
+<p>1) Twitch でログイン<br />
+2) 管理トップから「ロールDM送信」を開く<br />
+3) サーバーとロール, メッセージ, (任意で)添付ファイルを指定<br />
+4) 送信ボタンでキュー投入(Bot 側が順次送信・ログ記録)</p>
+
+<p>ヒント: <code class="language-plaintext highlighter-rouge">{user}</code> は各メンバーの表示名に置換されます. 未対応の <code class="language-plaintext highlighter-rouge">{...}</code> が含まれるとフォームでエラーになります.</p>
+
+<h2 id="bot-管理api連携">Bot 管理API連携</h2>
+<ul>
+  <li>認証: <code class="language-plaintext highlighter-rouge">Authorization: Bearer &lt;ADMIN_API_TOKEN&gt;</code></li>
+  <li>エンドポイント:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GET /guilds</code> … 参加中サーバー一覧</li>
+      <li><code class="language-plaintext highlighter-rouge">GET /roles?guild_id=&lt;id&gt;</code> … 指定サーバーのロール一覧</li>
+      <li><code class="language-plaintext highlighter-rouge">POST /send_role_dm</code> … ロールDM送信ジョブをキュー投入</li>
+    </ul>
+  </li>
+  <li>エラーハンドリング:
+    <ul>
+      <li>メッセージ中に未知の <code class="language-plaintext highlighter-rouge">{...}</code> が含まれていれば 400 を返却</li>
+      <li>送信処理はBot側で0.3秒間隔で順次DM. 失敗(DM閉鎖等)はログに記録</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="送信リクエスト例">送信リクエスト例</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST http://127.0.0.1:8000/send_role_dm <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;ADMIN_API_TOKEN&gt;"</span> <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'{
+        "guild_id": 123456789012345678,
+        "role_id": 987654321098765432,
+        "message": "こんにちは {user} さん！最新情報です. ",
+        "file_url": "https://example.com/uploads/info.png"
+    }'</span>
+</code></pre></div></div>
+
+<h3 id="セキュリティ">セキュリティ</h3>
+<ul>
+  <li>Web: Twitchログイン＋スタッフ昇格(許可ログイン名のみ)で画面アクセスを制限</li>
+  <li>API: Bot 側は Bearer トークンで保護し, Web からのみ正規リクエスト</li>
+  <li>入力: メッセージのテンプレ置換は {user} のみ許可, 未知 {…} は送信前にブロック</li>
+  <li>送信: ファイルはDjangoで受領後に公開URLを生成, BotがDLしてDMに添付</li>
+</ul>
+
+<h3 id="セットアップ--実行">セットアップ / 実行</h3>
+<ul>
+  <li>事前: Bot(py-cord + FastAPI)がローカル :8000 で稼働</li>
+  <li>設定:
+    <ul>
+      <li>venv/token.json に admin_api_token と bot_admin_api_base を記載(未設定時は http://127.0.0.1:8000 を利用)</li>
+      <li>許可Twitchログイン名は環境変数 ALLOWED_TWITCH_LOGINS(カンマ区切り)または token.json の twitch_login/twitch_name 読み取りにより自動昇格</li>
+    </ul>
+  </li>
+  <li>インストール:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div>    </div>
+  </li>
+  <li>起動:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>webadmin
+python manage.py migrate
+python manage.py runserver 127.0.0.1:8001
+</code></pre></div>    </div>
+  </li>
+  <li>Bot 管理API 設定: <code class="language-plaintext highlighter-rouge">venv/token.json</code> に <code class="language-plaintext highlighter-rouge">admin_api_token</code>, <code class="language-plaintext highlighter-rouge">bot_admin_api_base</code> を設定. 既定の接続先は <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000</code>.</li>
+  <li>Twitch クレデンシャル: <code class="language-plaintext highlighter-rouge">venv/token.json</code> または環境変数 <code class="language-plaintext highlighter-rouge">TWITCH_CLIENT_ID</code>, <code class="language-plaintext highlighter-rouge">TWITCH_CLIENT_SECRET</code> を使用. allauth へ自動反映.</li>
+  <li>スタッフ昇格: <code class="language-plaintext highlighter-rouge">ALLOWED_TWITCH_LOGINS</code> に含まれる Twitch ログインでのサインインで <code class="language-plaintext highlighter-rouge">is_staff</code> を自動付与.</li>
+  <li>送信仕様: <code class="language-plaintext highlighter-rouge">{user}</code> は送信時に表示名へ置換. 未知プレースホルダは 400 を返す. 添付は 8MB まで.</li>
+  <li>保存場所: 添付は <code class="language-plaintext highlighter-rouge">MEDIA_ROOT/uploads</code> に保存し, <code class="language-plaintext highlighter-rouge">file_url</code> と <code class="language-plaintext highlighter-rouge">file_path</code> を Bot へ引き渡す.</li>
+  <li>運用補助: <code class="language-plaintext highlighter-rouge">python manage.py bootstrap_inbox</code> で DB テーブルを初期化. <code class="language-plaintext highlighter-rouge">python manage.py bootstrap_twitch_app</code> で SocialApp を作成.</li>
+</ul>
+
+<div class="mermaid" style="font-size:20px; overflow-x:auto; max-width:100%;">
+%%{init: {
+  "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 35, "rankSpacing": 45 },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif", "fontSize": "20px" }
+}}%%
+flowchart LR
+  Staff["Staff(User)"] --&gt; UI["Django /broadcast"]
+  UI --&gt;|GET /guilds| GAPI["Bot Admin API /guilds"]
+  GAPI --&gt; UI
+  UI --&gt;|GET /roles?guild_id| RAPI["Bot Admin API<br />/roles"]
+  RAPI --&gt; UI
+  UI --&gt;|POST /send_role_dm| PAPI["Bot Admin API<br />/send_role_dm"]
+  PAPI --&gt; BOT["Bot(py-cord)<br />queue"]
+  BOT --&gt; LOOP["notify_role_members<br />0.3s interval"]
+  LOOP --&gt; DM["DM to Role Members"]
+  subgraph Uploads
+    UI --&gt; SAVE["Save attachment<br />to MEDIA uploads"]
+    SAVE --&gt;|file_url + file_path| PAPI
+  end
+</div>
+
+<p><br /></p>
+
+<div class="mermaid" style="font-size:20px; overflow-x:auto; max-width:100%;">
+%%{init: {
+  "flowchart": { "htmlLabels": true, "useMaxWidth": true, "nodeSpacing": 35, "rankSpacing": 45 },
+  "themeVariables": { "fontFamily": "Noto Sans JP, Meiryo, Arial, sans-serif", "fontSize": "20px" }
+}}%%
+flowchart LR
+  U["User"] --&gt; ALLAUTH["allauth<br />Twitch login"]
+  ALLAUTH --&gt; CB["Callback"]
+  CB --&gt; SIG["user_logged_in<br />signal"]
+  SIG --&gt; CK["Check<br />ALLOWED_TWITCH_LOGINS"]
+  CK --&gt;|allowed| STAFF["set is_staff = True"]
+  CK --&gt;|not allowed| NOOP["no change"]
+</div>
+
+<ul>
+  <li>アクセス: <a href="https://neige-subscription.com/">https://neige-subscription.com/</a></li>
+</ul>
+
+<h3 id="実装ハイライト">実装ハイライト</h3>
+
+<ul>
+  <li>認証/権限: django-allauth + ログイン時シグナルで is_staff を昇格</li>
+  <li>連携: requests で Bot 管理APIへ(Bearer付与, タイムアウト・エラーハンドリング)</li>
+  <li>UX: サーバー/ロールの動的選択, 未対応 {…} の即時バリデーション, ヒント表示</li>
+  <li>保守性: 設定値は基本 venv/token.json から集約読込</li>
+</ul>
+
+<h3 id="関連">関連</h3>
+<ul>
+  <li>本体: <a href="/portfolio/twitch-discord-bot/">Twitchサブスク連携Discord Bot</a></li>
+  <li>リポジトリ: <a href="https://github.com/NAKANORyunosuke/NeiBot">NAKANORyunosuke/NeiBot</a></li>
+</ul>
+
+  </div>
+</article>
+
+        </article>
+      </main>
+      <aside class="site-toc" id="page-toc" data-toc>
+        <div class="site-toc__title">
+          <span class="lang-ja">目次</span>
+          <span class="lang-en">Outline</span>
+        </div>
+        <nav aria-label="On-page navigation">
+          <ul class="site-toc__list" data-toc-list>
+            <li class="site-toc__item site-toc__placeholder">
+              <span class="lang-ja">本文の見出しから自動生成されます。</span>
+              <span class="lang-en">Headings will appear here automatically.</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__links">
+        <a href="/privacy-policy.html">
+          <span class="lang-ja">プライバシーポリシー</span>
+          <span class="lang-en">Privacy Policy</span>
+        </a>
+      </div>
+      <div>
+        <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+        <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script src="/assets/js/lang-switch.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4"></script>
+  <script src="/assets/menu.js" defer></script>
+  <script src="/assets/js/animations.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script src="/assets/js/mermaid-panzoom.js" defer></script>
+  <script src="/assets/js/toc.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script>
+    const d = new Date(document.lastModified);
+    const z2 = (n) => String(n).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    const mm = z2(d.getMonth() + 1);
+    const dd = z2(d.getDate());
+    const hh = z2(d.getHours());
+    const mi = z2(d.getMinutes());
+    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+    const lastJa = document.getElementById('last-updated-ja');
+    const lastEn = document.getElementById('last-updated-en');
+    if (lastJa) lastJa.textContent = formatted;
+    if (lastEn) lastEn.textContent = formatted;
+  </script>
+</body>
+
+</html>

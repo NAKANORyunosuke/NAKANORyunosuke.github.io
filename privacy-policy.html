@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+
+<head>
+  <!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>プライバシーポリシー | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="プライバシーポリシー" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="ja" />
+<meta name="description" content="当サイトのプライバシーポリシー、免責事項、著作権について。" />
+<meta property="og:description" content="当サイトのプライバシーポリシー、免責事項、著作権について。" />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/privacy-policy.html" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/privacy-policy.html" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="プライバシーポリシー" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"中野竜之介"},"description":"当サイトのプライバシーポリシー、免責事項、著作権について。","headline":"プライバシーポリシー","url":"https://nakanoryunosuke.github.io/privacy-policy.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon" href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon" href="/assets/img/favicon.jpg">
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            displayAlign: 'center',
+            displayIndent: '0em',
+            processEscapes: true
+        },
+        svg: { fontCache: 'global' }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+
+<!-- end custom head snippets -->
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.getElementById('image-slider');
+      if (slider) {
+        new Splide(slider, {
+          type: 'loop',
+          perPage: 1,
+          autoplay: true,
+          pauseOnHover: true,
+          gap: '1rem'
+        }).mount();
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    (function () {
+      const fontFamily = 'IBM Plex Sans, Spectral, serif';
+
+      function currentTheme() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'default';
+      }
+
+      function initMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: {
+            htmlLabels: false,
+            useMaxWidth: true,
+            wrap: true
+          },
+          themeVariables: {
+            fontSize: '16px'
+          }
+        });
+      }
+
+      function rerenderMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+          themeVariables: { fontSize: '16px' }
+        });
+
+        const nodes = document.querySelectorAll('.mermaid');
+        nodes.forEach((el) => {
+          if (el.getAttribute('data-raw')) {
+            el.innerHTML = el.getAttribute('data-raw');
+          }
+        });
+        mermaid.run({ nodes });
+      }
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        document.querySelectorAll('.mermaid').forEach((el) => {
+          if (!el.getAttribute('data-raw')) {
+            el.setAttribute('data-raw', el.textContent);
+          }
+        });
+
+        initMermaid(currentTheme());
+        await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+      });
+
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener('change', (e) => {
+          document.documentElement.classList.toggle('dark-mermaid', e.matches);
+          rerenderMermaid(e.matches ? 'dark' : 'default');
+        });
+      }
+
+      window.setMermaidTheme = function (theme) {
+        if (theme !== 'default' && theme !== 'dark') return;
+        document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+        rerenderMermaid(theme);
+      };
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+  <a class="site-header__brand" href="/">
+    <span>
+      <span class="site-header__name lang-ja">中野竜之介</span>
+      <span class="site-header__name lang-en">Ryunosuke Nakano</span>
+    </span>
+    <span>
+      <span class="site-header__descriptor lang-ja">数学博士学生/プログラマ</span>
+      <span class="site-header__descriptor lang-en">Mathematics Researcher · Programmer</span>
+    </span>
+  </a>
+  <div class="site-header__controls">
+    <div class="lang-switch">
+      <label for="lang-select">
+        <span class="lang-ja">言語</span>
+        <span class="lang-en">Language</span>
+      </label>
+      <select id="lang-select" name="language">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav"
+      aria-label="Toggle navigation" onclick="toggleMenu()">Menu</button>
+  </div>
+</header>
+
+    <div class="site-body">
+      <aside class="site-nav-col">
+        <nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">概要</span>
+      <span class="lang-en">Overview</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/">トップ</a>
+        <a class="primary-nav__link lang-en" href="/">Home</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/notes/">ノート</a>
+        <a class="primary-nav__link lang-en" href="/notes/">Notes</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/circum-vitae.html">履歴書</a>
+        <a class="primary-nav__link lang-en" href="/circum-vitae.html">Circum Vitae</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/portfolio/">ポートフォリオ</a>
+        <a class="primary-nav__link lang-en" href="/portfolio/">Portfolio</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">研究活動</span>
+      <span class="lang-en">Research</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/research-activity.html">論文・講演</a>
+        <a class="primary-nav__link lang-en" href="/research-activity.html">Publications &amp;
+          Talks</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/slides.html">講演資料</a>
+        <a class="primary-nav__link lang-en" href="/slides.html">Presentation Materials</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">実験プロジェクト</span>
+      <span class="lang-en">Projects</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/3d-project.html">3D Project</a>
+        <a class="primary-nav__link lang-en" href="/3d-project.html">3D Project</a>
+      </li>
+    </ul>
+  </section>
+</nav>
+      </aside>
+      <main class="site-main">
+        <article class="content-area">
+          <section class="section glass-panel stack">
+    <h1 class="section__title">プライバシーポリシー</h1>
+
+    <h2 class="section__subtitle">個人情報の利用目的</h2>
+    <p>
+        当ブログでは、お問い合わせや記事へのコメントの際、名前やメールアドレス等の個人情報を入力いただく場合がございます。<br>
+        取得した個人情報は、お問い合わせに対する回答や必要な情報を電子メールなどでご連絡する場合に利用させていただくものであり、これらの目的以外では利用いたしません。
+    </p>
+
+    <h2 class="section__subtitle">広告について</h2>
+    <p>
+        当ブログでは、第三者配信の広告サービス（Googleアドセンス）を利用しており、ユーザーの興味に応じた商品やサービスの広告を表示するため、クッキー（Cookie）を使用しております。<br>
+        クッキーを使用することで当サイトはお客様のコンピュータを識別できるようになりますが、お客様個人を特定できるものではありません。<br>
+        Cookieを無効にする方法やGoogleアドセンスに関する詳細は<a href="https://policies.google.com/technologies/ads?hl=ja">「広告 – ポリシーと規約 – Google」</a>をご確認ください。
+    </p>
+
+    <h2 class="section__subtitle">アクセス解析ツールについて</h2>
+    <p>
+        当ブログでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。<br>
+        このGoogleアナリティクスはトラフィックデータの収集のためにクッキー（Cookie）を使用しております。トラフィックデータは匿名で収集されており、個人を特定するものではありません。
+    </p>
+
+    <h1 class="section__title">免責事項</h1>
+    <p>
+        当ブログからのリンクやバナーなどで移動したサイトで提供される情報、サービス等について一切の責任を負いません。<br>
+        また当ブログのコンテンツ・情報について、できる限り正確な情報を提供するように努めておりますが、正確性や安全性を保証するものではありません。情報が古くなっていることもございます。<br>
+        当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
+    </p>
+
+    <h1 class="section__title">著作権について</h1>
+    <p>
+        当ブログで掲載している文章や画像などにつきましては、無断転載することを禁止します。<br>
+        当ブログは著作権や肖像権の侵害を目的としたものではありません。著作権や肖像権に関して問題がございましたら、お問い合わせフォームよりご連絡ください。迅速に対応いたします。
+    </p>
+
+    <h1 class="section__title">リンクについて</h1>
+    <p>
+        当ブログは基本的にリンクフリーです。リンクを行う場合の許可や連絡は不要です。<br>
+        ただし、インラインフレームの使用や画像の直リンクはご遠慮ください。
+    </p>
+</section>
+
+        </article>
+      </main>
+      <aside class="site-toc" id="page-toc" data-toc>
+        <div class="site-toc__title">
+          <span class="lang-ja">目次</span>
+          <span class="lang-en">Outline</span>
+        </div>
+        <nav aria-label="On-page navigation">
+          <ul class="site-toc__list" data-toc-list>
+            <li class="site-toc__item site-toc__placeholder">
+              <span class="lang-ja">本文の見出しから自動生成されます。</span>
+              <span class="lang-en">Headings will appear here automatically.</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__links">
+        <a href="/privacy-policy.html">
+          <span class="lang-ja">プライバシーポリシー</span>
+          <span class="lang-en">Privacy Policy</span>
+        </a>
+      </div>
+      <div>
+        <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+        <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script src="/assets/js/lang-switch.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4"></script>
+  <script src="/assets/menu.js" defer></script>
+  <script src="/assets/js/animations.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script src="/assets/js/mermaid-panzoom.js" defer></script>
+  <script src="/assets/js/toc.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script>
+    const d = new Date(document.lastModified);
+    const z2 = (n) => String(n).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    const mm = z2(d.getMonth() + 1);
+    const dd = z2(d.getDate());
+    const hh = z2(d.getHours());
+    const mi = z2(d.getMinutes());
+    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+    const lastJa = document.getElementById('last-updated-ja');
+    const lastEn = document.getElementById('last-updated-en');
+    if (lastJa) lastJa.textContent = formatted;
+    if (lastEn) lastEn.textContent = formatted;
+  </script>
+</body>
+
+</html>

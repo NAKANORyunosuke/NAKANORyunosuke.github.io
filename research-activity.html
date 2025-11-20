@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+
+<head>
+  <!-- _includes/head.html -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- _includes/head.html -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css"
+/>
+
+<meta name="google-adsense-account" content="ca-pub-8135275658274644">
+<!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>論文および講演 | 中野竜之介 (NAKANO Ryunosuke)</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="論文および講演" />
+<meta name="author" content="中野竜之介" />
+<meta property="og:locale" content="ja" />
+<meta name="description" content="査読付き論文, プレプリント, 口頭発表の一覧" />
+<meta property="og:description" content="査読付き論文, プレプリント, 口頭発表の一覧" />
+<link rel="canonical" href="https://nakanoryunosuke.github.io/research-activity.html" />
+<meta property="og:url" content="https://nakanoryunosuke.github.io/research-activity.html" />
+<meta property="og:site_name" content="中野竜之介 (NAKANO Ryunosuke)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="論文および講演" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@中野竜之介" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"中野竜之介"},"description":"査読付き論文, プレプリント, 口頭発表の一覧","headline":"論文および講演","url":"https://nakanoryunosuke.github.io/research-activity.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+<!-- _includes/head-custom-google-analytics.html -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QXJERSDWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1QXJERSDWQ');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+<link rel="icon" href="/assets/img/favicon.jpg" type="image/x-icon">
+<link rel="apple-touch-icon" href="/assets/img/favicon.jpg">
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            displayAlign: 'center',
+            displayIndent: '0em',
+            processEscapes: true
+        },
+        svg: { fontCache: 'global' }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+
+<!-- end custom head snippets -->
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.getElementById('image-slider');
+      if (slider) {
+        new Splide(slider, {
+          type: 'loop',
+          perPage: 1,
+          autoplay: true,
+          pauseOnHover: true,
+          gap: '1rem'
+        }).mount();
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script defer>
+    (function () {
+      const fontFamily = 'IBM Plex Sans, Spectral, serif';
+
+      function currentTheme() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'default';
+      }
+
+      function initMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: {
+            htmlLabels: false,
+            useMaxWidth: true,
+            wrap: true
+          },
+          themeVariables: {
+            fontSize: '16px'
+          }
+        });
+      }
+
+      function rerenderMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+          themeVariables: { fontSize: '16px' }
+        });
+
+        const nodes = document.querySelectorAll('.mermaid');
+        nodes.forEach((el) => {
+          if (el.getAttribute('data-raw')) {
+            el.innerHTML = el.getAttribute('data-raw');
+          }
+        });
+        mermaid.run({ nodes });
+      }
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        document.querySelectorAll('.mermaid').forEach((el) => {
+          if (!el.getAttribute('data-raw')) {
+            el.setAttribute('data-raw', el.textContent);
+          }
+        });
+
+        initMermaid(currentTheme());
+        await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+      });
+
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener('change', (e) => {
+          document.documentElement.classList.toggle('dark-mermaid', e.matches);
+          rerenderMermaid(e.matches ? 'dark' : 'default');
+        });
+      }
+
+      window.setMermaidTheme = function (theme) {
+        if (theme !== 'default' && theme !== 'dark') return;
+        document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+        rerenderMermaid(theme);
+      };
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+  <a class="site-header__brand" href="/">
+    <span>
+      <span class="site-header__name lang-ja">中野竜之介</span>
+      <span class="site-header__name lang-en">Ryunosuke Nakano</span>
+    </span>
+    <span>
+      <span class="site-header__descriptor lang-ja">数学博士学生/プログラマ</span>
+      <span class="site-header__descriptor lang-en">Mathematics Researcher · Programmer</span>
+    </span>
+  </a>
+  <div class="site-header__controls">
+    <div class="lang-switch">
+      <label for="lang-select">
+        <span class="lang-ja">言語</span>
+        <span class="lang-en">Language</span>
+      </label>
+      <select id="lang-select" name="language">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav"
+      aria-label="Toggle navigation" onclick="toggleMenu()">Menu</button>
+  </div>
+</header>
+
+    <div class="site-body">
+      <aside class="site-nav-col">
+        <nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">概要</span>
+      <span class="lang-en">Overview</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/">トップ</a>
+        <a class="primary-nav__link lang-en" href="/">Home</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/notes/">ノート</a>
+        <a class="primary-nav__link lang-en" href="/notes/">Notes</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/circum-vitae.html">履歴書</a>
+        <a class="primary-nav__link lang-en" href="/circum-vitae.html">Circum Vitae</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/portfolio/">ポートフォリオ</a>
+        <a class="primary-nav__link lang-en" href="/portfolio/">Portfolio</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">研究活動</span>
+      <span class="lang-en">Research</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/research-activity.html">論文・講演</a>
+        <a class="primary-nav__link lang-en" href="/research-activity.html">Publications &amp;
+          Talks</a>
+      </li>
+      <li>
+        <a class="primary-nav__link lang-ja" href="/slides.html">講演資料</a>
+        <a class="primary-nav__link lang-en" href="/slides.html">Presentation Materials</a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">実験プロジェクト</span>
+      <span class="lang-en">Projects</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link lang-ja" href="/3d-project.html">3D Project</a>
+        <a class="primary-nav__link lang-en" href="/3d-project.html">3D Project</a>
+      </li>
+    </ul>
+  </section>
+</nav>
+      </aside>
+      <main class="site-main">
+        <article class="content-area">
+          <section class="hero glass-panel">
+    <div class="hero__grid">
+        <div class="hero__text">
+            <span class="hero__eyebrow lang-ja">研究成果</span>
+            <span class="hero__eyebrow lang-en">Research</span>
+            <h1 class="lang-ja">論文および講演</h1>
+            <h1 class="lang-en">Publications and Talks</h1>
+            <p class="lang-ja">論文・プレプリント・学会や研究集会での発表履歴をまとめています。</p>
+            <p class="lang-en">A catalogue of publications, preprints, and recent talks.</p>
+        </div>
+        <figure class="hero__figure">
+            <img src="assets/img/ehime.JPG" alt="Courtyard of Ehime University" class="hero__image">
+            <figcaption class="hero__caption lang-ja">愛媛大学理学部の中庭</figcaption>
+            <figcaption class="hero__caption lang-en">Courtyard of the Faculty of Science at Ehime University
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="section-card glass-panel">
+    <div class="section-heading">
+        <h2 class="lang-ja">一覧</h2>
+        <h2 class="lang-en">Overview</h2>
+        <p class="section-description lang-ja">最新の成果から順に掲載しています。論文は公開次第追加します。</p>
+        <p class="section-description lang-en">Entries are listed chronologically. Publications will be added as they
+            become
+            available.</p>
+    </div>
+  
+  <div class="lang-ja">
+    
+    <div class="highlight-card">
+      <h3>査読付き論文</h3>
+      
+      
+      <p class="section-description">Coming soon...</p>
+      
+    </div>
+    
+    <div class="highlight-card">
+      <h3>プレプリント</h3>
+      
+      
+      <p class="section-description">Coming soon...</p>
+      
+    </div>
+    
+    <div class="highlight-card">
+      <h3>口頭発表</h3>
+      
+      
+      <ul class="timeline">
+        
+        <li class="timeline-item"><span class="timeline-date">2024年1月30日</span>
+          <div class="timeline-desc">中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/11475">第30回北海道特殊関数セミナー：修士論文講演会</a>, 北海道大学, 2024年1月30日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">2025年3月3日</span>
+          <div class="timeline-desc">中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/ja/index.html">第21回数学総合若手研究集会〜数学の交叉点〜</a>, 北海道大学, 2025年3月3日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">2025年8月19日</span>
+          <div class="timeline-desc">中野竜之介, "4項平均反復極限に潜む代数幾何学", <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a>, いこいの村はりま, 2025年8月19日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">2025年8月28日</span>
+          <div class="timeline-desc">中野竜之介, "4種4項平均の反復極限定理の代数幾何学的考察"(招待講演), <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>, 北海道大学, 2025年8月28日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">2025年12月5日</span>
+          <div class="timeline-desc">中野竜之介, "4種4項平均の反復極限定理のテータ定数を用いた導出 "(招待講演), <a href="https://sites.google.com/view/workshopinkanazawa/">セミナー・ワークショップ「幾何学における代数的・組み合わせ論的視点」</a> 金沢大学, 2025年12月5日</div>
+        </li>
+        
+      </ul>
+      
+    </div>
+    
+  </div>
+  <div class="lang-en">
+    
+    <div class="highlight-card">
+      <h3>Peer-reviewed Papers</h3>
+      
+      
+      <p class="section-description">Coming soon...</p>
+      
+    </div>
+    
+    <div class="highlight-card">
+      <h3>Preprints</h3>
+      
+      
+      <p class="section-description">Coming soon...</p>
+      
+    </div>
+    
+    <div class="highlight-card">
+      <h3>Talks</h3>
+      
+      
+      <ul class="timeline">
+        
+        <li class="timeline-item"><span class="timeline-date">30 January 2024</span>
+          <div class="timeline-desc">中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/11475">第30回北海道特殊関数セミナー：修士論文講演会</a>, 北海道大学, 2024年1月30日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">3 March 2025</span>
+          <div class="timeline-desc">中野竜之介, "6点で分岐する複素射影直線の4重被覆の周期積分", <a href="https://www.math.sci.hokudai.ac.jp/~wakate/mcyr/2025/ja/index.html">第21回数学総合若手研究集会〜数学の交叉点〜</a>, 北海道大学, 2025年3月3日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">19 August 2025</span>
+          <div class="timeline-desc">中野竜之介, "4項平均反復極限に潜む代数幾何学", <a href="https://web.tuat.ac.jp/~mmurata/summer/summer2025.html">2025年函数方程式論サマーセミナー</a>, いこいの村はりま, 2025年8月19日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">28 August 2025</span>
+          <div class="timeline-desc">中野竜之介, "4種4項平均の反復極限定理の代数幾何学的考察"(招待講演), <a href="https://www2.sci.hokudai.ac.jp/dept/math/event/13629">第34回北海道特殊関数セミナー</a>, 北海道大学, 2025年8月28日</div>
+        </li>
+        
+        <li class="timeline-item"><span class="timeline-date">5 December 2025</span>
+          <div class="timeline-desc"></div>
+        </li>
+        
+      </ul>
+      
+    </div>
+    
+  </div>
+</section>
+
+        </article>
+      </main>
+      <aside class="site-toc" id="page-toc" data-toc>
+        <div class="site-toc__title">
+          <span class="lang-ja">目次</span>
+          <span class="lang-en">Outline</span>
+        </div>
+        <nav aria-label="On-page navigation">
+          <ul class="site-toc__list" data-toc-list>
+            <li class="site-toc__item site-toc__placeholder">
+              <span class="lang-ja">本文の見出しから自動生成されます。</span>
+              <span class="lang-en">Headings will appear here automatically.</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer__links">
+        <a href="/privacy-policy.html">
+          <span class="lang-ja">プライバシーポリシー</span>
+          <span class="lang-en">Privacy Policy</span>
+        </a>
+      </div>
+      <div>
+        <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+        <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script src="/assets/js/lang-switch.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4"></script>
+  <script src="/assets/menu.js" defer></script>
+  <script src="/assets/js/animations.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script src="/assets/js/mermaid-panzoom.js" defer></script>
+  <script src="/assets/js/toc.js?v=b0fde5da7d6865f11137ee6e0148dc0cd37b5ad4" defer></script>
+  <script>
+    const d = new Date(document.lastModified);
+    const z2 = (n) => String(n).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    const mm = z2(d.getMonth() + 1);
+    const dd = z2(d.getDate());
+    const hh = z2(d.getHours());
+    const mi = z2(d.getMinutes());
+    const formatted = `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
+    const lastJa = document.getElementById('last-updated-ja');
+    const lastEn = document.getElementById('last-updated-en');
+    if (lastJa) lastJa.textContent = formatted;
+    if (lastEn) lastEn.textContent = formatted;
+  </script>
+</body>
+
+</html>
