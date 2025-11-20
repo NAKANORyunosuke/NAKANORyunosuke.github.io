@@ -14,14 +14,22 @@ lang: ja
     </div>
 
     <div class="card-grid">
-        {% for note in site.notes %}
+        {% for note in site.data.latest_notes %}
         <a href="{{ note.url | relative_url }}" class="portfolio-card">
             <div class="portfolio-body">
-                <h2 class="portfolio-title">{{ note.title }}</h2>
-                <p class="portfolio-summary">{{ note.description | default: note.excerpt | strip_html | truncate: 100 }}
+                <h2 class="portfolio-title">
+                    <span class="lang-ja">{{ note.title }}</span>
+                    <span class="lang-en">{{ note.title_en }}</span>
+                </h2>
+                <p class="portfolio-summary">
+                    <span class="lang-ja">{{ note.summary_ja }}</span>
+                    <span class="lang-en">{{ note.summary_en }}</span>
                 </p>
                 <div class="portfolio-meta">
                     <span>{{ note.date | date: "%Y-%m-%d" }}</span>
+                    {% for tag in note.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
                 </div>
             </div>
         </a>
