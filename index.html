@@ -5,223 +5,81 @@ description: "研究員兼プログラマ 中野竜之介のノート・研究�
 lang: ja
 ---
 
-<section class="section" aria-labelledby="welcome-heading">
-    <header class="stack">
-        <span class="badge">
-            <span class="lang-ja">中野竜之介</span>
-            <span class="lang-en">NAKANO Ryunosuke</span>
-        </span>
-        <h1 id="welcome-heading">
-            <span class="lang-ja">連絡先と窓口</span>
-            <span class="lang-en">Contact Channels</span>
-        </h1>
-        <p class="section__subtitle lang-ja">
-            連絡先一覧です。
+<div class="stack">
+    {% for theme in site.data.research_themes %}
+    <article class="section reveal-on-scroll">
+        <h2 class="section__title">
+            <span class="lang-ja">{{ theme.title }}</span>
+            <span class="lang-en">{{ theme.title_en }}</span>
+        </h2>
+        <p class="section__subtitle">
+            <span class="lang-ja">{{ theme.summary_ja }}</span>
+            <span class="lang-en">{{ theme.summary_en }}</span>
         </p>
-        <p class="section__subtitle lang-en">
-            Reach out for collaborations, talks, or media requests through the channels below.
-        </p>
-        <ul class="contact-list" role="list">
-            <li class="contact-list__item">
-                <p class="lang-ja contact-list__entry">
-                    <span class="contact-list__label">メール</span>
-                    <a
-                        href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a>
-                </p>
-                <p class="lang-en contact-list__entry">
-                    <span class="contact-list__label">Email</span>
-                    <a
-                        href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a>
-                </p>
-            </li>
-            <li class="contact-list__item">
-                <p class="lang-ja contact-list__entry">
-                    <span class="contact-list__label">Twitter</span>
-                    <a href="https://x.com/RNakano_theta">@RNakano_theta</a>
-                </p>
-                <p class="lang-en contact-list__entry">
-                    <span class="contact-list__label">Twitter</span>
-                    <a href="https://x.com/RNakano_theta">@RNakano_theta</a>
-                </p>
-            </li>
-            <li class="contact-list__item">
-                <p class="lang-ja contact-list__entry">
-                    <span class="contact-list__label">researchmap</span>
-                    <a href="https://researchmap.jp/NAKANO-R">NAKANO-R</a>
-                </p>
-                <p class="lang-en contact-list__entry">
-                    <span class="contact-list__label">researchmap</span>
-                    <a href="https://researchmap.jp/NAKANO-R">NAKANO-R</a>
-                </p>
-            </li>
-        </ul>
-    </header>
-
-    <div class="grid-7">
-        <div class="col-span-4 col-start-1 stack">
-            <div class="stack">
-                <h2 class="section__title">
-                    <span class="lang-ja">最新ノート</span>
-                    <span class="lang-en">Latest Notes</span>
-                </h2>
-                <p class="section__subtitle lang-ja">コード置き場</p>
-                <p class="section__subtitle lang-en">Code repository</p>
+        <div class="grid-7" data-toc-ignore>
+            <div class="section col-span-3 col-start-1 stack">
+                <h3 data-toc-exclude>
+                    <span class="lang-ja">代表論文</span>
+                    <span class="lang-en">Featured Paper</span>
+                </h3>
+                <p>{{ theme.featured_paper.title }}</p>
+                <a class="theme-index__link" href="{{ theme.featured_paper.url }}">{{ theme.featured_paper.link_text
+                    }}</a>
             </div>
-            <div data-toc-ignore>
-                <ul class="note-list">
-                    {% assign latest_notes = site.data.latest_notes | slice: 0, 3 %}
-                    {% for note in latest_notes %}
-                    <li class="note-card">
-                        <div class="note-card__meta">
-                            <span>
-                                <span class="lang-ja">{{ note.date | date: "%Y年%m月%d日" }}</span>
-                                <span class="lang-en">{{ note.date | date: "%b %-d, %Y" }}</span>
-                            </span>
-                            <span class="inline-cluster">
-                                {% for tag in note.tags %}
-                                <span class="badge">{{ tag }}</span>
-                                {% endfor %}
-                            </span>
-                        </div>
-                        <h3 class="note-card__title" data-toc-exclude>
-                            <a class="lang-ja" href="{{ note.url }}">{{ note.title }}</a>
-                            <a class="lang-en" href="{{ note.url }}">{{ note.title_en }}</a>
-                        </h3>
-                        <p class="note-card__summary lang-ja">{{ note.summary_ja }}</p>
-                        <p class="note-card__summary lang-en">{{ note.summary_en }}</p>
-                        <a class="note-card__cta lang-ja" href="{{ note.url }}">ノートを読む</a>
-                        <a class="note-card__cta lang-en" href="{{ note.url }}">Read note</a>
-                    </li>
+            <div class="section col-span-2 col-start-4 stack">
+                <h3 data-toc-exclude>
+                    <span class="lang-ja">関連ノート</span>
+                    <span class="lang-en">Related Notes</span>
+                </h3>
+                <ul>
+                    {% for note in theme.related_notes %}
+                    <li><a href="{{ note.url }}">{{ note.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="section col-span-2 col-start-6 stack">
+                <h3 data-toc-exclude>
+                    <span class="lang-ja">コード更新</span>
+                    <span class="lang-en">Code Updates</span>
+                </h3>
+                <ul>
+                    {% for code in theme.code_updates %}
+                    <li><a href="{{ code.url }}">{{ code.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
-    </div>
-</section>
+    </article>
+    {% endfor %}
+</div>
 
-<!-- <section class="theme-index-panel section" data-theme-index>
-    <div class="stack">
-        <h2 class="section__title" data-toc-exclude>
-            <span class="lang-ja">研究テーマ索引</span>
-            <span class="lang-en">Research Themes Index</span>
-        </h2>
-        <p class="section__subtitle lang-ja">共同研究・講演・採用への導線を簡潔に整理</p>
-        <p class="section__subtitle lang-en">Concise entry points for collaborations, talks, and hiring conversations.
-        </p>
-    </div>
-    <div class="theme-index">
-        {% for theme in site.data.research_themes %}
-        <article class="theme-index__group" id="theme-{{ theme.id }}">
-            <h3 class="theme-index__title" data-toc-exclude>
-                <span class="lang-ja">{{ theme.title }}</span>
-                <span class="lang-en">{{ theme.title_en }}</span>
-            </h3>
-            <p class="theme-index__summary lang-ja">{{ theme.summary_ja }}</p>
-            <p class="theme-index__summary lang-en">{{ theme.summary_en }}</p>
-            <a class="theme-index__link lang-ja" href="{{ theme.url }}">{{ theme.link_label_ja }}</a>
-            <a class="theme-index__link lang-en" href="{{ theme.url }}">{{ theme.link_label_en }}</a>
-        </article>
-        {% endfor %}
-    </div>
-</section> -->
-
-<!-- <section class="section" aria-labelledby="structure-heading">
-    <div class="stack">
-        <h2 id="structure-heading" class="section__title">
-            <span class="lang-ja">ノートと研究の構造</span>
-            <span class="lang-en">Structure of Work</span>
-        </h2>
-        <p class="section__subtitle lang-ja">
-            論文後方支援の計算ノート／講義メモ／コードを三層で管理しています。
-        </p>
-        <p class="section__subtitle lang-en">
-            Research threads are paced by three intertwined layers: canonical papers, working notebooks, and
-            reproducible code.
-        </p>
-    </div>
-    <div class="structure-grid" data-toc-ignore>
-        <article class="section structure-card stack">
-            <h3 data-toc-exclude>
-                <span class="lang-ja">Research Threads</span>
-                <span class="lang-en">Research Threads</span>
-            </h3>
-            <p class="section__subtitle lang-ja">周期写像と特殊関数の二本柱。テーマごとに前提・課題・公開成果を更新。</p>
-            <p class="section__subtitle lang-en">Two axes: period maps and special functions. Each theme records
-                prerequisites, open questions, and published outputs.</p>
-            <ul>
-                <li class="lang-ja">退化モジュラー曲線の数値調整</li>
-                <li class="lang-ja">テータ核の圏論的表現</li>
-                <li class="lang-en">Numerical control of degenerating modular curves</li>
-                <li class="lang-en">Categorical presentations of theta kernels</li>
-            </ul>
-        </article>
-        <article class="section structure-card stack">
-            <h3 data-toc-exclude>
-                <span class="lang-ja">Note Stream</span>
-                <span class="lang-en">Note Stream</span>
-            </h3>
-            <p class="section__subtitle lang-ja">ラフな演算ログ → 構造化ノート → 投稿論文草稿の順で整形。</p>
-            <p class="section__subtitle lang-en">Pipeline: raw computation logs → structured notebooks → submission
-                drafts.</p>
-            <ul>
-                <li class="lang-ja">MathJax での式断片を Git 履歴と同期</li>
-                <li class="lang-en">Math fragments stay versioned through Git + MathJax</li>
-                <li class="lang-ja">ノート同士を YAML メタデータでリンク</li>
-                <li class="lang-en">Cross-link notebooks through lightweight YAML metadata</li>
-            </ul>
-        </article>
-        <article class="section structure-card stack">
-            <h3 data-toc-exclude>
-                <span class="lang-ja">Tooling</span>
-                <span class="lang-en">Tooling</span>
-            </h3>
-            <p class="section__subtitle lang-ja">Rust / Python / Jupyter を同じリポジトリで運用し、証明と実装の往復を短縮。</p>
-            <p class="section__subtitle lang-en">Rust, Python, and Jupyter operate inside one repository to shorten the
-                loop between proof sketches and prototypes.</p>
-            <ul>
-                <li class="lang-ja">Rust: meromorphic kernel ライブラリ</li>
-                <li class="lang-en">Rust: meromorphic kernel library</li>
-                <li class="lang-ja">Python: 数値実験の可視化 pipeline</li>
-                <li class="lang-en">Python: visualization pipelines for numerical experiments</li>
-                <li class="lang-ja">CI: TeX → PDF 生成とコードの lint を統合</li>
-                <li class="lang-en">CI: unified TeX-to-PDF and code lint checks</li>
-            </ul>
-        </article>
-    </div>
-</section> -->
-
-<section class="section" aria-labelledby="engage-heading">
-    <div class="stack">
-        <h2 id="engage-heading" class="section__title">
-            <span class="lang-ja">講演</span>
-            <span class="lang-en">Talks</span>
-        </h2>
-    </div>
-    <div class="callout-grid">
+<section class="section reveal-on-scroll" aria-labelledby="engage-heading">
+    <h2 id="engage-heading" class="section__title">
+        <span class="lang-ja">シグナル</span>
+        <span class="lang-en">Signals</span>
+    </h2>
+    <div class="grid-7" data-toc-ignore>
         {% for channel in site.data.engagement_channels %}
-        <article class="callout" id="engage-{{ channel.id }}" data-toc-ignore>
-            <h3 class="callout__title" data-toc-exclude>
+        <div class="section col-span-3 stack">
+            <h3 data-toc-exclude>
                 <span class="lang-ja">{{ channel.title }}</span>
                 <span class="lang-en">{{ channel.title_en }}</span>
             </h3>
-            <p class="callout__text lang-ja">{{ channel.summary_ja }}</p>
-            <p class="callout__text lang-en">{{ channel.summary_en }}</p>
-            <div class="callout__actions">
-                <a class="button button--accent lang-ja" href="{{ channel.url }}">{{ channel.action_label_ja }}</a>
-                <a class="button button--accent lang-en" href="{{ channel.url }}">{{ channel.action_label_en }}</a>
-            </div>
-        </article>
+            <p>
+                <span class="lang-ja">{{ channel.summary_ja }}</span>
+                <span class="lang-en">{{ channel.summary_en }}</span>
+            </p>
+            <a class="button button--accent" href="{{ channel.url }}">
+                <span class="lang-ja">{{ channel.action_label_ja }}</span>
+                <span class="lang-en">{{ channel.action_label_en }}</span>
+            </a>
+        </div>
         {% endfor %}
     </div>
 </section>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const panel = document.querySelector('[data-theme-index]');
-        const toc = document.getElementById('page-toc');
-        if (!panel || !toc) return;
-
-        panel.classList.add('site-toc__extra');
-        toc.appendChild(panel);
+        // Optional: Add any specific JS for the homepage here
     });
 </script>

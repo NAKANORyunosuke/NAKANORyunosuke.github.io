@@ -67,7 +67,6 @@ function detectBrowserLanguage() {
 function applyLanguage(lang) {
     storeLanguage(lang);
     const root = document.documentElement;
-    const previous = root.getAttribute('data-lang') || root.getAttribute('lang');
     if (root.getAttribute('lang') !== lang) {
         root.setAttribute('lang', lang);
     }
@@ -77,9 +76,6 @@ function applyLanguage(lang) {
     const selector = document.getElementById('lang-select');
     if (selector && selector.value !== lang) {
         selector.value = lang;
-    }
-    if (previous !== lang) {
-        document.dispatchEvent(new CustomEvent('preferredlanguagechange', { detail: { lang } }));
     }
 }
 function getUrlLanguage() {

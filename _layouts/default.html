@@ -1,129 +1,107 @@
 {% assign page_lang = page.lang | default: 'ja' %}
 <!DOCTYPE html>
 <html lang="{{ page_lang }}" data-lang="{{ page_lang }}">
+
 <head>
   {% include head.html %}
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('image-slider');
-    if (slider) {
-      new Splide(slider, {
-        type: 'loop',
-        perPage: 1,
-        autoplay: true,
-        pauseOnHover: true,
-        gap: '1rem'
-      }).mount();
-    }
-  });
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.getElementById('image-slider');
+      if (slider) {
+        new Splide(slider, {
+          type: 'loop',
+          perPage: 1,
+          autoplay: true,
+          pauseOnHover: true,
+          gap: '1rem'
+        }).mount();
+      }
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
   <script defer>
-  (function () {
-    const fontFamily = 'IBM Plex Sans, Spectral, serif';
+    (function () {
+      const fontFamily = 'IBM Plex Sans, Spectral, serif';
 
-    function currentTheme() {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'default';
-    }
+      function currentTheme() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'default';
+      }
 
-    function initMermaid(theme) {
-      mermaid.initialize({
-        startOnLoad: false,
-        securityLevel: 'loose',
-        theme,
-        fontFamily,
-        flowchart: {
-          htmlLabels: false,
-          useMaxWidth: true,
-          wrap: true
-        },
-        themeVariables: {
-          fontSize: '16px'
-        }
+      function initMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: {
+            htmlLabels: false,
+            useMaxWidth: true,
+            wrap: true
+          },
+          themeVariables: {
+            fontSize: '16px'
+          }
+        });
+      }
+
+      function rerenderMermaid(theme) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'loose',
+          theme,
+          fontFamily,
+          flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
+          themeVariables: { fontSize: '16px' }
+        });
+
+        const nodes = document.querySelectorAll('.mermaid');
+        nodes.forEach((el) => {
+          if (el.getAttribute('data-raw')) {
+            el.innerHTML = el.getAttribute('data-raw');
+          }
+        });
+        mermaid.run({ nodes });
+      }
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        document.querySelectorAll('.mermaid').forEach((el) => {
+          if (!el.getAttribute('data-raw')) {
+            el.setAttribute('data-raw', el.textContent);
+          }
+        });
+
+        initMermaid(currentTheme());
+        await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
       });
-    }
 
-    function rerenderMermaid(theme) {
-      mermaid.initialize({
-        startOnLoad: false,
-        securityLevel: 'loose',
-        theme,
-        fontFamily,
-        flowchart: { htmlLabels: false, useMaxWidth: true, wrap: true },
-        themeVariables: { fontSize: '16px' }
-      });
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener('change', (e) => {
+          document.documentElement.classList.toggle('dark-mermaid', e.matches);
+          rerenderMermaid(e.matches ? 'dark' : 'default');
+        });
+      }
 
-      const nodes = document.querySelectorAll('.mermaid');
-      nodes.forEach((el) => {
-        if (el.getAttribute('data-raw')) {
-          el.innerHTML = el.getAttribute('data-raw');
-        }
-      });
-      mermaid.run({ nodes });
-    }
-
-    window.addEventListener('DOMContentLoaded', async () => {
-      document.querySelectorAll('.mermaid').forEach((el) => {
-        if (!el.getAttribute('data-raw')) {
-          el.setAttribute('data-raw', el.textContent);
-        }
-      });
-
-      initMermaid(currentTheme());
-      await mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
-    });
-
-    if (window.matchMedia) {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      mq.addEventListener('change', (e) => {
-        document.documentElement.classList.toggle('dark-mermaid', e.matches);
-        rerenderMermaid(e.matches ? 'dark' : 'default');
-      });
-    }
-
-    window.setMermaidTheme = function (theme) {
-      if (theme !== 'default' && theme !== 'dark') return;
-      document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
-      rerenderMermaid(theme);
-    };
-  })();
+      window.setMermaidTheme = function (theme) {
+        if (theme !== 'default' && theme !== 'dark') return;
+        document.documentElement.classList.toggle('dark-mermaid', theme === 'dark');
+        rerenderMermaid(theme);
+      };
+    })();
   </script>
 </head>
+
 <body>
   <div class="site-shell">
-    <header class="site-header">
-      <a class="site-header__brand" href="{{ '/' | relative_url }}">
-        <span>
-          <span class="site-header__name lang-ja">中野竜之介</span>
-          <span class="site-header__name lang-en">Ryunosuke Nakano</span>
-        </span>
-        <span>
-          <span class="site-header__descriptor lang-ja">数学研究者／プログラマ</span>
-          <span class="site-header__descriptor lang-en">Mathematics Researcher · Programmer</span>
-        </span>
-      </a>
-      <div class="site-header__controls">
-        <div class="lang-switch">
-          <label for="lang-select">
-            <span class="lang-ja">言語</span>
-            <span class="lang-en">Language</span>
-          </label>
-          <select id="lang-select" name="language">
-            <option value="ja">日本語</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation" onclick="toggleMenu()">Menu</button>
-      </div>
-    </header>
+    {% include header.html %}
 
     <div class="site-body">
       <aside class="site-nav-col">
-        {% include sidebar.html %}
+        {% include nav.html %}
       </aside>
       <main class="site-main">
         <article class="content-area">
@@ -147,17 +125,26 @@
     </div>
 
     <footer class="site-footer">
-      <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
-      <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+      <div class="site-footer__links">
+        <a href="{{ '/privacy-policy.html' | relative_url }}">
+          <span class="lang-ja">プライバシーポリシー</span>
+          <span class="lang-en">Privacy Policy</span>
+        </a>
+      </div>
+      <div>
+        <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+        <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+      </div>
     </footer>
   </div>
 
   {% assign cache_bust = site.github.build_revision %}
   {% unless cache_bust %}
-    {% assign cache_bust = site.time | date: '%s' %}
+  {% assign cache_bust = site.time | date: '%s' %}
   {% endunless %}
   <script src="{{ '/assets/js/lang-switch.js' | relative_url }}?v={{ cache_bust }}"></script>
   <script src="{{ '/assets/menu.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/animations.js' | relative_url }}?v={{ cache_bust }}" defer></script>
   <script src="{{ '/assets/js/mermaid-panzoom.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/toc.js' | relative_url }}?v={{ cache_bust }}" defer></script>
   <script>
@@ -175,4 +162,5 @@
     if (lastEn) lastEn.textContent = formatted;
   </script>
 </body>
+
 </html>

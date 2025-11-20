@@ -784,6 +784,13 @@ textarea:focus-visible {
     color: var(--color-text-muted);
 }
 
+.glass-panel {
+    background: rgba(21, 27, 39, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
 .badge {
     display: inline-flex;
     align-items: center;
@@ -1321,4 +1328,112 @@ mjx-container:not([display="true"]) {
 canvas {
     border: 1px solid black;
     background-color: white;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0; /* Start hidden */
+}
+
+/* Button Styles */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.button--accent {
+    background: rgba(127, 209, 185, 0.1);
+    color: var(--color-accent);
+    border-color: rgba(127, 209, 185, 0.2);
+}
+
+.button--accent:hover {
+    background: rgba(127, 209, 185, 0.2);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+/* Scroll Reveal Animation */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+                transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Page Transition */
+body {
+    animation: pageFadeIn 0.5s ease-out;
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Enhanced Hover Effects */
+.note-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.note-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--color-accent);
+}
+
+.theme-index__group {
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.theme-index__group:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-accent);
+}
+
+a:not(.button):not(.site-header__brand):not(.note-card__title a) {
+    position: relative;
+    text-decoration: none;
+}
+
+a:not(.button):not(.site-header__brand):not(.note-card__title a)::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+a:not(.button):not(.site-header__brand):not(.note-card__title a):hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }

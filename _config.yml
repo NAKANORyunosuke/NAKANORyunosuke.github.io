@@ -40,6 +40,9 @@ collections:
   projects:
     output: true
     permalink: /portfolio/:name/
+  notes:
+    output: true
+    permalink: /notes/:slug/
 
 markdown: kramdown
 kramdown:

@@ -1,0 +1,30 @@
+---
+layout: default
+title: ノート
+description: "数学とプログラミングに関する技術ノート"
+lang: ja
+---
+
+<section class="section glass-panel stack">
+    <div class="section-heading">
+        <h1 class="lang-ja">ノート</h1>
+        <h1 class="lang-en">Notes</h1>
+        <p class="section-description lang-ja">数学とプログラミングに関する技術的なメモと解説。</p>
+        <p class="section-description lang-en">Technical notes on mathematics and programming.</p>
+    </div>
+
+    <div class="card-grid">
+        {% for note in site.notes %}
+        <a href="{{ note.url | relative_url }}" class="portfolio-card">
+            <div class="portfolio-body">
+                <h2 class="portfolio-title">{{ note.title }}</h2>
+                <p class="portfolio-summary">{{ note.description | default: note.excerpt | strip_html | truncate: 100 }}
+                </p>
+                <div class="portfolio-meta">
+                    <span>{{ note.date | date: "%Y-%m-%d" }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
