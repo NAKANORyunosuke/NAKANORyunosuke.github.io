@@ -10,7 +10,7 @@ lang: ja
 # <span class="lang-ja">Borwein cubic AGMの数値実験</span><span class="lang-en">Numerical experiments on Borwein cubic AGM</span>
 
 ## 導入
-Borwein cubic AGM[^Bor91]で導入された2種2項平均
+J. M. Borwein, P. B. Borwein(1991)[^Bor91]で導入された2種2項平均
 
 $$
     \begin{aligned}
