@@ -100,6 +100,22 @@
         const fallback = (_a = heading.textContent) !== null && _a !== void 0 ? _a : '';
         return cleanText(fallback);
     }
+    function resolveLabelHtml(heading, lang) {
+        var _a;
+        const preferred = heading.querySelector(`.lang-${lang}`);
+        if (preferred === null || preferred === void 0 ? void 0 : preferred.innerHTML) {
+            const html = preferred.innerHTML.trim();
+            if (html) {
+                return html;
+            }
+        }
+        const dataAttr = heading.getAttribute(`data-label-${lang}`);
+        if (dataAttr) {
+            return dataAttr.trim();
+        }
+        const fallback = (_a = heading.innerHTML) !== null && _a !== void 0 ? _a : '';
+        return fallback.trim();
+    }
     let observer = null;
     function buildToc(lang) {
         const headings = collectHeadings(lang);
@@ -126,12 +142,25 @@
             const link = document.createElement('a');
             link.className = 'site-toc__link';
             link.href = `#${heading.id}`;
-            link.textContent = resolveLabel(heading, lang);
+            link.innerHTML = resolveLabelHtml(heading, lang);
             item.appendChild(link);
             fragment.appendChild(item);
             tocEntries.push({ heading, link });
         });
         tocList.appendChild(fragment);
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(tocList, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                ],
+                throwOnError: false,
+                strict: false,
+                ignoredTags: ['script', 'noscript', 'style', 'textarea', 'code', 'pre'],
+            });
+        }
         if (observer) {
             observer.disconnect();
         }

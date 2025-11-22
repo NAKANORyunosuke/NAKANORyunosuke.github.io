@@ -34,6 +34,7 @@ sitemap: false
     --space-5: 2.5rem;
     --space-6: 3rem;
     --space-7: 3.5rem;
+    --space-math-block: 0.65rem;
     --grid-gap: var(--space-3);
     --width-fluid: min(1400px, calc(100vw - 4rem));
     --measure-min: 37.5rem;
@@ -124,7 +125,7 @@ em {
 }
 
 p {
-    margin: 0 0 calc(1.5 * 1em * var(--leading));
+    margin: 0;
     max-width: var(--measure-max);
 }
 
@@ -1179,9 +1180,12 @@ mjx-container {
     color: var(--color-text);
 }
 
-mjx-container[display="true"] {
+mjx-container[display="true"],
+.MathJax_Display,
+.math-display,
+.katex-display {
     max-width: var(--measure-max);
-    margin: var(--space-3) auto !important;
+    margin: var(--space-math-block) auto !important;
     display: flex !important;
     justify-content: center;
     text-align: center !important;
@@ -1198,15 +1202,6 @@ mjx-container:not([display="true"]) {
     white-space: nowrap !important;
 }
 
-.MathJax_Display,
-.math-display {
-    max-width: var(--measure-max);
-    margin: var(--space-3) auto !important;
-    display: flex !important;
-    justify-content: center;
-    text-align: center !important;
-}
-
 .MathJax {
     display: inline-flex !important;
     align-items: baseline;
@@ -1215,25 +1210,32 @@ mjx-container:not([display="true"]) {
 .katex {
     color: var(--color-text);
     font-size: 1em;
-    font-family:
-        "KaTeX_Main",
-        "Latin Modern Math",
-        "STIX Two Math",
-        "Cambria Math",
-        "Segoe UI Symbol",
-        serif;
-}
-
-.katex-display {
-    max-width: var(--measure-max);
-    margin: var(--space-3) auto !important;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+    font-family: "KaTeX_Main", "Latin Modern Math", "STIX Two Math", "Cambria Math", "Segoe UI Symbol", serif;
 }
 
 .katex-display > .katex {
     display: inline-block;
+}
+
+p:has(+ mjx-container[display="true"]),
+p:has(+ .MathJax_Display),
+p:has(+ .math-display),
+p:has(+ .katex-display) {
+    margin-bottom: 0.35rem;
+}
+
+p + mjx-container[display="true"],
+p + .MathJax_Display,
+p + .math-display,
+p + .katex-display {
+    margin-top: 0.2rem !important;
+}
+
+mjx-container[display="true"] + mjx-container[display="true"],
+.MathJax_Display + .MathJax_Display,
+.math-display + .math-display,
+.katex-display + .katex-display {
+    margin-top: 0.25rem !important;
 }
 
 @media (min-width: 880px) {
@@ -1405,8 +1407,9 @@ canvas {
 .reveal-on-scroll {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
-                transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition:
+        opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+        transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .reveal-on-scroll.is-visible {
@@ -1420,13 +1423,22 @@ body {
 }
 
 @keyframes pageFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Enhanced Hover Effects */
 .note-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
 .note-card:hover {
@@ -1436,7 +1448,9 @@ body {
 }
 
 .theme-index__group {
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
 }
 
 .theme-index__group:hover {
@@ -1450,7 +1464,7 @@ a:not(.button):not(.site-header__brand):not(.note-card__title a) {
 }
 
 a:not(.button):not(.site-header__brand):not(.note-card__title a)::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     transform: scaleX(0);
@@ -1488,7 +1502,7 @@ a:not(.button):not(.site-header__brand):not(.note-card__title a):hover::after {
 
 .post__content {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-1);
 }
 
 .post__ads {
