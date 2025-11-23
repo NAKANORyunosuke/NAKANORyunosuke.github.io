@@ -1,7 +1,7 @@
 ---
 layout: default
 title: トップページ
-description: "研究員兼プログラマ 中野竜之介のノート・研究・コードのハブ。"
+description: "研究員兼プログラマ 中野竜之介のノート・研究・コードのハブ. "
 lang: ja
 ---
 
@@ -71,9 +71,8 @@ lang: ja
                 <span class="lang-ja">{{ channel.summary_ja }}</span>
                 <span class="lang-en">{{ channel.summary_en }}</span>
             </p>
-            <a class="button button--accent"
-               href="{{ channel.url }}"
-               {% if channel.url contains '://' or channel.url contains 'mailto:' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+            <a class="button button--accent" href="{{ channel.url }}" {% if channel.url contains '://' or channel.url
+                contains 'mailto:' %}target="_blank" rel="noopener noreferrer" {% endif %}>
                 <span class="lang-ja">{{ channel.action_label_ja }}</span>
                 <span class="lang-en">{{ channel.action_label_en }}</span>
             </a>

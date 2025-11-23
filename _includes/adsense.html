@@ -5,21 +5,17 @@
     <span class="lang-en">Advertisement</span>
   </span>
   {% if site.adsense_client and slot_id %}
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="{{ site.adsense_client }}"
-         data-ad-slot="{{ slot_id }}"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      }
-    </script>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="{{ site.adsense_client }}" data-ad-slot="{{ slot_id }}"
+    data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>
+    if (typeof window !== 'undefined') {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  </script>
   {% else %}
-    <div class="ad-slot__placeholder">
-      <span class="lang-ja">AdSense クライアント ID とスロット ID を設定してください。</span>
-      <span class="lang-en">Configure your AdSense client ID and slot ID to serve ads.</span>
-    </div>
+  <div class="ad-slot__placeholder">
+    <span class="lang-ja">AdSense クライアント ID とスロット ID を設定してください. </span>
+    <span class="lang-en">Configure your AdSense client ID and slot ID to serve ads.</span>
+  </div>
   {% endif %}
 </div>

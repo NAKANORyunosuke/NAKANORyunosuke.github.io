@@ -3,7 +3,7 @@ layout: post
 title: "Theta Functions and Modular Forms"
 title_ja: "テータ関数とモジュラー形式"
 description: "Notes on normalizations, transformation laws, and numerical stability for theta functions."
-description_ja: "正規化・変換則・数値安定性に関するメモ。"
+description_ja: "正規化・変換則・数値安定性に関するメモ. "
 categories: [math, research]
 tags: [theta-functions, modular-forms, analysis]
 lang: en

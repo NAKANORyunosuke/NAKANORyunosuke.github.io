@@ -104,7 +104,7 @@ function theta01(tau::Complex; prec::Integer=256, tol::Real=1e-50)
 end
 ```
 
-<p class="lang-ja">議論やフィードバックは <a href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a> まで。</p>
+<p class="lang-ja">議論やフィードバックは <a href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a> まで. </p>
 
 [^Bor91]: J. M. Borwein and P. B. Borwein, A cubic counterpart of Jacobi’s identity and the AGM, Trans. Amer. Math. Soc. 323(2) (1991) 691–701.
 [^KS07]: K. Koike and H. Shiga, Isogeny formulas for the Picard modular form and a three terms arithmetic geometric mean, J. Number Theory 124(1) (2007) 123–141.
