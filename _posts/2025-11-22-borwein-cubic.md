@@ -49,7 +49,7 @@ $$
     \tau = \sqrt{3}i \left. F\left(\frac13 ,\frac23 ,1;\frac{b_0^3}{a_0^3}\right)\middle/ F\left(\frac13 ,\frac23 ,1;1-\frac{b_0^3}{a_0^3}\right)\right.
 $$
 
-## コード断片
+## コード
 ```python
 function theta01(tau::Complex; prec::Integer=256, tol::Real=1e-50)
     return setprecision(prec) do
