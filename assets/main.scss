@@ -1559,6 +1559,106 @@ a:not(.button):not(.site-header__brand):not(.note-card__title a):hover::after {
     gap: var(--space-1);
 }
 
+.post__share {
+    margin: var(--space-3) 0;
+}
+
+.share {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.share__title {
+    margin: 0;
+    font-size: var(--step-1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.share__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.share__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+    color: var(--color-text);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.share__button:hover,
+.share__button:focus-visible {
+    transform: translateY(-1px);
+    border-color: var(--color-accent);
+    background: var(--color-surface-0);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+}
+
+.share__button--x {
+    background: linear-gradient(120deg, #0b0c11, #161821);
+    border-color: #2a2f3a;
+    color: #e7e9ea;
+}
+
+.share__button--facebook {
+    background: rgba(66, 103, 178, 0.12);
+    border-color: rgba(66, 103, 178, 0.4);
+    color: #e6edff;
+}
+
+.share__button--linkedin {
+    background: rgba(10, 102, 194, 0.12);
+    border-color: rgba(10, 102, 194, 0.4);
+    color: #dff0ff;
+}
+
+.share__button--line {
+    background: rgba(0, 195, 0, 0.12);
+    border-color: rgba(0, 195, 0, 0.35);
+    color: #e5ffe9;
+}
+
+.share__button--x:hover,
+.share__button--x:focus-visible {
+    border-color: #e7e9ea;
+}
+
+.share__button--facebook:hover,
+.share__button--facebook:focus-visible {
+    border-color: #7da5ff;
+}
+
+.share__button--linkedin:hover,
+.share__button--linkedin:focus-visible {
+    border-color: #4ea4ff;
+}
+
+.share__button--line:hover,
+.share__button--line:focus-visible {
+    border-color: #4cff70;
+}
+
 .post__ads {
     margin: var(--space-3) 0;
 }
@@ -1609,5 +1709,15 @@ a:not(.button):not(.site-header__brand):not(.note-card__title a):hover::after {
 @media (max-width: 640px) {
     .ad-slot {
         min-height: 240px;
+    }
+
+    .share__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .share__button {
+        justify-content: center;
+        width: 100%;
     }
 }
