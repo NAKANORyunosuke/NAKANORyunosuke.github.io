@@ -36,6 +36,40 @@ layout: default
     {{ content }}
   </div>
 
+  {% assign share_url = page.url | absolute_url %}
+  {% assign share_title = page.title_ja | default: page.title %}
+  {% assign share_url_encoded = share_url | uri_escape %}
+  {% assign share_title_encoded = share_title | uri_escape %}
+  <div class="post__share share">
+    <h2 class="share__title">
+      <span class="lang-ja">この記事を共有する</span>
+      <span class="lang-en">Share this note</span>
+    </h2>
+    <div class="share__actions">
+      <a class="share__button share__button--x" href="https://twitter.com/intent/tweet?text={{ share_title_encoded }}&url={{ share_url_encoded }}"
+        target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)でシェア">
+        <span class="lang-ja">Xで共有</span>
+        <span class="lang-en">Share on X</span>
+      </a>
+      <a class="share__button share__button--facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url_encoded }}"
+        target="_blank" rel="noopener noreferrer" aria-label="Facebookでシェア">
+        <span class="lang-ja">Facebookに投稿</span>
+        <span class="lang-en">Share on Facebook</span>
+      </a>
+      <a class="share__button share__button--linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&url={{ share_url_encoded }}&title={{ share_title_encoded }}"
+        target="_blank" rel="noopener noreferrer" aria-label="LinkedInでシェア">
+        <span class="lang-ja">LinkedInに投稿</span>
+        <span class="lang-en">Share on LinkedIn</span>
+      </a>
+      <a class="share__button share__button--line" href="https://social-plugins.line.me/lineit/share?url={{ share_url_encoded }}"
+        target="_blank" rel="noopener noreferrer" aria-label="LINEで共有">
+        <span class="lang-ja">LINEで共有</span>
+        <span class="lang-en">Share via LINE</span>
+      </a>
+    </div>
+  </div>
+
   <div class="post__ads">
     {% include adsense.html slot=page.adsense_slot_mid position="mid-article" %}
   </div>
