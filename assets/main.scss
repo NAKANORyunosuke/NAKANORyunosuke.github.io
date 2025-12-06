@@ -1305,6 +1305,11 @@ mjx-container[display="true"] + mjx-container[display="true"],
 }
 
 @media (max-width: 980px) {
+    :root {
+        --column-narrow-min: 120px;
+        --grid-gap: var(--space-2);
+    }
+
     .site-body {
         grid-template-columns: repeat(4, minmax(var(--column-narrow-min), 1fr));
     }
@@ -1335,7 +1340,12 @@ mjx-container[display="true"] + mjx-container[display="true"],
     }
 
     .grid-7 {
-        grid-template-columns: repeat(4, minmax(var(--column-narrow-min), 1fr));
+        grid-template-columns: repeat(2, minmax(var(--column-narrow-min), 1fr));
+        grid-auto-flow: row;
+    }
+
+    .grid-7 > * {
+        grid-column: auto;
     }
 
     .site-toc {
@@ -1365,8 +1375,20 @@ mjx-container[display="true"] + mjx-container[display="true"],
 }
 
 @media (max-width: 640px) {
+    .site-body {
+        grid-template-columns: 1fr;
+    }
+
+    .site-main {
+        padding-inline-end: 0;
+    }
+
     .grid-7 {
-        grid-template-columns: repeat(2, minmax(var(--column-narrow-min), 1fr));
+        grid-template-columns: 1fr;
+    }
+
+    .grid-7 > * {
+        grid-column: 1 / -1 !important;
     }
 
     .site-shell {
