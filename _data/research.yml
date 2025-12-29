@@ -11,7 +11,13 @@ sections:
       title:
           ja: "プレプリント"
           en: "Preprints"
-      items: []
+      items:
+          - date:
+                ja: "2025年12月26日"
+                en: "26 December 2025"
+            description:
+                ja: 'Keiji Matsumoto, Ryunosuke Nakano, "The algebro-geometric aspect of the iterated limit of a quaternary of means of four terms", <a href="https://arxiv.org/abs/2512.22002">arXiv:2512.22002</a>, 2025年12月26日'
+                en: 'Keiji Matsumoto, Ryunosuke Nakano, "The algebro-geometric aspect of the iterated limit of a quaternary of means of four terms", <a href="https://arxiv.org/abs/2512.22002">arXiv:2512.22002</a>, 26 December 2025'
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
