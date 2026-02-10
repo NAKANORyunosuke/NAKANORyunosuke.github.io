@@ -18,7 +18,7 @@ hero: "/assets/img/portfolio/mcyr-timetable/hero.png"
 tags: ["Django","Celery","Scheduling","WeasyPrint","Google Sheets","SortableJS"]
 summary: "Google Forms → Sheets の回答を取り込み, ドラッグ&ドロップで講演編成を行い, PDF/PNG/CSVにエクスポートできる社内向けタイムテーブルメーカー. "
 permalink: /portfolio/mcyr-timetable/
-published: true
+published: false
 ---
 
 ## 概要
