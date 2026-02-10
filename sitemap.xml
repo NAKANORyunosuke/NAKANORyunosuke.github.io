@@ -2,9 +2,13 @@
 layout: null
 sitemap: false
 ---
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {%- comment -%}
+    Google Search Console submission URL should be:
+    https://nakanoryunosuke.github.io/sitemap.xml
+    (no trailing slash)
+  {%- endcomment -%}
 
   {%- comment -%} Pages {%- endcomment -%}
   {%- for doc in site.pages -%}
@@ -15,8 +19,10 @@ sitemap: false
         {%- unless ext4 == '.css' or ext4 == '.xml' or ext4 == '.txt' -%}
           <url>
             <loc>{{ doc.url | absolute_url }}</loc>
-            <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
-            <priority>{{ doc.priority | default: 0.8 }}</priority>
+            {%- assign page_lastmod = doc.last_modified_at | default: doc.date -%}
+            {%- if page_lastmod -%}
+            <lastmod>{{ page_lastmod | date_to_xmlschema }}</lastmod>
+            {%- endif -%}
           </url>
         {%- endunless -%}
       {%- endunless -%}
@@ -28,8 +34,10 @@ sitemap: false
     {%- if doc.sitemap != false and doc.published != false -%}
       <url>
         <loc>{{ doc.url | absolute_url }}</loc>
-        <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
-        <priority>{{ doc.priority | default: 0.8 }}</priority>
+        {%- assign post_lastmod = doc.last_modified_at | default: doc.date -%}
+        {%- if post_lastmod -%}
+        <lastmod>{{ post_lastmod | date_to_xmlschema }}</lastmod>
+        {%- endif -%}
       </url>
     {%- endif -%}
   {%- endfor -%}
@@ -45,8 +53,10 @@ sitemap: false
             {%- unless ext4 == '.css' or ext4 == '.xml' or ext4 == '.txt' -%}
               <url>
                 <loc>{{ doc.url | absolute_url }}</loc>
-                <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
-                <priority>{{ doc.priority | default: 0.8 }}</priority>
+                {%- assign doc_lastmod = doc.last_modified_at | default: doc.date -%}
+                {%- if doc_lastmod -%}
+                <lastmod>{{ doc_lastmod | date_to_xmlschema }}</lastmod>
+                {%- endif -%}
               </url>
             {%- endunless -%}
           {%- endunless -%}
@@ -54,5 +64,4 @@ sitemap: false
       {%- endfor -%}
     {%- endunless -%}
   {%- endfor -%}
-
 </urlset>
