@@ -1,10 +1,10 @@
-# - title: "Borwein cubic AGMの数値実験"
-#   title_en: "Numerical experiments on Borwein cubic AGM"
-#   date: "2025-10-31"
-#   summary_ja: "Borwein cubic AGMとその拡張の数値計算"
-#   summary_en: "Numerical calculations of Borwein cubic AGM and its extensions."
-#   url: "/notes/borwein-cubic"
-#   tags: ["research-note", "theta-functions"]
+- title: "Borwein cubic AGMの数値実験"
+  title_en: "Numerical experiments on Borwein cubic AGM"
+  date: "2025-10-31"
+  summary_ja: "Borwein cubic AGMとその拡張の数値計算"
+  summary_en: "Numerical calculations of Borwein cubic AGM and its extensions."
+  url: "/notes/borwein-cubic"
+  tags: ["research-note", "theta-functions"]
 - title: "ライフゲーム"
   title_en: "Game of Life"
   date: "2025-11-01"
