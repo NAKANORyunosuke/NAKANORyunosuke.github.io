@@ -307,6 +307,60 @@ pre.code-block {
     display: inline;
 }
 
+.code-collapsible {
+    margin: 0 0 var(--space-3);
+    max-width: var(--measure-max);
+    width: 100%;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-code-border);
+    border-radius: var(--radius);
+}
+
+.code-collapsible > pre {
+    margin: 0;
+    max-width: none;
+    border: 0;
+    border-top: 1px solid var(--color-code-border);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.code-collapsible > summary {
+    list-style: none;
+}
+
+.code-collapsible > summary::-webkit-details-marker {
+    display: none;
+}
+
+.code-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.6rem var(--space-2);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+    background: rgba(15, 18, 25, 0.85);
+}
+
+.code-toggle::before {
+    content: "+";
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+.code-collapsible[open] .code-toggle::before {
+    content: "-";
+}
+
+.code-collapsible:not([open]) .code-toggle__hide,
+.code-collapsible[open] .code-toggle__show {
+    display: none;
+}
+
 blockquote {
     margin: 0 0 var(--space-3);
     padding: var(--space-2) var(--space-3);
