@@ -33,6 +33,15 @@ plugins:
     - jekyll-feed
     - jekyll-sitemap
 exclude:
+    - ".sass-cache"
+    - ".jekyll-cache"
+    - ".jekyll-metadata"
+    - "vendor"
+    - "vendor/bundle"
+    - "vendor/cache"
+    - "vendor/gems"
+    - "vendor/ruby"
+    - ".bundle"
     - "node_modules"
     - "design"
     - "post.md.sample"
