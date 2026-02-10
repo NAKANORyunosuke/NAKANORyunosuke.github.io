@@ -6,15 +6,15 @@ encoding: "UTF-8"
 
 # ─── 多言語対応/著者情報 ───
 author:
-  name: "中野竜之介"
-  en_name: "NAKANO Ryunosuke"
-  given_name: "Ryunosuke"
-  family_name: "NAKANO"
-  job_title: "Doctoral Student, Department of Mathematics, Graduate School of Science, Hokkaido University"
-  affiliation: "Hokkaido University"
-  same_as:
-    - "https://x.com/RNakano_theta"
-    - "https://researchmap.jp/NAKANO-R"
+    name: "中野竜之介"
+    en_name: "NAKANO Ryunosuke"
+    given_name: "Ryunosuke"
+    family_name: "NAKANO"
+    job_title: "Doctoral Student, Department of Mathematics, Graduate School of Science, Hokkaido University"
+    affiliation: "Hokkaido University"
+    same_as:
+        - "https://x.com/RNakano_theta"
+        - "https://researchmap.jp/NAKANO-R"
 
 # ─── サイト URL/ベースパス ───
 url: "https://nakanoryunosuke.github.io"
@@ -25,45 +25,45 @@ twitter: "@RNakano_theta"
 google_verify: "VVk4Bfte-4_pc0W8nFpDTIgeCtWQ4b46DuX_qHtKYQE"
 google_analytics: G-1QXJERSDWQ
 adsense_client: "ca-pub-8135275658274644"
-adsense_slot: ""
+adsense_slot: "8562313735"
 
 # ─── プラグイン設定など ───
 theme: minima
 plugins:
-  - jekyll-feed
-  - jekyll-sitemap
+    - jekyll-feed
+    - jekyll-sitemap
 
 # ✅ sass は“ディレクトリ”指定だけ（正しいキーはこれだけ）
 sass:
-  sass_dir: assets
-  style: compressed
+    sass_dir: assets
+    style: compressed
 
 collections:
-  projects:
-    output: true
-    permalink: /portfolio/:name/
-  notes:
-    output: true
-    permalink: /notes/:slug/
+    projects:
+        output: true
+        permalink: /portfolio/:name/
+    notes:
+        output: true
+        permalink: /notes/:slug/
 
 markdown: kramdown
 highlighter: rouge
 kramdown:
-  input: GFM
-  parse_block_html: true
-  math_engine: null
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    default_lang: text
-    css_class: highlight
+    input: GFM
+    parse_block_html: true
+    math_engine: null
+    syntax_highlighter: rouge
+    syntax_highlighter_opts:
+        default_lang: text
+        css_class: highlight
 
 defaults:
-  - scope:
-      path: "assets/main.scss"
-    values:
-      sitemap: false
+    - scope:
+          path: "assets/main.scss"
+      values:
+          sitemap: false
 
-  - scope:
-      path: "feed.xml"
-    values:
-      sitemap: false
+    - scope:
+          path: "feed.xml"
+      values:
+          sitemap: false
