@@ -1,88 +1,223 @@
 ---
 layout: default
-title: トップページ
-description: "研究員兼プログラマ 中野竜之介のノート・研究・コードのハブ. "
+title: トップ
+description: "更新情報と公開コンテンツの一覧."
 lang: ja
 ---
 
-{% if site.data.research_themes.size > 0 %}
-<div class="stack">
-    {% for theme in site.data.research_themes %}
-    <article class="section reveal-on-scroll">
-        <h2 class="section__title">
-            <span class="lang-ja">{{ theme.title }}</span>
-            <span class="lang-en">{{ theme.title_en }}</span>
-        </h2>
-        <p class="section__subtitle">
-            <span class="lang-ja">{{ theme.summary_ja }}</span>
-            <span class="lang-en">{{ theme.summary_en }}</span>
-        </p>
-        <div class="grid-7" data-toc-ignore>
-            <div class="section col-span-3 col-start-1 stack">
-                <h3 data-toc-exclude>
-                    <span class="lang-ja">代表論文</span>
-                    <span class="lang-en">Featured Paper</span>
-                </h3>
-                <p>{{ theme.featured_paper.title }}</p>
-                <a class="theme-index__link" href="{{ theme.featured_paper.url }}">{{ theme.featured_paper.link_text
-                    }}</a>
-            </div>
-            <div class="section col-span-2 col-start-4 stack">
-                <h3 data-toc-exclude>
-                    <span class="lang-ja">関連ノート</span>
-                    <span class="lang-en">Related Notes</span>
-                </h3>
-                <ul>
-                    {% for note in theme.related_notes %}
-                    <li><a href="{{ note.url }}">{{ note.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="section col-span-2 col-start-6 stack">
-                <h3 data-toc-exclude>
-                    <span class="lang-ja">コード更新</span>
-                    <span class="lang-en">Code Updates</span>
-                </h3>
-                <ul>
-                    {% for code in theme.code_updates %}
-                    <li><a href="{{ code.url }}">{{ code.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </article>
-    {% endfor %}
-</div>
-{% endif %}
+{% assign latest_posts = site.posts | sort: 'date' | reverse %}
+{% assign latest_projects = site.projects | sort: 'date' | reverse %}
+{% assign latest_post = latest_posts | first %}
+{% assign latest_project = latest_projects | first %}
 
-<section class="section reveal-on-scroll" aria-labelledby="engage-heading">
-    <h2 id="engage-heading" class="section__title">
-        <span class="lang-ja">シグナル</span>
-        <span class="lang-en">Signals</span>
-    </h2>
-    <div class="grid-7" data-toc-ignore>
-        {% for channel in site.data.engagement_channels %}
-        <div class="section col-span-3 stack">
-            <h3 data-toc-exclude>
-                <span class="lang-ja">{{ channel.title }}</span>
-                <span class="lang-en">{{ channel.title_en }}</span>
-            </h3>
-            <p>
-                <span class="lang-ja">{{ channel.summary_ja }}</span>
-                <span class="lang-en">{{ channel.summary_en }}</span>
-            </p>
-            <a class="button button--accent" href="{{ channel.url }}" {% if channel.url contains '://' or channel.url
-                contains 'mailto:' %}target="_blank" rel="noopener noreferrer" {% endif %}>
-                <span class="lang-ja">{{ channel.action_label_ja }}</span>
-                <span class="lang-en">{{ channel.action_label_en }}</span>
-            </a>
-        </div>
-        {% endfor %}
+<section class="hero glass-panel reveal-on-scroll" aria-labelledby="home-hero-heading">
+  <div class="hero__grid">
+    <div class="hero__text">
+      <span class="hero__eyebrow lang-ja">更新状況</span>
+      <span class="hero__eyebrow lang-en">Status</span>
+      <h1 id="home-hero-heading" class="lang-ja">研究ノートと開発記録</h1>
+      <h1 class="lang-en">Research Notes and Build Log</h1>
+      <p class="lang-ja">このページでは公開中のノートとプロジェクトを時系列で確認できます. 最新更新と連絡先への導線をまとめています.</p>
+      <p class="lang-en">This page lists published notes and projects in chronological order, with direct links to recent updates and contact channels.</p>
+      <div class="callout__actions">
+        <a class="button button--accent" href="{{ '/notes/' | relative_url }}">
+          <span class="lang-ja">ノート一覧</span>
+          <span class="lang-en">Notes</span>
+        </a>
+        <a class="button" href="{{ '/portfolio/' | relative_url }}">
+          <span class="lang-ja">プロジェクト一覧</span>
+          <span class="lang-en">Projects</span>
+        </a>
+        <a class="button" href="{{ '/contact/' | relative_url }}">
+          <span class="lang-ja">連絡先</span>
+          <span class="lang-en">Contact</span>
+        </a>
+      </div>
     </div>
+
+    <aside class="section stack" aria-label="Current published status">
+      <p class="callout__title">
+        <span class="lang-ja">現在の公開状況</span>
+        <span class="lang-en">Current status</span>
+      </p>
+
+      {% if latest_post %}
+      <p class="callout__text">
+        <span class="lang-ja">最新ノート: {{ latest_post.date | date: "%Y-%m-%d" }} / <a href="{{ latest_post.url | relative_url }}">{{ latest_post.title_ja | default: latest_post.title }}</a></span>
+        <span class="lang-en">Latest note: {{ latest_post.date | date: "%Y-%m-%d" }} / <a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a></span>
+      </p>
+      {% endif %}
+
+      {% if latest_project %}
+      <p class="callout__text">
+        <span class="lang-ja">最新プロジェクト: {{ latest_project.date | date: "%Y-%m-%d" }} / <a href="{{ latest_project.url | relative_url }}">{{ latest_project.title }}</a></span>
+        <span class="lang-en">Latest project: {{ latest_project.date | date: "%Y-%m-%d" }} / <a href="{{ latest_project.url | relative_url }}">{{ latest_project.title }}</a></span>
+      </p>
+      {% endif %}
+
+      <p class="callout__text">
+        <span class="lang-ja">ノート {{ latest_posts | size }} 件 / プロジェクト {{ latest_projects | size }} 件</span>
+        <span class="lang-en">Notes: {{ latest_posts | size }} / Projects: {{ latest_projects | size }}</span>
+      </p>
+    </aside>
+  </div>
 </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Optional: Add any specific JS for the homepage here
-    });
-</script>
+<section class="section-card glass-panel reveal-on-scroll" aria-labelledby="recent-notes-heading">
+  <div class="section-heading">
+    <h2 id="recent-notes-heading" class="lang-ja">最新ノート</h2>
+    <h2 class="lang-en">Recent Notes</h2>
+    <p class="section-description lang-ja">新しい順に4件を表示しています.</p>
+    <p class="section-description lang-en">The four most recent posts are shown.</p>
+  </div>
+
+  <div class="note-list">
+    {% for post in latest_posts limit: 4 %}
+    <article class="note-card">
+      <div class="note-card__meta">
+        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+        {% if post.categories and post.categories.size > 0 %}
+        <span class="inline-cluster">
+          {% for category in post.categories %}
+          <span class="badge">{{ category }}</span>
+          {% endfor %}
+        </span>
+        {% endif %}
+      </div>
+      <h3 class="note-card__title">
+        <a href="{{ post.url | relative_url }}">
+          <span class="lang-ja">{{ post.title_ja | default: post.title }}</span>
+          <span class="lang-en">{{ post.title }}</span>
+        </a>
+      </h3>
+      {% if post.description or post.description_ja %}
+      <p class="note-card__summary">
+        <span class="lang-ja">{{ post.description_ja | default: post.description }}</span>
+        <span class="lang-en">{{ post.description | default: post.description_ja }}</span>
+      </p>
+      {% endif %}
+      <a class="note-card__cta" href="{{ post.url | relative_url }}">
+        <span class="lang-ja">読む</span>
+        <span class="lang-en">Read</span>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="callout__actions">
+    <a class="button button--accent" href="{{ '/notes/' | relative_url }}">
+      <span class="lang-ja">ノート一覧へ</span>
+      <span class="lang-en">All notes</span>
+    </a>
+  </div>
+</section>
+
+<section class="section-card glass-panel reveal-on-scroll" aria-labelledby="featured-projects-heading">
+  <div class="section-heading">
+    <h2 id="featured-projects-heading" class="lang-ja">公開プロジェクト</h2>
+    <h2 class="lang-en">Published Projects</h2>
+    <p class="section-description lang-ja">更新日の新しい順に表示しています.</p>
+    <p class="section-description lang-en">Projects are listed by latest update date.</p>
+  </div>
+
+  {% if latest_projects.size > 0 %}
+  <div class="portfolio-grid">
+    {% for project in latest_projects limit: 3 %}
+    <a class="portfolio-card" href="{{ project.url | relative_url }}">
+      <div class="portfolio-thumb">
+        {% if project.hero %}
+        <img src="{{ project.hero | relative_url }}" alt="{{ project.title }}">
+        {% endif %}
+      </div>
+      <div class="portfolio-body">
+        <h3 class="portfolio-title">{{ project.title }}</h3>
+        {% if project.summary %}
+        <p class="portfolio-summary">{{ project.summary }}</p>
+        {% endif %}
+        {% if project.tags %}
+        <ul class="tag-list">
+          {% for tag in project.tags limit: 4 %}
+          <li class="tag">{{ tag }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% if project.date %}
+        <div class="portfolio-meta">
+          <span class="lang-ja">更新日: {{ project.date | date: "%Y-%m-%d" }}</span>
+          <span class="lang-en">Updated: {{ project.date | date: "%Y-%m-%d" }}</span>
+        </div>
+        {% endif %}
+      </div>
+      <div class="portfolio-footer">
+        <span class="lang-ja">詳細</span>
+        <span class="lang-en">Details</span>
+        <span class="portfolio-cta-icon" aria-hidden="true">&rarr;</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="section-description lang-ja">公開中のプロジェクトはありません.</p>
+  <p class="section-description lang-en">No projects are currently published.</p>
+  {% endif %}
+
+  <div class="callout__actions">
+    <a class="button button--accent" href="{{ '/portfolio/' | relative_url }}">
+      <span class="lang-ja">ポートフォリオへ</span>
+      <span class="lang-en">Portfolio</span>
+    </a>
+  </div>
+</section>
+
+<section class="section reveal-on-scroll" aria-labelledby="engage-heading">
+  <h2 id="engage-heading" class="section__title">
+    <span class="lang-ja">連絡窓口</span>
+    <span class="lang-en">Contact Channels</span>
+  </h2>
+  <p class="section__subtitle">
+    <span class="lang-ja">用途ごとの連絡先です.</span>
+    <span class="lang-en">Available channels by purpose.</span>
+  </p>
+
+  <div class="structure-grid" data-toc-ignore>
+    {% for channel in site.data.engagement_channels %}
+    <article class="section stack structure-card">
+      <h3 data-toc-exclude>
+        <span class="lang-ja">{{ channel.title }}</span>
+        <span class="lang-en">{{ channel.title_en }}</span>
+      </h3>
+      <p class="callout__text">
+        <span class="lang-ja">{{ channel.summary_ja }}</span>
+        <span class="lang-en">{{ channel.summary_en }}</span>
+      </p>
+      <div class="callout__actions">
+        <a class="button button--accent" href="{{ channel.url }}" {% if channel.url contains '://' or channel.url contains 'mailto:' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          <span class="lang-ja">{{ channel.action_label_ja }}</span>
+          <span class="lang-en">{{ channel.action_label_en }}</span>
+        </a>
+      </div>
+    </article>
+    {% endfor %}
+
+    <article class="section stack structure-card">
+      <h3>
+        <span class="lang-ja">関連ページ</span>
+        <span class="lang-en">Related Pages</span>
+      </h3>
+      <p class="callout__text">
+        <span class="lang-ja">研究活動と発表資料へのリンクです.</span>
+        <span class="lang-en">Links to research activity and slides.</span>
+      </p>
+      <div class="callout__actions">
+        <a class="button" href="{{ '/research-activity.html' | relative_url }}">
+          <span class="lang-ja">研究活動</span>
+          <span class="lang-en">Research Activity</span>
+        </a>
+        <a class="button" href="{{ '/slides.html' | relative_url }}">
+          <span class="lang-ja">発表資料</span>
+          <span class="lang-en">Slides</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>

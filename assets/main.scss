@@ -977,8 +977,8 @@ textarea:focus-visible {
 }
 
 .callout {
-    background: linear-gradient(135deg, rgba(127, 209, 185, 0.18), rgba(15, 18, 25, 0.95));
-    border: 1px solid rgba(127, 209, 185, 0.24);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius);
     padding: var(--space-3);
     display: grid;
