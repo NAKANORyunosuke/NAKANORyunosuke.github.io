@@ -10,9 +10,9 @@ sitemap: false
   {%- for doc in site.pages -%}
     {%- assign p = doc.path | downcase -%}
     {%- assign ext4 = p | slice: -4, 4 -%}
-    {%- if doc.sitemap != false -%}
-      {%- unless p contains 'assets/' -%}
-        {%- unless ext4 == '.css' or ext4 == '.xml' -%}
+    {%- if doc.sitemap != false and doc.published != false -%}
+      {%- unless p contains 'assets/' or p contains 'design/' or p contains 'node_modules/' or p contains '.md.sample' -%}
+        {%- unless ext4 == '.css' or ext4 == '.xml' or ext4 == '.txt' -%}
           <url>
             <loc>{{ doc.url | absolute_url }}</loc>
             <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
@@ -25,7 +25,7 @@ sitemap: false
 
   {%- comment -%} Posts {%- endcomment -%}
   {%- for doc in site.posts -%}
-    {%- if doc.sitemap != false -%}
+    {%- if doc.sitemap != false and doc.published != false -%}
       <url>
         <loc>{{ doc.url | absolute_url }}</loc>
         <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>
@@ -40,9 +40,9 @@ sitemap: false
       {%- for doc in collection.docs -%}
         {%- assign p = doc.path | downcase -%}
         {%- assign ext4 = p | slice: -4, 4 -%}
-        {%- if doc.sitemap != false -%}
-          {%- unless p contains 'assets/' -%}
-            {%- unless ext4 == '.css' or ext4 == '.xml' -%}
+        {%- if doc.sitemap != false and doc.published != false -%}
+          {%- unless p contains 'assets/' or p contains 'design/' or p contains 'node_modules/' or p contains '.md.sample' -%}
+            {%- unless ext4 == '.css' or ext4 == '.xml' or ext4 == '.txt' -%}
               <url>
                 <loc>{{ doc.url | absolute_url }}</loc>
                 <changefreq>{{ doc.changefreq | default: 'weekly' }}</changefreq>

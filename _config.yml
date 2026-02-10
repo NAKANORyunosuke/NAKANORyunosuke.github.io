@@ -32,6 +32,20 @@ theme: minima
 plugins:
     - jekyll-feed
     - jekyll-sitemap
+exclude:
+    - "node_modules"
+    - "design"
+    - "post.md.sample"
+    - "src"
+    - "README.md"
+    - "build_log.txt"
+    - "package.json"
+    - "package-lock.json"
+    - "tsconfig.json"
+    - "Gemfile"
+    - "Gemfile.lock"
+    - "run.bat"
+    - "fixgem.bat"
 
 # ✅ sass は“ディレクトリ”指定だけ（正しいキーはこれだけ）
 sass:

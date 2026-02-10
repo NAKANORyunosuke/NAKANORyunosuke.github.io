@@ -10,6 +10,10 @@
 />
 
 <meta name="google-adsense-account" content="{{ site.adsense_client | default: '' }}">
+{% if site.adsense_client %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense_client }}"
+  crossorigin="anonymous"></script>
+{% endif %}
 <!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
 {% seo %}
 

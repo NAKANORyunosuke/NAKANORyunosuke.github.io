@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /design/
+Disallow: /post.md.sample
 Sitemap: https://nakanoryunosuke.github.io/sitemap.xml
