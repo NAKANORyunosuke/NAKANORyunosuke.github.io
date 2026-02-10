@@ -2,6 +2,7 @@ import { initLangSwitch } from './components/lang-switch';
 import { initMenuToggle } from './components/menu';
 import { initLastUpdated } from './components/last-updated';
 import { initScrollAnimations } from './components/animations';
+import { initCodeCopy } from './components/code-copy';
 
 function renderMathIfReady(): void {
   const render = (window as unknown as { renderMathInElement?: Function }).renderMathInElement;
@@ -31,5 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initMenuToggle();
   initLastUpdated();
   initScrollAnimations();
+  initCodeCopy();
   initMathRender();
 });

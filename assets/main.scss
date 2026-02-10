@@ -254,6 +254,59 @@ pre code {
     padding: 0;
 }
 
+pre.code-block {
+    position: relative;
+    padding-top: calc(var(--space-2) + 1.75rem);
+    padding-right: calc(var(--space-2) + 4rem);
+}
+
+.code-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-code-border);
+    background: rgba(15, 18, 25, 0.85);
+    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    font-family: var(--font-body);
+    letter-spacing: 0.05em;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.code-copy:hover,
+.code-copy:focus-visible {
+    color: var(--color-text);
+    border-color: var(--color-accent);
+    background: rgba(15, 18, 25, 0.95);
+    transform: translateY(-1px);
+}
+
+.code-copy[data-state="copied"] {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.code-copy .label-copied {
+    display: none;
+}
+
+.code-copy[data-state="copied"] .label-copy {
+    display: none;
+}
+
+.code-copy[data-state="copied"] .label-copied {
+    display: inline;
+}
+
 blockquote {
     margin: 0 0 var(--space-3);
     padding: var(--space-2) var(--space-3);
