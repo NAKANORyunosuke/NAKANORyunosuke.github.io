@@ -70,7 +70,8 @@
 	"scripts": {
 		"build": "npm run build:ts",
 		"build:ts": "esbuild src/ts/main.ts --bundle --format=iife --target=es2018 --sourcemap --outfile=assets/js/main.js",
-		"watch:ts": "esbuild src/ts/main.ts --bundle --format=iife --target=es2018 --sourcemap --outfile=assets/js/main.js --watch"
+		"watch:ts": "esbuild src/ts/main.ts --bundle --format=iife --target=es2018 --sourcemap --outfile=assets/js/main.js --watch",
+		"update:ga-counter": "node scripts/update-ga-counter.mjs"
 	},
 	"repository": {
 		"type": "git",
