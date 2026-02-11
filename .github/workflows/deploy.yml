@@ -49,7 +49,7 @@ jobs:
           GA4_PRIVATE_KEY: ${{ secrets.GA4_PRIVATE_KEY }}
         run: |
           if [ -n "$GA4_PROPERTY_ID" ] && [ -n "$GA4_SERVICE_ACCOUNT_EMAIL" ] && [ -n "$GA4_PRIVATE_KEY" ]; then
-            npm run update:ga-counter
+            npm run update:ga-counter || echo "GA counter update failed. Continue deploy with existing _data/ga_counter.json."
           else
             echo "GA4 secrets not set. Skip GA counter update."
           fi
