@@ -147,14 +147,16 @@
         <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
         {% assign ga_counter = site.data.ga_counter %}
         <p>
-          <span class="lang-ja">30日PV: </span>
-          <span class="lang-en">30d page views: </span>
-          <span>{{ ga_counter.page_views_30d_text | default: '-' }}</span>
+          <span class="lang-ja">累計PV: </span>
+          <span class="lang-en">All-time page views: </span>
+          {% assign page_views_text = ga_counter.page_views_total_text | default: ga_counter.page_views_30d_text %}
+          <span>{{ page_views_text | default: '-' }}</span>
         </p>
         <p>
-          <span class="lang-ja">30日ユーザー: </span>
-          <span class="lang-en">30d users: </span>
-          <span>{{ ga_counter.users_30d_text | default: '-' }}</span>
+          <span class="lang-ja">累計ユーザー: </span>
+          <span class="lang-en">All-time users: </span>
+          {% assign users_text = ga_counter.users_total_text | default: ga_counter.users_30d_text %}
+          <span>{{ users_text | default: '-' }}</span>
         </p>
         <p>
           <span class="lang-ja">解析更新: </span>
