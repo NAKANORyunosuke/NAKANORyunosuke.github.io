@@ -7,7 +7,6 @@ tags: [Risa/Asir]
 lang: ja
 ---
 
-# <span class="lang-ja reveal-on-scroll">Risa/Asirのインストール</span><span class="lang-en">Installation of Risa/Asir</span>
 Risa/Asirをインストールしようと思い, <a href="https://qiita.com/satoshin_astonish/items/9c1f5beff7275dadf0d4">この記事</a>を参考にしたが, 色々パッケージが足りなかったため追加したDockerfileを公開する. 
 
 ## <span class="lang-ja reveal-on-scroll">Dockerfile</span><span class="lang-en">Dockerfile</span>

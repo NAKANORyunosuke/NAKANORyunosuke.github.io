@@ -1,13 +1,11 @@
 ---
 layout: post
-title_ja: Borwein cubic AGM
+title_ja: Borwein cubic AGMの数値実験
 description: "Borwein cubic AGMの数値計算"
 categories: [programming, mathematics]
 tags: [Borwein cubic, Julia]
 lang: ja
 ---
-
-# <span class="lang-ja">Borwein cubic AGMの数値実験</span><span class="lang-en">Numerical experiments on Borwein cubic AGM</span>
 
 ## 導入
 J. M. Borwein, P. B. Borwein(1991)[^Bor91]で導入された2種2項平均

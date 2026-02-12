@@ -1499,7 +1499,7 @@ mjx-container[display="true"] + mjx-container[display="true"],
 }
 
 @media (min-width: 880px) {
-    .hero__grid {
+    .hero__grid:has(.hero__figure) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
