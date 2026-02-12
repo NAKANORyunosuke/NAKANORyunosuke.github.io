@@ -48,26 +48,35 @@
         }
         return null;
     }
+    const preferredHomeHeadingIds = ['recent-notes-heading', 'featured-projects-heading', 'engage-heading'];
+    function isEligibleHeading(heading, lang) {
+        if (!(heading instanceof HTMLElement)) {
+            return false;
+        }
+        if (heading.hasAttribute('data-toc-exclude')) {
+            return false;
+        }
+        if (heading.closest('[data-toc-ignore]')) {
+            return false;
+        }
+        const explicitLang = headingLanguage(heading);
+        if (explicitLang && explicitLang !== lang) {
+            return false;
+        }
+        if (isHidden(heading)) {
+            return false;
+        }
+        return true;
+    }
     function collectHeadings(lang) {
-        return Array.from(contentRoot.querySelectorAll('h2, h3')).filter((heading) => {
-            if (!(heading instanceof HTMLElement)) {
-                return false;
-            }
-            if (heading.hasAttribute('data-toc-exclude')) {
-                return false;
-            }
-            if (heading.closest('[data-toc-ignore]')) {
-                return false;
-            }
-            const explicitLang = headingLanguage(heading);
-            if (explicitLang && explicitLang !== lang) {
-                return false;
-            }
-            if (isHidden(heading)) {
-                return false;
-            }
-            return true;
-        });
+        const preferredHeadings = preferredHomeHeadingIds
+            .map((id) => document.getElementById(id))
+            .filter((heading) => heading instanceof HTMLElement && contentRoot.contains(heading))
+            .filter((heading) => isEligibleHeading(heading, lang));
+        if (preferredHeadings.length > 0) {
+            return preferredHeadings;
+        }
+        return Array.from(contentRoot.querySelectorAll('h2, h3')).filter((heading) => isEligibleHeading(heading, lang));
     }
     function slugify(text, index, slugCounts) {
         const normalized = text
