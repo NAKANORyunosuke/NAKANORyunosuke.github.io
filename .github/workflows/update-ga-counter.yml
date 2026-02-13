@@ -1,0 +1,49 @@
+name: Update GA Counter
+
+on:
+    schedule:
+        - cron: "0 */1 * * *"
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+concurrency:
+    group: "ga-counter-update"
+    cancel-in-progress: true
+
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: Update GA counter snapshot
+              env:
+                  GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+                  GA4_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GA4_SERVICE_ACCOUNT_EMAIL }}
+                  GA4_PRIVATE_KEY: ${{ secrets.GA4_PRIVATE_KEY }}
+              run: |
+                  if [ -z "$GA4_PROPERTY_ID" ] || [ -z "$GA4_SERVICE_ACCOUNT_EMAIL" ] || [ -z "$GA4_PRIVATE_KEY" ]; then
+                    echo "GA4 secrets not set. Skip update."
+                    exit 0
+                  fi
+                  node scripts/update-ga-counter.mjs
+
+            - name: Commit and push if changed
+              run: |
+                  if git diff --quiet -- _data/ga_counter.json; then
+                    echo "No changes in _data/ga_counter.json."
+                    exit 0
+                  fi
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add _data/ga_counter.json
+                  git commit -m "chore: update GA counter snapshot"
+                  git push

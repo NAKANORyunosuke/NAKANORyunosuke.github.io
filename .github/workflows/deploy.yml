@@ -3,8 +3,6 @@ name: Pages
 on:
     push:
         branches: ["main"]
-    schedule:
-        - cron: "0 */1 * * *"
     workflow_dispatch:
 
 permissions:
@@ -43,18 +41,6 @@ jobs:
 
             - name: Build assets
               run: npm run build
-
-            - name: Update GA counter snapshot
-              env:
-                  GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
-                  GA4_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GA4_SERVICE_ACCOUNT_EMAIL }}
-                  GA4_PRIVATE_KEY: ${{ secrets.GA4_PRIVATE_KEY }}
-              run: |
-                  if [ -n "$GA4_PROPERTY_ID" ] && [ -n "$GA4_SERVICE_ACCOUNT_EMAIL" ] && [ -n "$GA4_PRIVATE_KEY" ]; then
-                    npm run update:ga-counter || echo "GA counter update failed. Continue deploy with existing _data/ga_counter.json."
-                  else
-                    echo "GA4 secrets not set. Skip GA counter update."
-                  fi
 
             - name: Build Jekyll site
               env:
