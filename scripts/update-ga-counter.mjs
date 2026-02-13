@@ -8,6 +8,7 @@ const GOOGLE_ANALYTICS_DATA_API_BASE =
     "https://analyticsdata.googleapis.com/v1beta";
 const ANALYTICS_SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
 const ALL_TIME_START_DATE = "2000-01-01";
+const FIXED_GA4_PROPERTY_ID = "492231658";
 
 function base64UrlEncode(input) {
     const raw = Buffer.isBuffer(input) ? input : Buffer.from(input);
@@ -136,7 +137,7 @@ async function fetchGaCounter({ propertyId, accessToken }) {
 async function main() {
     const configText = await readFile(CONFIG_PATH, "utf8");
     const measurementId = parseConfigGoogleAnalyticsId(configText);
-    const propertyId = getRequiredEnv("GA4_PROPERTY_ID");
+    const propertyId = FIXED_GA4_PROPERTY_ID;
     const clientEmail = getRequiredEnv("GA4_SERVICE_ACCOUNT_EMAIL");
     const privateKey = getRequiredEnv("GA4_PRIVATE_KEY").replace(/\\n/g, "\n");
 
