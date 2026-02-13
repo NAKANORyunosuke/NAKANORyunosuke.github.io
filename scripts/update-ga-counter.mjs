@@ -7,7 +7,7 @@ const GOOGLE_OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GOOGLE_ANALYTICS_DATA_API_BASE =
     "https://analyticsdata.googleapis.com/v1beta";
 const ANALYTICS_SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
-const ALL_TIME_START_DATE = "2000-01-01";
+const ALL_TIME_START_DATE = "2015-08-14";
 const FIXED_GA4_PROPERTY_ID = "492231658";
 
 function base64UrlEncode(input) {
