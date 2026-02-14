@@ -2548,7 +2548,6 @@ p {
 
 .hero:not(.hero--home) {
     background: #ffffff;
-    border-bottom: 1px solid var(--rd-border);
 }
 
 .hero:not(.hero--home) .hero__grid {
@@ -3034,6 +3033,11 @@ p {
     transform: translateY(-2px);
 }
 
+.portfolio-card:hover,
+.portfolio-card:focus-visible {
+    background: #ffffff;
+}
+
 .note-card__meta,
 .portfolio-meta {
     color: var(--rd-muted);
@@ -3081,6 +3085,18 @@ p {
     margin: 0.8rem 0;
     padding: 0;
     list-style: none;
+}
+
+.portfolio-card:hover .tag,
+.portfolio-card:focus-visible .tag {
+    background: #fffbeb;
+    border-color: #f59e0b;
+    color: #57534e;
+}
+
+.portfolio-card:hover .portfolio-footer,
+.portfolio-card:focus-visible .portfolio-footer {
+    color: var(--rd-amber-strong);
 }
 
 .timeline {
@@ -3196,13 +3212,13 @@ p {
 }
 
 .site-footer {
+    width: min(var(--rd-content-max), 100%);
     margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
     padding: 3rem 1.5rem;
-    background: #f5f5f4;
-    border-top: 1px solid #e7e5e4;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 0;
+    background: transparent;
+    border: 0;
     border-radius: 0;
     display: block;
     text-align: center;
@@ -3272,9 +3288,12 @@ body.dark-mode {
     background: #1c1917;
 }
 
-.dark-mode .home-section--muted,
-.dark-mode .site-footer {
+.dark-mode .home-section--muted {
     background: #0c0a09;
+}
+
+.dark-mode .site-footer {
+    background: transparent;
 }
 
 .dark-mode .section,
@@ -3397,6 +3416,23 @@ body.dark-mode {
     background: #44403c;
     border-color: #57534e;
     color: #e7e5e4;
+}
+
+.dark-mode .portfolio-card:hover,
+.dark-mode .portfolio-card:focus-visible {
+    background: #292524;
+}
+
+.dark-mode .portfolio-card:hover .tag,
+.dark-mode .portfolio-card:focus-visible .tag {
+    background: #44403c;
+    border-color: #f59e0b;
+    color: #e7e5e4;
+}
+
+.dark-mode .portfolio-card:hover .portfolio-footer,
+.dark-mode .portfolio-card:focus-visible .portfolio-footer {
+    color: #fbbf24;
 }
 
 .dark-mode .badge {
