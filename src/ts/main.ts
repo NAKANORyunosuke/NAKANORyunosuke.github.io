@@ -3,6 +3,7 @@ import { initMenuToggle } from './components/menu';
 import { initLastUpdated } from './components/last-updated';
 import { initScrollAnimations } from './components/animations';
 import { initCodeCopy } from './components/code-copy';
+import { initThemeToggle } from './components/theme-toggle';
 
 function renderMathIfReady(): void {
   const render = (window as unknown as { renderMathInElement?: Function }).renderMathInElement;
@@ -29,6 +30,7 @@ function initMathRender(): void {
 
 document.addEventListener('DOMContentLoaded', () => {
   initLangSwitch();
+  initThemeToggle();
   initMenuToggle();
   initLastUpdated();
   initScrollAnimations();

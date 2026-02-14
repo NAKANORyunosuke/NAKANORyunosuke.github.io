@@ -4,7 +4,7 @@
 
 <head>
   {% include head.html %}
-  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/app.css' | relative_url }}">
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -103,10 +103,53 @@
       <aside class="site-nav-col">
         {% include nav.html %}
       </aside>
+      <div class="mobile-nav-overlay" data-nav-overlay hidden></div>
       <main class="site-main">
         <article class="content-area">
           {{ content }}
         </article>
+        <footer class="site-footer">
+          <div class="site-footer__links">
+            <a href="{{ '/about/' | relative_url }}">
+              <span class="lang-ja">このサイトについて</span>
+              <span class="lang-en">About</span>
+            </a>
+            <a href="{{ '/privacy-policy/' | relative_url }}">
+              <span class="lang-ja">プライバシーポリシー</span>
+              <span class="lang-en">Privacy Policy</span>
+            </a>
+            <a href="{{ '/disclaimer/' | relative_url }}">
+              <span class="lang-ja">免責事項</span>
+              <span class="lang-en">Disclaimer</span>
+            </a>
+            <a href="{{ '/contact/' | relative_url }}">
+              <span class="lang-ja">お問い合わせ</span>
+              <span class="lang-en">Contact</span>
+            </a>
+          </div>
+          <div>
+            <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
+            {% assign ga_counter = site.data.ga_counter %}
+            <p>
+              <span class="lang-ja">累計PV: </span>
+              <span class="lang-en">All-time page views: </span>
+              {% assign page_views_text = ga_counter.page_views_total_text | default: ga_counter.page_views_30d_text %}
+              <span>{{ page_views_text | default: '-' }}</span>
+            </p>
+            <p>
+              <span class="lang-ja">累計ユーザー: </span>
+              <span class="lang-en">All-time users: </span>
+              {% assign users_text = ga_counter.users_total_text | default: ga_counter.users_30d_text %}
+              <span>{{ users_text | default: '-' }}</span>
+            </p>
+            <p>
+              <span class="lang-ja">解析更新: </span>
+              <span class="lang-en">Analytics updated: </span>
+              <span>{{ ga_counter.updated_at | default: '-' }}</span>
+            </p>
+            <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
+          </div>
+        </footer>
       </main>
       <aside class="site-toc" id="page-toc" data-toc>
         <div class="site-toc__title">
@@ -123,49 +166,6 @@
         </nav>
       </aside>
     </div>
-
-    <footer class="site-footer">
-      <div class="site-footer__links">
-        <a href="{{ '/about/' | relative_url }}">
-          <span class="lang-ja">このサイトについて</span>
-          <span class="lang-en">About</span>
-        </a>
-        <a href="{{ '/privacy-policy/' | relative_url }}">
-          <span class="lang-ja">プライバシーポリシー</span>
-          <span class="lang-en">Privacy Policy</span>
-        </a>
-        <a href="{{ '/disclaimer/' | relative_url }}">
-          <span class="lang-ja">免責事項</span>
-          <span class="lang-en">Disclaimer</span>
-        </a>
-        <a href="{{ '/contact/' | relative_url }}">
-          <span class="lang-ja">お問い合わせ</span>
-          <span class="lang-en">Contact</span>
-        </a>
-      </div>
-      <div>
-        <p class="lang-ja">最終更新: <span id="last-updated-ja">-</span></p>
-        {% assign ga_counter = site.data.ga_counter %}
-        <p>
-          <span class="lang-ja">累計PV: </span>
-          <span class="lang-en">All-time page views: </span>
-          {% assign page_views_text = ga_counter.page_views_total_text | default: ga_counter.page_views_30d_text %}
-          <span>{{ page_views_text | default: '-' }}</span>
-        </p>
-        <p>
-          <span class="lang-ja">累計ユーザー: </span>
-          <span class="lang-en">All-time users: </span>
-          {% assign users_text = ga_counter.users_total_text | default: ga_counter.users_30d_text %}
-          <span>{{ users_text | default: '-' }}</span>
-        </p>
-        <p>
-          <span class="lang-ja">解析更新: </span>
-          <span class="lang-en">Analytics updated: </span>
-          <span>{{ ga_counter.updated_at | default: '-' }}</span>
-        </p>
-        <p class="lang-en">Last updated: <span id="last-updated-en">-</span></p>
-      </div>
-    </footer>
   </div>
 
   {% assign cache_bust = site.github.build_revision %}

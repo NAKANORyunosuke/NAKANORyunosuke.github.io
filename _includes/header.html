@@ -10,12 +10,15 @@
     </span>
   </a>
   <div class="site-header__controls">
+    <button class="theme-btn" type="button" aria-pressed="false" aria-label="Toggle theme" title="Toggle theme">
+      <span class="theme-btn__icon" aria-hidden="true">☾</span>
+    </button>
     <div class="lang-switch">
       <label for="lang-select">
         <span class="lang-ja">言語</span>
         <span class="lang-en">Language</span>
       </label>
-      <select id="lang-select" name="language">
+      <select id="lang-select" name="language" data-lang-select>
         <option value="ja">日本語</option>
         <option value="en">English</option>
       </select>

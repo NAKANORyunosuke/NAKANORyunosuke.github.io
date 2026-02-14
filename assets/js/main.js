@@ -68,8 +68,9 @@
     const html = document.documentElement;
     if (html.getAttribute("lang") !== lang) html.setAttribute("lang", lang);
     if (html.getAttribute("data-lang") !== lang) html.setAttribute("data-lang", lang);
-    const selector = document.getElementById("lang-select");
-    if (selector && selector.value !== lang) selector.value = lang;
+    document.querySelectorAll("[data-lang-select]").forEach((selector) => {
+      if (selector.value !== lang) selector.value = lang;
+    });
     document.dispatchEvent(new CustomEvent(LANGUAGE_EVENT, { detail: lang }));
   }
   function chooseInitialLanguage() {
@@ -80,11 +81,11 @@
     return detectBrowserLanguage();
   }
   function initLangSwitch() {
-    const selector = document.getElementById("lang-select");
+    const selectors = Array.from(document.querySelectorAll("[data-lang-select]"));
     const initial = chooseInitialLanguage();
     storeLanguage(initial);
     updateDocumentLanguage(initial);
-    if (selector) {
+    selectors.forEach((selector) => {
       selector.setAttribute("aria-label", "Select language");
       selector.setAttribute("title", "Select language");
       selector.addEventListener("change", (event) => {
@@ -95,13 +96,15 @@
         storeLanguage(value);
         updateDocumentLanguage(value);
       });
-    }
+    });
   }
 
   // src/ts/components/menu.ts
   var MENU_ICON_OPEN = "\u2630";
   var MENU_ICON_CLOSE = "\u2715";
   var NAV_ID = "primary-nav";
+  var NAV_OVERLAY_SELECTOR = "[data-nav-overlay]";
+  var MOBILE_BREAKPOINT_QUERY = "(max-width: 1120px)";
   var MENU_LABELS = {
     ja: { open: "\u30E1\u30CB\u30E5\u30FC\u3092\u958B\u304F", close: "\u30E1\u30CB\u30E5\u30FC\u3092\u9589\u3058\u308B" },
     en: { open: "Open menu", close: "Close menu" }
@@ -111,40 +114,66 @@
     button.textContent = isOpen ? MENU_ICON_CLOSE : MENU_ICON_OPEN;
     button.setAttribute("aria-expanded", String(isOpen));
     button.setAttribute("aria-label", isOpen ? labels.close : labels.open);
+    button.setAttribute("title", isOpen ? labels.close : labels.open);
   }
-  function closeMenu(nav, button, lang) {
+  function isMobileViewport() {
+    return window.matchMedia(MOBILE_BREAKPOINT_QUERY).matches;
+  }
+  function syncMenuState(nav, overlay, button, isOpen, lang) {
+    nav.classList.toggle("is-open", isOpen);
+    updateMenuButton(button, isOpen, lang);
+    if (overlay) {
+      overlay.classList.toggle("is-active", isOpen);
+      overlay.hidden = !isOpen;
+    }
+    document.body.classList.toggle("has-open-nav", isOpen);
+  }
+  function closeMenu(nav, overlay, button, lang) {
     if (nav.classList.contains("is-open")) {
-      nav.classList.remove("is-open");
-      updateMenuButton(button, false, lang);
+      syncMenuState(nav, overlay, button, false, lang);
     }
   }
   function initMenuToggle() {
     const nav = document.getElementById(NAV_ID);
     const button = document.querySelector(".menu-btn");
+    const overlay = document.querySelector(NAV_OVERLAY_SELECTOR);
     if (!nav || !button) return;
     const getCurrentLanguage2 = () => {
       const lang = document.documentElement.getAttribute("data-lang") || document.documentElement.getAttribute("lang") || "ja";
       return lang === "en" ? "en" : "ja";
     };
     const initialLang = getCurrentLanguage2();
-    updateMenuButton(button, nav.classList.contains("is-open"), initialLang);
+    syncMenuState(nav, overlay, button, nav.classList.contains("is-open"), initialLang);
     button.addEventListener("click", () => {
       const lang = getCurrentLanguage2();
-      const isOpen = nav.classList.toggle("is-open");
-      updateMenuButton(button, isOpen, lang);
+      const isOpen = !nav.classList.contains("is-open");
+      syncMenuState(nav, overlay, button, isOpen, lang);
     });
     nav.addEventListener("click", (event) => {
       const target = event.target;
       if (!target) return;
-      if (target.tagName.toLowerCase() === "a" && window.matchMedia("(max-width: 980px)").matches) {
-        closeMenu(nav, button, getCurrentLanguage2());
+      if (target.closest("a") && isMobileViewport()) {
+        closeMenu(nav, overlay, button, getCurrentLanguage2());
+      }
+    });
+    overlay == null ? void 0 : overlay.addEventListener("click", () => {
+      closeMenu(nav, overlay, button, getCurrentLanguage2());
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu(nav, overlay, button, getCurrentLanguage2());
+      }
+    });
+    window.addEventListener("resize", () => {
+      if (!isMobileViewport()) {
+        closeMenu(nav, overlay, button, getCurrentLanguage2());
       }
     });
     document.addEventListener(LANGUAGE_EVENT, (event) => {
       const lang = event.detail || getCurrentLanguage2();
       const isOpen = nav.classList.contains("is-open");
       updateMenuButton(button, isOpen, lang);
-      button.setAttribute("title", LANGUAGE_LABELS[lang] || LANGUAGE_LABELS.ja);
+      button.setAttribute("data-lang-label", LANGUAGE_LABELS[lang] || LANGUAGE_LABELS.ja);
     });
   }
 
@@ -339,6 +368,50 @@
     });
   }
 
+  // src/ts/components/theme-toggle.ts
+  var THEME_STORAGE_KEY = "preferred-theme";
+  function isTheme(value) {
+    return value === "light" || value === "dark";
+  }
+  function getPreferredTheme() {
+    try {
+      const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+      if (isTheme(stored)) return stored;
+    } catch (error) {
+    }
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  }
+  function persistTheme(theme) {
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (error) {
+    }
+  }
+  function applyTheme(theme, button) {
+    const root = document.documentElement;
+    root.classList.toggle("dark-mode", theme === "dark");
+    if (!button) return;
+    button.setAttribute("aria-pressed", String(theme === "dark"));
+    button.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    button.setAttribute("title", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    const icon = button.querySelector(".theme-btn__icon");
+    if (icon) icon.textContent = theme === "dark" ? "\u2600" : "\u263E";
+  }
+  function initThemeToggle() {
+    const button = document.querySelector(".theme-btn");
+    let currentTheme = getPreferredTheme();
+    applyTheme(currentTheme, button);
+    if (!button) return;
+    button.addEventListener("click", () => {
+      currentTheme = currentTheme === "dark" ? "light" : "dark";
+      persistTheme(currentTheme);
+      applyTheme(currentTheme, button);
+    });
+  }
+
   // src/ts/main.ts
   function renderMathIfReady() {
     const render = window.renderMathInElement;
@@ -362,6 +435,7 @@
   }
   document.addEventListener("DOMContentLoaded", () => {
     initLangSwitch();
+    initThemeToggle();
     initMenuToggle();
     initLastUpdated();
     initScrollAnimations();

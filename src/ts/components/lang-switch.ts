@@ -79,8 +79,9 @@ function updateDocumentLanguage(lang: Language): void {
   if (html.getAttribute('lang') !== lang) html.setAttribute('lang', lang);
   if (html.getAttribute('data-lang') !== lang) html.setAttribute('data-lang', lang);
 
-  const selector = document.getElementById('lang-select') as HTMLSelectElement | null;
-  if (selector && selector.value !== lang) selector.value = lang;
+  document.querySelectorAll<HTMLSelectElement>('[data-lang-select]').forEach((selector) => {
+    if (selector.value !== lang) selector.value = lang;
+  });
 
   document.dispatchEvent(new CustomEvent<Language>(LANGUAGE_EVENT, { detail: lang }));
 }
@@ -96,12 +97,12 @@ function chooseInitialLanguage(): Language {
 }
 
 export function initLangSwitch(): void {
-  const selector = document.getElementById('lang-select') as HTMLSelectElement | null;
+  const selectors = Array.from(document.querySelectorAll<HTMLSelectElement>('[data-lang-select]'));
   const initial = chooseInitialLanguage();
   storeLanguage(initial);
   updateDocumentLanguage(initial);
 
-  if (selector) {
+  selectors.forEach((selector) => {
     selector.setAttribute('aria-label', 'Select language');
     selector.setAttribute('title', 'Select language');
     selector.addEventListener('change', (event) => {
@@ -112,7 +113,7 @@ export function initLangSwitch(): void {
       storeLanguage(value);
       updateDocumentLanguage(value);
     });
-  }
+  });
 }
 
 export { LANGUAGE_EVENT, LANGUAGE_LABELS };

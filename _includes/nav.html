@@ -1,4 +1,17 @@
+{% assign current_path = page.url | default: '/' %}
+{% assign current_path = current_path | replace: 'index.html', '' %}
 <nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+  <div class="primary-nav__mobile-tools">
+    <label for="lang-select-mobile">
+      <span class="lang-ja">言語</span>
+      <span class="lang-en">Language</span>
+    </label>
+    <select id="lang-select-mobile" name="language-mobile" data-lang-select>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
   <section class="primary-nav__section">
     <span class="primary-nav__title">
       <span class="lang-ja">概要</span>
@@ -6,24 +19,54 @@
     </span>
     <ul class="primary-nav__list">
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/' | relative_url }}">トップ</a>
-        <a class="primary-nav__link lang-en" href="{{ '/' | relative_url }}">Home</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-home-line"></i></span>
+          <span>トップ</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-home-line"></i></span>
+          <span>Home</span>
+        </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/about/' | relative_url }}">このサイトについて</a>
-        <a class="primary-nav__link lang-en" href="{{ '/about/' | relative_url }}">About</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/about/' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
+          <span>このサイトについて</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/about/' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
+          <span>About</span>
+        </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/notes/' | relative_url }}">ノート</a>
-        <a class="primary-nav__link lang-en" href="{{ '/notes/' | relative_url }}">Notes</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
+          <span>ノート</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
+          <span>Notes</span>
+        </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/circum-vitae.html' | relative_url }}">履歴書</a>
-        <a class="primary-nav__link lang-en" href="{{ '/circum-vitae.html' | relative_url }}">Curriculum Vitae</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/circum-vitae.html' %} is-active{% endif %}" href="{{ '/circum-vitae.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-profile-line"></i></span>
+          <span>履歴書</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/circum-vitae.html' %} is-active{% endif %}" href="{{ '/circum-vitae.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-profile-line"></i></span>
+          <span>Curriculum Vitae</span>
+        </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/portfolio/' | relative_url }}">ポートフォリオ</a>
-        <a class="primary-nav__link lang-en" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-folder-line"></i></span>
+          <span>ポートフォリオ</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-folder-line"></i></span>
+          <span>Portfolio</span>
+        </a>
       </li>
     </ul>
   </section>
@@ -35,13 +78,24 @@
     </span>
     <ul class="primary-nav__list">
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/research-activity.html' | relative_url }}">論文・講演</a>
-        <a class="primary-nav__link lang-en" href="{{ '/research-activity.html' | relative_url }}">Publications &amp;
-          Talks</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/research-activity.html' %} is-active{% endif %}" href="{{ '/research-activity.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-flask-line"></i></span>
+          <span>論文・講演</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/research-activity.html' %} is-active{% endif %}" href="{{ '/research-activity.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-flask-line"></i></span>
+          <span>Publications &amp; Talks</span>
+        </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja" href="{{ '/slides.html' | relative_url }}">講演資料</a>
-        <a class="primary-nav__link lang-en" href="{{ '/slides.html' | relative_url }}">Presentation Materials</a>
+        <a class="primary-nav__link lang-ja{% if current_path == '/slides.html' %} is-active{% endif %}" href="{{ '/slides.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-slideshow-line"></i></span>
+          <span>講演資料</span>
+        </a>
+        <a class="primary-nav__link lang-en{% if current_path == '/slides.html' %} is-active{% endif %}" href="{{ '/slides.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-slideshow-line"></i></span>
+          <span>Presentation Materials</span>
+        </a>
       </li>
     </ul>
   </section>
