@@ -54,4 +54,17 @@ sections:
                 ja: "2025年12月5日"
                 en: "5 December 2025"
             description:
-                ja: '中野竜之介, "4種4項平均の反復極限定理のテータ定数を用いた導出 "(招待講演), <a href="https://sites.google.com/view/workshopinkanazawa/">セミナー・ワークショップ「幾何学における代数的・組み合わせ論的視点」</a> 金沢大学, 2025年12月5日'
+                ja: '中野竜之介, "4種4項平均の反復極限定理のテータ定数を用いた導出"(招待講演), <a href="https://sites.google.com/view/workshopinkanazawa/">セミナー・ワークショップ「幾何学における代数的・組み合わせ論的視点」</a>, 金沢大学, 2025年12月5日'
+                en: '中野竜之介, "4種4項平均の反復極限定理のテータ定数を用いた導出"(招待講演), <a href="https://sites.google.com/view/workshopinkanazawa/">セミナー・ワークショップ「幾何学における代数的・組み合わせ論的視点」</a>, 金沢大学, 2025年12月5日'
+          - date:
+                ja: "2026年3月22日"
+                en: "22 March 2026"
+            description:
+                ja: '中野竜之介, "Docker を用いた Risa/Asir の実行環境構築：つまずいた点とその解決"(招待講演), <a href="https://www.mathlibre.org/msfd/39-ja.html">数学ソフトウェアとフリードキュメント 39</a>, 東京理科大学神楽坂キャンパス, 2026年3月22日'
+                en: 'NAKANO Ryunosuke "Running Risa/Asir with Docker: Pitfalls and Possible Solutions"(invited), <a href="https://www.mathlibre.org/msfd/39-en.html">Mathematical Software and Free Documents 39</a>, Tokyo University of Science, March 22, 2026'
+          - date:
+                ja: "2026年3月23日"
+                en: "22 March 2026"
+            description:
+                ja: '中野竜之介, "4種4項平均の反復極限定理の代数幾何学的側面", <a href="https://www.mathsoc.jp/activity/meeting/tus26mar/index.html">日本数学会2026年度年会</a>, 東京理科大学神楽坂キャンパス, 2026年3月23日'
+                en: '中野竜之介, "4種4項平均の反復極限定理の代数幾何学的側面", <a href="https://www.mathsoc.jp/activity/meeting/tus26mar/index.html">日本数学会2026年度年会</a>, 東京理科大学神楽坂キャンパス, 2026年3月23日'
