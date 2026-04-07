@@ -4003,6 +4003,38 @@ body.dark-mode {
         padding: 1rem;
     }
 
+    .note-card__meta,
+    .home-note-card__meta,
+    .post__eyebrow,
+    .post__footer {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .note-card__meta .inline-cluster,
+    .home-note-card__tags,
+    .post__eyebrow .inline-cluster,
+    .post__footer .inline-cluster {
+        min-width: 0;
+    }
+
+    .note-card__title,
+    .note-card__summary,
+    .home-note-card__title,
+    .home-note-card__summary,
+    .section__subtitle {
+        overflow-wrap: anywhere;
+    }
+
+    .post__share .share__actions {
+        grid-template-columns: 1fr;
+    }
+
+    .post__share .share__button {
+        min-height: 0;
+        white-space: normal;
+    }
+
     .home-project-card__meta {
         flex-direction: column;
         align-items: flex-start;
@@ -4046,6 +4078,17 @@ body.dark-mode {
 
     .site-header__name {
         font-size: 0.98rem;
+    }
+
+    .note-card__meta,
+    .home-note-card__meta {
+        flex-direction: column;
+        gap: 0.55rem;
+    }
+
+    .note-card__meta .inline-cluster,
+    .home-note-card__tags {
+        width: 100%;
     }
 
     .theme-btn,
