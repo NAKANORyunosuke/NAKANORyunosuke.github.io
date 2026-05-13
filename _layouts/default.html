@@ -13,20 +13,12 @@
 {% else %}
   {% assign needs_math = false %}
 {% endif %}
-{% if page.mermaid == false %}
-  {% assign needs_mermaid = false %}
-{% elsif page.mermaid %}
-  {% assign needs_mermaid = true %}
-{% elsif page.layout == 'project' %}
+{% if page.mermaid %}
   {% assign needs_mermaid = true %}
 {% else %}
   {% assign needs_mermaid = false %}
 {% endif %}
-{% if page.slider == false %}
-  {% assign needs_slider = false %}
-{% elsif page.slider %}
-  {% assign needs_slider = true %}
-{% elsif page.layout == 'project' %}
+{% if page.slider %}
   {% assign needs_slider = true %}
 {% else %}
   {% assign needs_slider = false %}

@@ -2,6 +2,8 @@
 layout: project
 title: "Twitchサブスク連携Discord Bot"
 date: 2025-09-05
+mermaid: true
+slider: true
 period: "2025/08/05 - 2025/09/05"
 role: "設計 / 実装 / 運用"
 tech:

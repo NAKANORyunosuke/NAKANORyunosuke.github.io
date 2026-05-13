@@ -2,6 +2,8 @@
 layout: project
 title: "Twitch連携 管理UI(Django)"
 date: 2025-09-05
+mermaid: true
+slider: true
 period: "2025/08/20 - 2025/09/05"
 role: "設計 / 実装 / 運用"
 tech:
