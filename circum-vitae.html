@@ -1,19 +1,32 @@
 ---
 layout: default
-title: "履歴書"
-description: "学歴, 職歴, 教育歴, 幹事・世話人の一覧を掲載"
+title: "中野竜之介 (NAKANO Ryunosuke) — 履歴書 / Curriculum Vitae"
+description: "中野竜之介 (NAKANO Ryunosuke) の履歴書. 学歴, 職歴, 教育歴, 幹事・世話人の一覧. 北海道大学大学院 理学院 数学専攻 博士後期課程."
 lang: ja
-og_title: "履歴書"
-og_description: "学歴, 職歴, 教育歴, 幹事・世話人の一覧を掲載"
+og_title: "中野竜之介 (NAKANO Ryunosuke) — 履歴書"
+og_description: "中野竜之介 (NAKANO Ryunosuke) の学歴, 職歴, 教育歴, 幹事・世話人の一覧."
 ---
+
+{%- assign person_id = site.url | append: '/#person' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "name": "中野竜之介 (NAKANO Ryunosuke) — 履歴書 / Curriculum Vitae",
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": ["ja", "en"],
+  "mainEntity": { "@id": "{{ person_id }}" },
+  "about": { "@id": "{{ person_id }}" }
+}
+</script>
 
 <section class="hero glass-panel">
     <div class="hero__grid">
         <div class="hero__text">
             <span class="hero__eyebrow lang-ja">履歴書</span>
             <span class="hero__eyebrow lang-en">Curriculum Vitae</span>
-            <h1 class="lang-ja">履歴書</h1>
-            <h1 class="lang-en">Circum Vitae</h1>
+            <h1 class="lang-ja">中野竜之介 — 履歴書</h1>
+            <h1 class="lang-en">Ryunosuke Nakano — Curriculum Vitae</h1>
             <p class="lang-ja">これまでの学歴・職歴・教育歴・幹事活動などをまとめています. </p>
             <p class="lang-en">A summary of my education, professional experience, teaching, and community service.</p>
         </div>

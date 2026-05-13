@@ -1,18 +1,33 @@
 ---
 layout: default
-title: About
-description: "Site profile, editorial policy, and operating information."
+title: "中野竜之介 (NAKANO Ryunosuke) — プロフィール"
+description: "中野竜之介 (NAKANO Ryunosuke) のプロフィール. 北海道大学大学院 理学院 数学専攻 博士後期課程. 専門は特殊関数, テータ関数, 周期写像. 掲載方針, 連絡先."
 permalink: /about/
+og_title: "中野竜之介 (NAKANO Ryunosuke) のプロフィール"
+og_description: "北海道大学大学院 理学院 数学専攻 博士後期課程 中野竜之介 (NAKANO Ryunosuke) のプロフィールページ."
 ---
+
+{%- assign person_id = site.url | append: '/#person' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "name": "中野竜之介 (NAKANO Ryunosuke) — プロフィール",
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": "ja",
+  "mainEntity": { "@id": "{{ person_id }}" },
+  "about": { "@id": "{{ person_id }}" }
+}
+</script>
 
 <section class="section glass-panel stack">
   <h1 class="section__title">
-    <span class="lang-ja">このサイトについて</span>
-    <span class="lang-en">About This Site</span>
+    <span class="lang-ja">中野竜之介 — このサイトについて</span>
+    <span class="lang-en">About Ryunosuke Nakano</span>
   </h1>
   <p class="section__subtitle">
-    <span class="lang-ja">運営者情報、掲載方針、更新方針をまとめています。</span>
-    <span class="lang-en">Operator profile, editorial policy, and update policy.</span>
+    <span class="lang-ja">運営者(中野竜之介 / NAKANO Ryunosuke)のプロフィール, 掲載方針, 更新方針をまとめています.</span>
+    <span class="lang-en">Profile of the operator (Ryunosuke Nakano / NAKANO Ryunosuke), editorial policy, and update policy.</span>
   </p>
 </section>
 

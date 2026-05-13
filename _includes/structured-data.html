@@ -1,0 +1,80 @@
+{%- comment -%}
+  Site-wide Schema.org structured data. Emitted on every page so search engines
+  consistently associate the site with the author (中野竜之介 / NAKANO Ryunosuke)
+  and his affiliation. Page-specific schemas (ProfilePage, BlogPosting, etc.) are
+  added by the relevant layouts on top of this graph.
+{%- endcomment -%}
+{%- assign person_id = site.url | append: '/#person' -%}
+{%- assign website_id = site.url | append: '/#website' -%}
+{%- assign org_id = site.url | append: '/#org' -%}
+{%- assign default_og_image = site.url | append: '/assets/img/profile-stamp.png' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "{{ person_id }}",
+      "name": "{{ site.author.name }}",
+      "alternateName": [
+        "{{ site.author.en_name }}",
+        "Ryunosuke Nakano",
+        "中野 竜之介"
+      ],
+      "givenName": "{{ site.author.given_name }}",
+      "familyName": "{{ site.author.family_name }}",
+      "jobTitle": "{{ site.author.job_title }}",
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "{{ site.author.affiliation }}",
+        "sameAs": "https://www.hokudai.ac.jp/"
+      },
+      "url": "{{ site.url }}/",
+      "image": "{{ default_og_image }}",
+      "sameAs": [
+        {%- for profile in site.author.same_as -%}
+          "{{ profile }}"{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ],
+      "knowsAbout": [
+        "数学",
+        "特殊関数",
+        "超幾何級数",
+        "テータ関数",
+        "周期写像",
+        "代数多様体",
+        "Mathematics",
+        "Hypergeometric Functions",
+        "Theta Functions",
+        "Period Mapping",
+        "Algebraic Varieties"
+      ],
+      "knowsLanguage": ["ja", "en"]
+    },
+    {
+      "@type": "Organization",
+      "@id": "{{ org_id }}",
+      "name": "{{ site.title }}",
+      "url": "{{ site.url }}/",
+      "logo": "{{ default_og_image }}",
+      "founder": { "@id": "{{ person_id }}" },
+      "sameAs": [
+        {%- for profile in site.author.same_as -%}
+          "{{ profile }}"{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "{{ website_id }}",
+      "name": "{{ site.title }}",
+      "alternateName": "{{ site.author.en_name }}",
+      "url": "{{ site.url }}/",
+      "description": "{{ site.description | strip_newlines | replace: '"', '\"' }}",
+      "inLanguage": ["ja", "en"],
+      "author": { "@id": "{{ person_id }}" },
+      "publisher": { "@id": "{{ org_id }}" }
+    }
+  ]
+}
+</script>

@@ -1,7 +1,9 @@
 # ─── サイト基本情報 ───
 title: "中野竜之介 (NAKANO Ryunosuke)"
-description: "北海道大学大学院 理学院 数学専攻博士後期課程 在籍. 研究分野は特殊関数（超幾何級数・テータ関数）, 代数多様体の周期写像. "
-keywords: "中野竜之介,中野,竜之介, NAKANO Ryunosuke,NAKANO, Ryunosuke, 北海道大学, 北海道, 数学, 超幾何級数, テータ関数, 周期写像"
+description: "中野竜之介 (NAKANO Ryunosuke) — 北海道大学大学院 理学院 数学専攻 博士後期課程. 研究分野は特殊関数（超幾何級数・テータ関数）, 代数多様体の周期写像. 研究ノートと開発記録を公開."
+keywords: "中野竜之介, 中野, 竜之介, NAKANO Ryunosuke, NAKANO, Ryunosuke, Ryunosuke Nakano, 北海道大学, 北海道大学大学院, 理学院, 数学専攻, 博士後期課程, 数学, 数論, 超幾何級数, テータ関数, 周期写像, 代数多様体, 特殊関数, mathematics, hypergeometric functions, theta functions, period mapping"
+image: /assets/img/profile-stamp.png
+logo: /assets/img/profile-stamp.png
 encoding: "UTF-8"
 
 # ─── 多言語対応/著者情報 ───

@@ -1,6 +1,58 @@
 ---
 layout: default
 ---
+
+{%- assign person_id = site.url | append: '/#person' -%}
+{%- assign org_id = site.url | append: '/#org' -%}
+{%- assign project_url = page.url | absolute_url -%}
+{%- assign project_desc = page.summary | default: page.description | default: site.description -%}
+{%- assign project_image = page.og_image | default: page.hero | default: site.image | default: '/assets/img/profile-stamp.png' -%}
+{%- if project_image contains '://' -%}
+  {%- assign project_image_abs = project_image -%}
+{%- else -%}
+  {%- assign project_image_abs = site.url | append: project_image -%}
+{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "{{ page.title | strip_newlines | replace: '"', '\"' }}",
+  "description": "{{ project_desc | strip_newlines | replace: '"', '\"' }}",
+  "url": "{{ project_url }}",
+  "mainEntityOfPage": "{{ project_url }}",
+  {%- if page.date -%}
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {%- endif -%}
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "inLanguage": "{{ page.lang | default: 'ja' }}",
+  "image": "{{ project_image_abs }}",
+  "author": { "@id": "{{ person_id }}" },
+  "creator": { "@id": "{{ person_id }}" },
+  "publisher": { "@id": "{{ org_id }}" }
+  {%- if page.tags and page.tags.size > 0 -%}
+  ,"keywords": [
+    {%- for tag in page.tags -%}
+      "{{ tag }}"{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+  {%- endif -%}
+  {%- if page.repo_url -%}
+  ,"codeRepository": "{{ page.repo_url }}"
+  {%- endif -%}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "{{ site.url }}/portfolio/" },
+    { "@type": "ListItem", "position": 3, "name": "{{ page.title | strip_newlines | replace: '"', '\"' }}", "item": "{{ project_url }}" }
+  ]
+}
+</script>
+
 <article class="project-detail glass-panel">
   <header class="project-detail__header">
     <h1 class="project-detail__title">{{ page.title }}</h1>
