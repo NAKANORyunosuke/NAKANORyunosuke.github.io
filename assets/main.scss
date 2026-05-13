@@ -1683,8 +1683,9 @@ canvas {
     opacity: 0;
 }
 
-/* Scroll Reveal Animation */
-.reveal-on-scroll {
+/* Scroll Reveal Animation — only armed when the observer is ready, so content stays
+   visible if JS is disabled or IntersectionObserver is unsupported. */
+html.scroll-reveal-ready .reveal-on-scroll {
     opacity: 0;
     transform: translateY(6px);
     transition:
@@ -1692,24 +1693,14 @@ canvas {
         transform var(--motion-duration-slow) var(--motion-ease-soft);
 }
 
-.reveal-on-scroll.is-visible {
+html.scroll-reveal-ready .reveal-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Page Transition */
-body {
-    animation: pageFadeIn var(--motion-duration-slow) var(--motion-ease-soft);
-}
-
-@keyframes pageFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+/* Page transition removed: full-page fade-in delayed perceived load
+   and replayed on every back/forward navigation. Section-level
+   reveal-on-scroll handles the remaining motion. */
 
 /* Enhanced Hover Effects */
 .site-toc:hover,
@@ -2512,17 +2503,17 @@ pre code,
 
 .hero--home {
     position: relative;
-    min-height: 700px;
+    min-height: 480px;
     overflow: hidden;
 }
 
 .hero__background {
     position: absolute;
     inset: 0;
-    background-image: url("https://readdy.ai/api/search-image?query=Abstract%20geometric%20pattern%20with%20warm%20earth%20tones%20amber%20gold%20and%20deep%20brown%20colors%20elegant%20minimalist%20design%20with%20soft%20gradients%20and%20subtle%20texture%20professional%20academic%20atmosphere&width=1920&height=900&seq=hero001&orientation=landscape");
-    background-size: cover;
-    background-position: center;
-    animation: rd-slow-zoom 20s ease-out forwards;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(245, 158, 11, 0.32), transparent 48%),
+        radial-gradient(circle at 78% 70%, rgba(217, 119, 6, 0.28), transparent 52%),
+        linear-gradient(135deg, #3d2c1e 0%, #2a201a 55%, #1c1917 100%);
 }
 
 .hero__overlay {
@@ -2537,7 +2528,7 @@ pre code,
     width: 100%;
     max-width: var(--rd-content-max);
     margin: 0 auto;
-    padding: 6rem 2rem;
+    padding: 3.5rem 2rem;
     text-align: center;
     color: #ffffff;
 }
@@ -4109,13 +4100,114 @@ body.dark-mode {
     }
 }
 
-/* Keep content visible even if scroll observer fails. */
-.reveal-on-scroll {
-    opacity: 1;
+/* ──────────────────────────────────────────────
+   Language toggle (JA / EN pill switch)
+   Replaces the legacy `<select data-lang-select>` UI so the change is one click.
+   ────────────────────────────────────────────── */
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+    gap: 0;
+    background: #f5f5f4;
+    border: 1px solid #d6d3d1;
+    border-radius: 9999px;
+    line-height: 1;
+}
+
+.lang-toggle__btn {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: #57534e;
+    font-family: inherit;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    padding: 0.32rem 0.8rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition:
+        background var(--motion-duration-fast) var(--motion-ease-standard),
+        color var(--motion-duration-fast) var(--motion-ease-standard),
+        box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.lang-toggle__btn:hover {
+    color: #1c1917;
+    background: rgba(255, 255, 255, 0.6);
     transform: none;
 }
 
-.reveal-on-scroll.is-visible {
-    opacity: 1;
-    transform: none;
+.lang-toggle__btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.lang-toggle__btn[aria-pressed="true"] {
+    background: #ffffff;
+    color: #1c1917;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.lang-toggle-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--rd-sidebar-muted, var(--color-text-muted));
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.dark-mode .lang-toggle {
+    background: var(--color-surface-2);
+    border-color: var(--color-border);
+}
+
+.dark-mode .lang-toggle__btn {
+    color: var(--color-text-muted);
+}
+
+.dark-mode .lang-toggle__btn:hover {
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.dark-mode .lang-toggle__btn[aria-pressed="true"] {
+    background: var(--color-surface-0);
+    color: var(--color-text);
+    box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.primary-nav__mobile-tools .lang-toggle {
+    width: max-content;
+}
+
+@media (max-width: 420px) {
+    .lang-toggle__btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* ──────────────────────────────────────────────
+   In-article link affordance: don't rely on color alone (WCAG 1.4.1)
+   ────────────────────────────────────────────── */
+.post__content a {
+    text-decoration: underline;
+    text-decoration-color: rgba(127, 209, 185, 0.5);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+}
+
+.post__content a:hover,
+.post__content a:focus-visible {
+    text-decoration-color: currentColor;
+}
+
+.post__content a.share__button,
+.post__content a.button,
+.post__content a[class*="-card"],
+.post__content a[class*="portfolio"] {
+    text-decoration: none;
 }

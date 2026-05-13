@@ -27,6 +27,9 @@ const TOGGLE_LABELS: Record<
 };
 
 const RESET_DELAY_MS = 2000;
+// Only wrap longer code blocks in a <details> toggle. Short snippets are
+// disruptive to hide behind an extra click.
+const COLLAPSE_THRESHOLD_LINES = 12;
 
 function getCurrentLanguage(): Language {
   const lang = document.documentElement.getAttribute('data-lang') || document.documentElement.getAttribute('lang') || 'ja';
@@ -71,6 +74,15 @@ function createToggleSummary(lang: Language): HTMLElement {
   return summary;
 }
 
+function shouldCollapse(pre: HTMLElement): boolean {
+  const explicit = pre.dataset.collapse;
+  if (explicit === 'true') return true;
+  if (explicit === 'false') return false;
+  const text = pre.textContent ?? '';
+  const lineCount = text.split('\n').length;
+  return lineCount >= COLLAPSE_THRESHOLD_LINES;
+}
+
 function ensureCollapsibleWrapper(pre: HTMLElement): HTMLDetailsElement | null {
   const parent = pre.parentElement;
   if (!parent) return null;
@@ -82,6 +94,8 @@ function ensureCollapsibleWrapper(pre: HTMLElement): HTMLDetailsElement | null {
     }
     return parent;
   }
+
+  if (!shouldCollapse(pre)) return null;
 
   const details = document.createElement('details');
   details.className = 'code-collapsible';

@@ -1,12 +1,73 @@
 {% assign page_lang = page.lang | default: 'ja' %}
+{% comment %}
+  Asset-needs detection. Lets each page opt in/out of heavy third-party libraries.
+  Defaults try to keep existing content working: posts get math by default,
+  projects get the slider by default (they're the only place using #image-slider).
+{% endcomment %}
+{% if page.math == false %}
+  {% assign needs_math = false %}
+{% elsif page.math %}
+  {% assign needs_math = true %}
+{% elsif page.layout == 'post' or page.layout == 'project' %}
+  {% assign needs_math = true %}
+{% else %}
+  {% assign needs_math = false %}
+{% endif %}
+{% if page.mermaid == false %}
+  {% assign needs_mermaid = false %}
+{% elsif page.mermaid %}
+  {% assign needs_mermaid = true %}
+{% elsif page.layout == 'project' %}
+  {% assign needs_mermaid = true %}
+{% else %}
+  {% assign needs_mermaid = false %}
+{% endif %}
+{% if page.slider == false %}
+  {% assign needs_slider = false %}
+{% elsif page.slider %}
+  {% assign needs_slider = true %}
+{% elsif page.layout == 'project' %}
+  {% assign needs_slider = true %}
+{% else %}
+  {% assign needs_slider = false %}
+{% endif %}
 <!DOCTYPE html>
-<html lang="{{ page_lang }}" data-lang="{{ page_lang }}">
+<html lang="{{ page_lang }}" data-lang="{{ page_lang }}" class="no-js">
 
 <head>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.remove('no-js');
+      root.classList.add('js');
+      try {
+        var stored = localStorage.getItem('preferred-theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          root.classList.add('dark-mode');
+        }
+      } catch (e) {}
+      try {
+        var url = new URLSearchParams(window.location.search).get('lang');
+        var saved = localStorage.getItem('preferred-lang');
+        var cookieMatch = document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);
+        var cookie = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+        var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+        var lang = (url === 'ja' || url === 'en') ? url
+                 : (saved === 'ja' || saved === 'en') ? saved
+                 : (cookie === 'ja' || cookie === 'en') ? cookie
+                 : (nav.toLowerCase().indexOf('ja') === 0 ? 'ja' : 'en');
+        root.setAttribute('lang', lang);
+        root.setAttribute('data-lang', lang);
+      } catch (e) {}
+    })();
+  </script>
   {% include head.html %}
   <link rel="stylesheet" href="{{ '/assets/app.css' | relative_url }}">
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
-  <script>
+  {% if needs_slider %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js" defer></script>
+  <script defer>
     document.addEventListener('DOMContentLoaded', () => {
       const slider = document.getElementById('image-slider');
       if (slider) {
@@ -20,6 +81,8 @@
       }
     });
   </script>
+  {% endif %}
+  {% if needs_mermaid %}
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
   <script defer>
     (function () {
@@ -93,6 +156,7 @@
       };
     })();
   </script>
+  {% endif %}
 </head>
 
 <body>

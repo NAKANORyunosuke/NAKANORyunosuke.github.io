@@ -194,8 +194,12 @@
     }
     buildToc(currentLanguage());
     document.addEventListener('preferredlanguagechange', (event) => {
-        var _a;
-        const nextLang = ((_a = event.detail) === null || _a === void 0 ? void 0 : _a.lang) || currentLanguage();
+        const detail = event.detail;
+        const nextLang = (detail === 'ja' || detail === 'en')
+            ? detail
+            : (detail && (detail.lang === 'ja' || detail.lang === 'en'))
+                ? detail.lang
+                : currentLanguage();
         buildToc(nextLang);
     });
 })();

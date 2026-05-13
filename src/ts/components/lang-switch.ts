@@ -10,6 +10,11 @@ const LANGUAGE_LABELS: Record<Language, string> = {
   en: 'English',
 };
 
+const TOGGLE_ARIA_LABELS: Record<Language, string> = {
+  ja: '表示言語',
+  en: 'Language',
+};
+
 function isLanguage(value: string | null): value is Language {
   return value === 'ja' || value === 'en';
 }
@@ -74,6 +79,25 @@ function getUrlLanguage(): Language | null {
   }
 }
 
+function syncToggleButtons(lang: Language): void {
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]');
+  buttons.forEach((button) => {
+    const target = button.dataset.langToggle as Language | undefined;
+    button.setAttribute('aria-pressed', String(target === lang));
+  });
+  document.querySelectorAll<HTMLElement>('.lang-toggle[role="group"]').forEach((group) => {
+    if (group.hasAttribute('aria-labelledby')) return;
+    group.setAttribute('aria-label', TOGGLE_ARIA_LABELS[lang]);
+  });
+}
+
+function syncI18nAriaLabels(lang: Language): void {
+  document.querySelectorAll<HTMLElement>(`[data-i18n-aria-${lang}]`).forEach((el) => {
+    const label = el.getAttribute(`data-i18n-aria-${lang}`);
+    if (label) el.setAttribute('aria-label', label);
+  });
+}
+
 function updateDocumentLanguage(lang: Language): void {
   const html = document.documentElement;
   if (html.getAttribute('lang') !== lang) html.setAttribute('lang', lang);
@@ -82,6 +106,8 @@ function updateDocumentLanguage(lang: Language): void {
   document.querySelectorAll<HTMLSelectElement>('[data-lang-select]').forEach((selector) => {
     if (selector.value !== lang) selector.value = lang;
   });
+  syncToggleButtons(lang);
+  syncI18nAriaLabels(lang);
 
   document.dispatchEvent(new CustomEvent<Language>(LANGUAGE_EVENT, { detail: lang }));
 }
@@ -97,12 +123,12 @@ function chooseInitialLanguage(): Language {
 }
 
 export function initLangSwitch(): void {
-  const selectors = Array.from(document.querySelectorAll<HTMLSelectElement>('[data-lang-select]'));
   const initial = chooseInitialLanguage();
   storeLanguage(initial);
   updateDocumentLanguage(initial);
 
-  selectors.forEach((selector) => {
+  // Legacy <select data-lang-select> support, in case any older template still ships one.
+  document.querySelectorAll<HTMLSelectElement>('[data-lang-select]').forEach((selector) => {
     selector.setAttribute('aria-label', 'Select language');
     selector.setAttribute('title', 'Select language');
     selector.addEventListener('change', (event) => {
@@ -112,6 +138,15 @@ export function initLangSwitch(): void {
       if (!isLanguage(value)) return;
       storeLanguage(value);
       updateDocumentLanguage(value);
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const value = button.dataset.langToggle;
+      if (!isLanguage(value ?? null)) return;
+      storeLanguage(value as Language);
+      updateDocumentLanguage(value as Language);
     });
   });
 }

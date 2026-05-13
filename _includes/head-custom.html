@@ -8,6 +8,7 @@
 <link rel="icon" href="{{ '/assets/img/favicon.jpg' | relative_url }}" type="image/x-icon">
 <link rel="apple-touch-icon" href="{{ '/assets/img/favicon.jpg' | relative_url }}">
 
+{% if needs_math %}
 <!-- KaTeX -->
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -37,5 +38,6 @@
     renderKatex();
   }
 </script>
+{% endif %}
 
 <!-- end custom head snippets -->

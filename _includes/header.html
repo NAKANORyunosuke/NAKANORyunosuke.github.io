@@ -11,19 +11,13 @@
   </a>
   <div class="site-header__controls">
     <button class="theme-btn" type="button" aria-pressed="false" aria-label="Toggle theme" title="Toggle theme">
-      <span class="theme-btn__icon" aria-hidden="true">☾</span>
+      <span class="theme-btn__icon" aria-hidden="true"><i class="ri-moon-line"></i></span>
     </button>
-    <div class="lang-switch">
-      <label for="lang-select">
-        <span class="lang-ja">言語</span>
-        <span class="lang-en">Language</span>
-      </label>
-      <select id="lang-select" name="language" data-lang-select>
-        <option value="ja">日本語</option>
-        <option value="en">English</option>
-      </select>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" class="lang-toggle__btn" data-lang-toggle="ja" aria-pressed="false">日本語</button>
+      <button type="button" class="lang-toggle__btn" data-lang-toggle="en" aria-pressed="false">English</button>
     </div>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primary-nav"
-      aria-label="Toggle navigation">Menu</button>
+      aria-label="Toggle navigation">&#9776;</button>
   </div>
 </header>

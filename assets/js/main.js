@@ -9,6 +9,10 @@
     ja: "\u65E5\u672C\u8A9E",
     en: "English"
   };
+  var TOGGLE_ARIA_LABELS = {
+    ja: "\u8868\u793A\u8A00\u8A9E",
+    en: "Language"
+  };
   function isLanguage(value) {
     return value === "ja" || value === "en";
   }
@@ -64,6 +68,23 @@
       return null;
     }
   }
+  function syncToggleButtons(lang) {
+    const buttons = document.querySelectorAll("[data-lang-toggle]");
+    buttons.forEach((button) => {
+      const target = button.dataset.langToggle;
+      button.setAttribute("aria-pressed", String(target === lang));
+    });
+    document.querySelectorAll('.lang-toggle[role="group"]').forEach((group) => {
+      if (group.hasAttribute("aria-labelledby")) return;
+      group.setAttribute("aria-label", TOGGLE_ARIA_LABELS[lang]);
+    });
+  }
+  function syncI18nAriaLabels(lang) {
+    document.querySelectorAll(`[data-i18n-aria-${lang}]`).forEach((el) => {
+      const label = el.getAttribute(`data-i18n-aria-${lang}`);
+      if (label) el.setAttribute("aria-label", label);
+    });
+  }
   function updateDocumentLanguage(lang) {
     const html = document.documentElement;
     if (html.getAttribute("lang") !== lang) html.setAttribute("lang", lang);
@@ -71,6 +92,8 @@
     document.querySelectorAll("[data-lang-select]").forEach((selector) => {
       if (selector.value !== lang) selector.value = lang;
     });
+    syncToggleButtons(lang);
+    syncI18nAriaLabels(lang);
     document.dispatchEvent(new CustomEvent(LANGUAGE_EVENT, { detail: lang }));
   }
   function chooseInitialLanguage() {
@@ -81,11 +104,10 @@
     return detectBrowserLanguage();
   }
   function initLangSwitch() {
-    const selectors = Array.from(document.querySelectorAll("[data-lang-select]"));
     const initial = chooseInitialLanguage();
     storeLanguage(initial);
     updateDocumentLanguage(initial);
-    selectors.forEach((selector) => {
+    document.querySelectorAll("[data-lang-select]").forEach((selector) => {
       selector.setAttribute("aria-label", "Select language");
       selector.setAttribute("title", "Select language");
       selector.addEventListener("change", (event) => {
@@ -93,6 +115,14 @@
         if (!target) return;
         const value = target.value;
         if (!isLanguage(value)) return;
+        storeLanguage(value);
+        updateDocumentLanguage(value);
+      });
+    });
+    document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const value = button.dataset.langToggle;
+        if (!isLanguage(value != null ? value : null)) return;
         storeLanguage(value);
         updateDocumentLanguage(value);
       });
@@ -203,6 +233,7 @@
   function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(".reveal-on-scroll");
     if (!("IntersectionObserver" in window) || animatedElements.length === 0) return;
+    document.documentElement.classList.add("scroll-reveal-ready");
     const observer = new IntersectionObserver(
       (entries, obs) => {
         entries.forEach((entry) => {
@@ -240,6 +271,7 @@
     }
   };
   var RESET_DELAY_MS = 2e3;
+  var COLLAPSE_THRESHOLD_LINES = 12;
   function getCurrentLanguage() {
     const lang = document.documentElement.getAttribute("data-lang") || document.documentElement.getAttribute("lang") || "ja";
     return lang === "en" ? "en" : "ja";
@@ -270,6 +302,15 @@
     updateToggleLabels(summary, lang, "collapsed");
     return summary;
   }
+  function shouldCollapse(pre) {
+    var _a;
+    const explicit = pre.dataset.collapse;
+    if (explicit === "true") return true;
+    if (explicit === "false") return false;
+    const text = (_a = pre.textContent) != null ? _a : "";
+    const lineCount = text.split("\n").length;
+    return lineCount >= COLLAPSE_THRESHOLD_LINES;
+  }
   function ensureCollapsibleWrapper(pre) {
     const parent = pre.parentElement;
     if (!parent) return null;
@@ -280,6 +321,7 @@
       }
       return parent;
     }
+    if (!shouldCollapse(pre)) return null;
     const details = document.createElement("details");
     details.className = "code-collapsible";
     const summary = createToggleSummary(getCurrentLanguage());
@@ -370,6 +412,10 @@
 
   // src/ts/components/theme-toggle.ts
   var THEME_STORAGE_KEY = "preferred-theme";
+  var THEME_LABELS = {
+    ja: { toDark: "\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048", toLight: "\u30E9\u30A4\u30C8\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048" },
+    en: { toDark: "Switch to dark mode", toLight: "Switch to light mode" }
+  };
   function isTheme(value) {
     return value === "light" || value === "dark";
   }
@@ -377,7 +423,7 @@
     try {
       const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
       if (isTheme(stored)) return stored;
-    } catch (error) {
+    } catch (e) {
     }
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
@@ -387,18 +433,27 @@
   function persistTheme(theme) {
     try {
       window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-    } catch (error) {
+    } catch (e) {
     }
+  }
+  function currentLanguage() {
+    const lang = document.documentElement.getAttribute("data-lang") || document.documentElement.getAttribute("lang") || "ja";
+    return lang === "en" ? "en" : "ja";
   }
   function applyTheme(theme, button) {
     const root = document.documentElement;
     root.classList.toggle("dark-mode", theme === "dark");
     if (!button) return;
+    const labels = THEME_LABELS[currentLanguage()];
+    const label = theme === "dark" ? labels.toLight : labels.toDark;
     button.setAttribute("aria-pressed", String(theme === "dark"));
-    button.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
-    button.setAttribute("title", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
-    const icon = button.querySelector(".theme-btn__icon");
-    if (icon) icon.textContent = theme === "dark" ? "\u2600" : "\u263E";
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    const icon = button.querySelector(".theme-btn__icon i");
+    if (icon) {
+      icon.classList.remove("ri-moon-line", "ri-sun-line");
+      icon.classList.add(theme === "dark" ? "ri-sun-line" : "ri-moon-line");
+    }
   }
   function initThemeToggle() {
     const button = document.querySelector(".theme-btn");
@@ -408,6 +463,9 @@
     button.addEventListener("click", () => {
       currentTheme = currentTheme === "dark" ? "light" : "dark";
       persistTheme(currentTheme);
+      applyTheme(currentTheme, button);
+    });
+    document.addEventListener(LANGUAGE_EVENT, () => {
       applyTheme(currentTheme, button);
     });
   }

@@ -1,15 +1,15 @@
 {% assign current_path = page.url | default: '/' %}
 {% assign current_path = current_path | replace: 'index.html', '' %}
-<nav id="primary-nav" class="primary-nav" aria-label="Site navigation">
+<nav id="primary-nav" class="primary-nav" data-i18n-aria-ja="サイトナビゲーション" data-i18n-aria-en="Site navigation" aria-label="Site navigation">
   <div class="primary-nav__mobile-tools">
-    <label for="lang-select-mobile">
+    <span class="lang-toggle-label" id="lang-toggle-label-mobile">
       <span class="lang-ja">言語</span>
       <span class="lang-en">Language</span>
-    </label>
-    <select id="lang-select-mobile" name="language-mobile" data-lang-select>
-      <option value="ja">日本語</option>
-      <option value="en">English</option>
-    </select>
+    </span>
+    <div class="lang-toggle" role="group" aria-labelledby="lang-toggle-label-mobile">
+      <button type="button" class="lang-toggle__btn" data-lang-toggle="ja" aria-pressed="false">日本語</button>
+      <button type="button" class="lang-toggle__btn" data-lang-toggle="en" aria-pressed="false">English</button>
+    </div>
   </div>
 
   <section class="primary-nav__section">
@@ -19,53 +19,38 @@
     </span>
     <ul class="primary-nav__list">
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-home-line"></i></span>
-          <span>トップ</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-home-line"></i></span>
-          <span>Home</span>
+          <span class="lang-ja">トップ</span>
+          <span class="lang-en">Home</span>
         </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/about/' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/about/' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
-          <span>このサイトについて</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/about/' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-user-line"></i></span>
-          <span>About</span>
+          <span class="lang-ja">このサイトについて</span>
+          <span class="lang-en">About</span>
         </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
-          <span>ノート</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
-          <span>Notes</span>
+          <span class="lang-ja">ノート</span>
+          <span class="lang-en">Notes</span>
         </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/circum-vitae.html' %} is-active{% endif %}" href="{{ '/circum-vitae.html' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/circum-vitae.html' %} is-active{% endif %}" href="{{ '/circum-vitae.html' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-profile-line"></i></span>
-          <span>履歴書</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/circum-vitae.html' %} is-active{% endif %}" href="{{ '/circum-vitae.html' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-profile-line"></i></span>
-          <span>Curriculum Vitae</span>
+          <span class="lang-ja">履歴書</span>
+          <span class="lang-en">Curriculum Vitae</span>
         </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-folder-line"></i></span>
-          <span>ポートフォリオ</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-folder-line"></i></span>
-          <span>Portfolio</span>
+          <span class="lang-ja">ポートフォリオ</span>
+          <span class="lang-en">Portfolio</span>
         </a>
       </li>
     </ul>
@@ -78,23 +63,17 @@
     </span>
     <ul class="primary-nav__list">
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/research-activity.html' %} is-active{% endif %}" href="{{ '/research-activity.html' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/research-activity.html' %} is-active{% endif %}" href="{{ '/research-activity.html' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-flask-line"></i></span>
-          <span>論文・講演</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/research-activity.html' %} is-active{% endif %}" href="{{ '/research-activity.html' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-flask-line"></i></span>
-          <span>Publications &amp; Talks</span>
+          <span class="lang-ja">論文・講演</span>
+          <span class="lang-en">Publications &amp; Talks</span>
         </a>
       </li>
       <li>
-        <a class="primary-nav__link lang-ja{% if current_path == '/slides.html' %} is-active{% endif %}" href="{{ '/slides.html' | relative_url }}">
+        <a class="primary-nav__link{% if current_path == '/slides.html' %} is-active{% endif %}" href="{{ '/slides.html' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-slideshow-line"></i></span>
-          <span>講演資料</span>
-        </a>
-        <a class="primary-nav__link lang-en{% if current_path == '/slides.html' %} is-active{% endif %}" href="{{ '/slides.html' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-slideshow-line"></i></span>
-          <span>Presentation Materials</span>
+          <span class="lang-ja">講演資料</span>
+          <span class="lang-en">Presentation Materials</span>
         </a>
       </li>
     </ul>
