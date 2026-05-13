@@ -1,134 +1,224 @@
 ---
 layout: project
 title: "MCYR Timetable Maker (Django)"
-date: 2025-12-06
-period: "2025/9 - 2025/12"
-role: "要件定義 / 設計 / 実装 / 運用"
+date: 2026-03-22
+period: "2025/09 - 2026/03 (運用継続)"
+role: "要件整理 / 設計 / 実装 / 運用改善 / 保守"
 tech:
   - Python 3.12
   - Django 5.1
   - Django REST Framework
-  - Celery
+  - Celery + Redis
   - django-allauth (Google OAuth)
-  - SortableJS
-  - WeasyPrint
-  - Redis
+  - Google Sheets / Drive API
+  - WeasyPrint / pypdf / ReportLab
+  - SortableJS / Select2 / SweetAlert2
+  - SQLite / PostgreSQL (DATABASE_URL切替)
 repo_url: "(非公開リポジトリ)"
 hero: "/assets/img/portfolio/mcyr-timetable/hero.png"
-tags: ["Django","Celery","Scheduling","WeasyPrint","Google Sheets","SortableJS"]
-summary: "Google Forms → Sheets の回答を取り込み, ドラッグ&ドロップで講演編成を行い, PDF/PNG/CSVにエクスポートできる社内向けタイムテーブルメーカー. "
+tags: ["Django","Celery","Scheduling","Google Sheets","WeasyPrint","Import Reconciliation"]
+summary: "Google Forms/Sheets由来の応募データを2ソース照合で取り込み、講演編成・マスタ修正・講究録PDF生成までを一体化した学会運営向けWebサービス。"
 permalink: /portfolio/mcyr-timetable/
 published: false
 ---
 
 ## 概要
-学会/イベント向けの講演編成を効率化する内部アプリ. Google Forms → Google Sheets に集計された応募データを, サーバー側の取込パイプラインで `StagingSubmission` に蓄積・差分判定し, ブラウザ上の日付×時間×会場グリッドへドラッグ&ドロップで割り当てる. PDF/PNG/CSV/TSVで配布用の資料を生成でき, Googleドメイン制限＋承認フローで社内のみ利用可能. 
+MCYR Timetable Maker は、学会・研究会向けの「講演データ統合 + タイムテーブル編成 + 配布物出力」を一気通貫で扱う業務システムです。  
+単なる編成UIではなく、以下を1サービス内で完結させています。
 
-- 目的: 非エンジニアの事務局が安全かつ素早く編成・校正・配布まで完了できるようにする
-- 効果: 手作業の重複/ミスを削減し, 並行イベントの編成・エクスポートを即時に実施
-- 利用者: 事務局メンバー(Editor), 閲覧のみのレビュワー(Viewer), 管理者(Admin)
+- Google OAuth + 承認フローによる利用者管理
+- 2ソース（登壇者シート / テクニカルレポートシート）取り込みと照合課題管理
+- ドラッグ&ドロップ編成（時間枠/会場/カテゴリ制約付き）
+- 講演者・投稿のマスタ修正と講演者統合
+- PDF/PNG/HTML/CSV/TSV出力
+- TeXバンドル生成と講究録PDFの非同期ジョブ生成
 
-## 現状
-- 状態: 本番運用中. 編成・出力・インポートの基本機能は実装済み. 
-- 権限: Google OAuth のドメイン制限＋承認必須. 承認前ユーザーは `/accounts/pending-approval/` へ誘導. 
-- 取込: Google Sheets API の同期/非同期取り込みに対応. Celery Beatで定期実行も可能. 
-- エクスポート: WeasyPrint が導入済み環境では PDF/PNG を生成. 未導入時は 503 を返し原因を通知. 
-- 運用: Windows 向けの `start_prod_services.bat` で migrate/collectstatic/celery/runserver を一括起動. 
-- 監視: JSON ログを Cloud Logging 相当へ転送可能な構成. 取込タスクのステータスは管理画面とUIトーストで通知. 
+## 背景と課題
+- 事務局運用で、応募データ整形・突合作業・編成・配布資料化が分断されていた
+- 同姓同名や表記揺れにより、手動照合でミスが起きやすかった
+- 編成後の配布資料（一覧PDF・講究録PDF）作成が別作業で重かった
+- 運用担当が非エンジニア中心のため、Web画面上で閉じる必要があった
+
+## 解決したこと
+- 取込から配布資料生成まで同一データモデル上で処理し、作業導線を一本化
+- 2ソース照合時に自動マッチング（メール / ローマ字名 / 母語名）と課題化を分離
+- 課題は画面で `link_existing / create_new / ignore` を選べる運用に設計
+- 編成ロジックに業務制約（重複禁止・時間上限・参加可能日・ポスター専用）を実装
+- 講究録PDFをCeleryジョブ化し、進捗・再利用・失敗時リカバリを実装
+
+## サービス全体構成
+### アプリ構成
+- `apps.accounts`: カスタムUser（role/is_approved）
+- `apps.core`: 認可Mixin・DRF Permission・OAuthミドルウェア・Wikiビュー
+- `apps.imports`: 2ソース取込、ステージング、照合課題、列マッピング、取込設定
+- `apps.scheduling`: 日付/会場/時間枠/編成セル/割当、出力、設定画面、講究録ジョブ
+- `apps.speakers`: 講演者API、講演者統合（merge）と統合ログ
+- `apps.submissions`: 投稿API、参加可能日・技術レポート情報管理
+- `apps.tags`: 講演者タグ管理
+
+### 画面構成
+- `/` 編成画面（Program Builder）
+- `/settings/` 編成設定画面（出力/カテゴリ/日程/会場/取込設定）
+- `/operations/master-edit/` マスタ修正（講演者・投稿編集、講演者統合）
+- `/operations/reconciliation/` 照合課題解決
+- `/wiki/` `/wiki/user/` `/wiki/dev/` 運用・開発向けWiki
 
 ## 主要機能
-- 認証/承認: Google OAuth(django-allauth)＋カスタムUserの `role`/`is_approved` 制御. 
-- 編成UI: SortableJS でスピーカーをグリッドへ D&D. セルごとに version を持ち, 重複/上限/ロックをサーバー側で検証. 
-- エクスポート: `/api/export/pdf?format=pdf|png|csv|tsv` で配布用データを生成. ファイル名・日付フィルタ指定に対応. 
-- 取込パイプライン: Celery タスク `run_import_job` が Sheets → `StagingSubmission` → `Speaker/Submission` へ差分反映. 
-- API: RESTエンドポイントで編成/マスタ/取込/エクスポートを提供. CSRF対応の fetch で UI と連携. 
-- ロギング: python-json-logger による JSON ログ出力. 環境変数は `.env.local` に集約. 
+### 1. 認証・承認・権限
+- Google OAuth（django-allauth）を利用
+- 許可ドメインを `ALLOWED_LOGIN_EMAIL_DOMAINS` で制御
+- `is_approved` 未承認ユーザーは `/accounts/pending-approval/` へリダイレクト
+- APIは `IsApprovedUser` を基本ゲートにし、更新系一部は `IsAdminUser` 制御
+- OAuth開始/コールバックの構造化ログ、redirect正規化ミドルウェアを実装
 
-### 詳細ユースケース
-- Google Forms で受けた応募結果を自動/手動で取り込み, 未マッピング行だけを差分表示し, 採択/棄却を判断してステージング. 
-- 採択済みスピーカーを日付・時間・会場セルへ配置し, タイムラインの競合や重複を防止. 
-- エクスポート前に PDF/PNG プレビューでレイアウトを確認し, 即時に CSV/TSV をダウンロードして別システムへ連携. 
-- Editor が作業中でも Viewer は閲覧のみで安全に参照. Admin はユーザー承認とマスタデータの更新を担当. 
+### 2. 2ソース取り込み + 照合
+- `source_mode=dual` 前提（singleは廃止）
+- `speaker` と `report` の2シートを取得し、行単位でマッチング
+- スコアリング基準:
+  - `email_exact` (100)
+  - `roman_name_exact` (95)
+  - `native_name_exact` (90)
+- 高信頼でもコア項目不一致（email/roman/native/organisation）は自動確定せず課題化
+- 未照合・曖昧・低信頼・不一致を `ImportReconciliationIssue` として保持
+- 過去解決済み課題の再利用（自動解決）を実装
 
-## 画面フロー
-1) Google OAuth でログイン(許可ドメインのみ承認可能)
-2) 承認後, 編成トップで日付/時間/会場グリッドをロード
-3) 左ペインのスピーカーをセルへドラッグ＆ドロップ(並び替え・解除も可能)
-4) 必要に応じて取込データビューで Sheets 行を確認
-5) エクスポート画面から PDF/PNG/CSV/TSV をダウンロード
+### 3. ステージング → コア反映
+- `StagingSubmission` に正規化payload + row_hashを保存
+- `promote_staging_to_core` で Speaker / Submission / SubmissionFile を反映
+- 空値で既存値を消さない保全ロジック
+- 削除行検知（`mark_deleted_rows` / `remove_deleted_records`）
+- 取り込み履歴は `ImportJob` にサマリー・メタデータ保存
 
-ヒント: WeasyPrint のネイティブ依存が未導入の場合, PDF/PNGエクスポートは 503 を返し CSV/TSV のみ利用可能です. 
+### 4. 照合課題解決UI
+- 課題一覧 + diff表示 + 解決アクション
+- フィールドごとに `report` / `speaker` の採用元を選択可能
+- `resolve` アクションで既存紐付け / 新規作成 / 無視を反映
+- speaker側課題は `ignore` のみ許可するなど運用ルールを実装
 
-## データ/処理フロー
-- Google Sheets → StagingSubmission → Speaker/Submission/SubmissionFile への差分反映
-- Day/TimeSlot/Venue/SessionCell のグリッド構造に Assignment を紐付け, version で楽観ロック
-- CSV/TSV は UTF-8(BOM付) でダウンロード. PDF/PNG は WeasyPrint でサーバーレンダリング
+### 5. 編成UI（Program Builder）
+- SortableJSベースのドラッグ&ドロップ割当
+- 日付タブ・会場列・時間枠行のグリッド
+- セル単位の `version` による楽観ロック
+- カテゴリ一括更新（time slot単位）
+- キャンセル済み投稿の非表示、管理者のみ含めるオプション
+- 講演者詳細パネル・フィルタ・未割当一覧を提供
 
-### モジュール構成(要約)
-- `apps.core`: ユーザー/権限, 共通設定, JSON ログ. 
-- `apps.scheduling`: Day/TimeSlot/Venue/Assignment など編成の中核モデルとREST API. 
-- `apps.imports`: Google Sheets 取込, ステージング, 差分判定, Celery タスク定義. 
-- `apps.exports`: WeasyPrint/CSV/TSV 生成とファイルレスポンス. 
-- `apps.speakers`: Speaker/Submission/SubmissionFile モデルと一覧 API. 
+### 6. 編成制約バリデーション
+`AssignmentSerializer` で業務ルールを集約:
+- ロック枠への操作禁止
+- 同一セル内の重複講演者禁止
+- `max_talks` / `max_duration_minutes` 超過禁止
+- カテゴリ別複数割当可否（`SessionCategoryPreference`）
+- ポスターのみ希望者の配置先制約
+- `preferred_days` と開催日の照合による参加可能日チェック
 
-### API 例
-- `GET /api/scheduling/cells?day=1`: 日別グリッドを取得. 
-- `POST /api/scheduling/assignments`: スピーカーをセルへ割当(version を含む楽観ロック). 
-- `POST /api/imports/run_job`: Sheets からの同期/非同期インポートを起動. 
-- `GET /api/exports/pdf?format=png&day=1`: 指定日を PNG でダウンロード. 
+### 7. 出力機能
+- `GET /api/export/pdf/` で多形式出力:
+  - `pdf`, `png`, `html`, `csv`, `tsv`, `tex`, `tex_pdf`
+- 出力表示設定:
+  - 発表者名、所属、希望分野、カテゴリ、キーワード、DLリンク表示等
+  - 空行/空会場非表示
+  - カテゴリ表示名カスタマイズ・非表示制御
+- CSV/TSVは UTF-8 BOM 付きで出力
+- WeasyPrint未利用環境ではPDF/PNGを503で明示的に失敗させる設計
 
-## セキュリティ
-- ドメイン制限 + 承認フラグで社内限定公開. 未承認ユーザーは各APIも拒否. 
-- REST権限を `apps.core.auth.IsApprovedUser` で統一し, 管理者のみ一部CRUDを許可. 
-- CSRF対策済みの fetch 通信. 環境変数・資格情報は `.env.local` で一元管理. 
+### 8. 講究録PDFジョブ
+- `ProceedingsExportJob` モデルで状態/進捗/成果物を管理
+- Celeryタスク `run_proceedings_export_job` で非同期生成
+- 進捗（current/total/percent/stage/message）をAPIで返却
+- 既存成果物の再利用（cache key）を設定で有効化可能
+- TeXテンプレート（header/footer含む）を設定画面から編集可能
+- Google DriveからPDF収集、ページ番号付与、マージ処理まで実装
 
-## セットアップ / 実行
-- 事前: `.env.local.example` をコピーし, DB/Redis/Googleサービスアカウントを設定. 
-- インストール:
-```powershell
-.\.env\Scripts\pip.exe install -r requirements.txt
-.\.env\Scripts\python.exe timetable_maker\manage.py migrate
-.\.env\Scripts\python.exe timetable_maker\manage.py createsuperuser
-```
-- 起動:
-```powershell
-.\.env\Scripts\python.exe scripts\runserver_debug.py
-.\.env\Scripts\python.exe scripts\celery_worker_debug.py
-.\.env\Scripts\python.exe scripts\celery_beat_debug.py  # 定期取込を行う場合
-```
-- Windows 運用: `start_prod_services.bat` で migrate → collectstatic → Celery Worker/Beat → runserver を自動実行. 
+### 9. マスタ修正
+- 講演者検索（氏名/所属/メール/タイトル）
+- 講演者プロフィール編集
+- 投稿編集（要旨・キーワード・参加可能日・技術レポートURL・キャンセル等）
+- 講演者統合（重複整理）:
+  - タグ移管
+  - 重複投稿統合
+  - 割当移管
+  - 統合ログ記録（SpeakerMergeLog）
 
-### 開発補足
-- VS Code: `scripts/launch.json` 相当のデバッグ構成を用意し, Django サーバーと Celery Worker を個別デバッグ可能. 
-- サンプルデータ: `db.zip` を解凍し `manage.py loaddata` で投入すれば, サンプルの講演/時間割を即確認できる. 
-- 環境差異: WeasyPrint 未導入環境では `EXPORT_PDF_AVAILABLE=false` として 503 を返却し, CSV/TSV のみ許可. 
+### 10. 設定画面
+- 出力設定
+- カテゴリ設定（global扱い、複数割当可否、表示ラベル）
+- 開催日・会場・会場アイコン差し替え
+- 希望分野カラー設定
+- 取込ソース設定（speaker/report）
+- 列マッピング設定（source別）
 
-## 実装ハイライト
+## データモデル（主要）
+- 編成軸: `Day`, `TimeSlot`, `Venue`, `SessionCell`, `Assignment`
+- 出力設定: `ProgramExportSetting`, `SessionCategoryPreference`, `TopicColorSetting`, `VenueIconVariant`
+- 取り込み: `ImportJob`, `StagingSubmission`, `ImportColumnMapping`, `ImportSourceSetting`, `ImportReconciliationIssue`
+- 講演者/投稿: `Speaker`, `Submission`, `SubmissionFile`, `SpeakerMergeLog`
+- タグ: `Tag`, `SpeakerTag`
+- すべてUUID主キー + created_at/updated_atで統一
 
-- **編成UI**: SortableJS + fetch API で D&D 編成. 重複・ロック・定員チェックはサーバー側で検証し, セル単位の version で競合を防止. 
-- **エクスポート**: WeasyPrint による PDF/PNG, Python で CSV/TSV. `Content-Disposition` を付与しダウンロード提供. 
-- **取込パイプライン**: Celery タスクが Sheets を取得し差分のみ反映. プレビューとステージングで安全に適用. 
-- **運用性**: `.env.local` への設定集約, JSON ログ, VS Code デバッグ構成, Windows 向け一括起動バッチを同梱. 
+## API（代表）
+- `GET/POST/PATCH/DELETE /api/assignments/`
+- `GET/PATCH /api/schedule/`
+- `PATCH /api/schedule/bulk-update-category/`
+- `POST /api/import/sheets/`
+- `GET /api/import/sheets/preview/`
+- `GET/PATCH /api/import/reconciliation-issues/` + `.../{id}/resolve/`
+- `GET /api/export/pdf/?format=...`
+- `POST /api/export/proceedings-jobs/`
+- `GET /api/export/proceedings-jobs/{job_id}/`
+- `GET /api/export/proceedings-jobs/{job_id}/download/`
+- `POST /api/speakers/merge/`
 
-### 技術的工夫
-- Assignment の version を用いた楽観ロックで, 複数オペレーターが同じセルを編集しても衝突を検出. 
-- 取込タスクは同期(HTTP 直後)/非同期(Celery Queue)を選択でき, 長時間処理をワーカーに逃がす設計. 
-- エクスポートはフォーマットごとにストリーミングレスポンスを実装し, 大規模カンファレンスでもタイムアウトしにくい. 
+## 運用・保守
+### ランチャー/起動導線
+- `scripts/runserver_debug.py`
+- `scripts/celery_worker_debug.py`
+- `scripts/celery_beat_debug.py`
+- `scripts/service_launcher_gui.py`（GUI起動）
+- `start_prod_services.bat`（migrate/collectstatic/worker/beat/runserver）
+- `scripts/ensure_celery_runtime.py`（Redis事前確認・自動起動補助）
 
-### 今後の拡張案
-- 編成履歴のタイムトラベル表示とロールバック機能. 
-- セッション同士の依存制約(同一講演者の並行禁止など)の自動検出. 
+### 運用コマンド
+- `ops_healthcheck`: 取込健全性チェック
+- `ops_cleanup_imports`: 古い取込履歴のクリーンアップ
+- `ops_import_verify_merge`: dual取込 + 検証 + 自動マッピング再試行
+- `generate_session_cells`: JSON定義から日程/時間枠/セルを生成
 
-## スクリーンショット要望
-以下の画面キャプチャをご用意いただけると, ポートフォリオ記事に組み込めます. 
-- トップページの編成グリッド(ドラッグ＆ドロップ操作が分かる状態)
-- 取込データ一覧モーダル(Sheets行の確認画面)
-- エクスポートダイアログ(PDF/PNG/CSV切り替えが見える状態)
-- 講演者詳細ポップアップ(プロフィール・セッション情報表示)
-- Django 管理画面でのユーザー一覧(承認フラグ/ロール確認ができる状態)
+## テスト
+- Django標準テストでアプリ内に配置
+- 22個のテストモジュールでカバー
+- 主な対象:
+  - 2ソース照合ロジック
+  - 取込タスク（再試行/サマリー/自動クローズ）
+  - 編成制約（複数割当、参加可能日、ポスター専用）
+  - 出力（PDF行構成、TeX/講究録、進捗ジョブ）
+  - マスタ修正/統合API
+  - 承認・表示制御
 
-提供いただいた参考スクリーンショット例(キャプション案):
-- 編成グリッド：並行セッションを色分けし, ドラッグ＆ドロップで配置している様子. 
-- 講演者詳細：プロフィールモーダルで担当セッションと所属を確認している様子. 
-- PDF/PNG プレビュー：エクスポート画面でプレビューを確認しダウンロードする手前の状態. 
-- 管理画面：スタッフの承認状態やロールを一覧で管理している様子. 
+## 非機能・セキュリティ
+- OAuthドメイン制限 + 承認フラグ
+- CSRF保護 + SessionAuth
+- JSON構造化ログ（python-json-logger）
+- SQLiteロック時の指数バックオフ再試行（取込タスク）
+- 設定値は `.env.local` に集約し、機密情報のGit管理を回避
+
+## 技術的ハイライト
+- ビジネスルールの中核を Serializer/Service に寄せ、Viewを薄く維持
+- 取り込みは「自動確定」と「人手解決」の境界を明示して事故を抑制
+- 編成制約をAPI側で強制し、UIの不正操作や同時編集に耐性
+- 講究録生成は同期APIから分離し、ジョブ化・進捗化・再利用化を実装
+- 管理画面は閲覧専用化/入力補助（アイコン選択等）で運用事故を低減
+
+## 今後の改善余地
+- リアルタイム同時編集（WebSocket）と差分通知
+- 編成履歴のバージョン管理とロールバックUI
+- 取込照合の説明可能性向上（スコア根拠の可視化）
+- 出力テンプレートのノーコード編集範囲拡大
+
+## スクリーンショット候補（ポートフォリオ掲載用）
+- 編成画面（D&D、未割当リスト、日付タブ）
+- マスタ修正画面（講演者編集 + 投稿編集 + 統合）
+- 照合課題画面（diff比較と解決操作）
+- 設定画面（出力/取込マッピング/会場アイコン）
+- 講究録PDFジョブ進捗UI
+- 管理画面（ユーザー承認、取込ジョブ、講究録ジョブ）
