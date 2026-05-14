@@ -5,7 +5,9 @@
       "Bash(bundle exec *)",
       "Bash(python *)",
       "Bash(python3 -c \"from PIL import Image; print\\('ok'\\)\")",
-      "Bash(py -c \"from PIL import Image; print\\('ok'\\)\")"
+      "Bash(py -c \"from PIL import Image; print\\('ok'\\)\")",
+      "Bash(curl -sI \"https://nakanoryunosuke.github.io/sitemap.xml\")",
+      "Bash(curl -s \"https://nakanoryunosuke.github.io/sitemap.xml\")"
     ]
   }
 }

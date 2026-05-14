@@ -20,6 +20,12 @@
 <!-- author meta -->
 <meta name="author" content="中野竜之介 (NAKANO Ryunosuke)">
 
+<!-- hreflang: the same page serves both ja and en via in-page toggle.
+     Linked URLs use a ?lang= hint so a language-specific deep link is possible. -->
+<link rel="alternate" hreflang="ja" href="{{ page.url | absolute_url }}?lang=ja">
+<link rel="alternate" hreflang="en" href="{{ page.url | absolute_url }}?lang=en">
+<link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+
 <!-- (11) SEOタグ（jekyll-seo-tag プラグイン） -->
 {% seo %}
 

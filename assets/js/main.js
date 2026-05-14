@@ -85,6 +85,14 @@
       if (label) el.setAttribute("aria-label", label);
     });
   }
+  function annotateLangElements() {
+    document.querySelectorAll(".lang-ja").forEach((el) => {
+      if (!el.hasAttribute("lang")) el.setAttribute("lang", "ja");
+    });
+    document.querySelectorAll(".lang-en").forEach((el) => {
+      if (!el.hasAttribute("lang")) el.setAttribute("lang", "en");
+    });
+  }
   function updateDocumentLanguage(lang) {
     const html = document.documentElement;
     if (html.getAttribute("lang") !== lang) html.setAttribute("lang", lang);
@@ -104,6 +112,7 @@
     return detectBrowserLanguage();
   }
   function initLangSwitch() {
+    annotateLangElements();
     const initial = chooseInitialLanguage();
     storeLanguage(initial);
     updateDocumentLanguage(initial);
@@ -149,6 +158,14 @@
   function isMobileViewport() {
     return window.matchMedia(MOBILE_BREAKPOINT_QUERY).matches;
   }
+  function getFocusableElements(root) {
+    const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    return Array.from(root.querySelectorAll(selector)).filter((el) => {
+      if (el.hasAttribute("hidden")) return false;
+      const style = window.getComputedStyle(el);
+      return style.display !== "none" && style.visibility !== "hidden";
+    });
+  }
   function syncMenuState(nav, overlay, button, isOpen, lang) {
     nav.classList.toggle("is-open", isOpen);
     updateMenuButton(button, isOpen, lang);
@@ -157,10 +174,17 @@
       overlay.hidden = !isOpen;
     }
     document.body.classList.toggle("has-open-nav", isOpen);
+    if (isOpen) {
+      const focusables = getFocusableElements(nav);
+      if (focusables.length > 0) {
+        window.requestAnimationFrame(() => focusables[0].focus());
+      }
+    }
   }
   function closeMenu(nav, overlay, button, lang) {
     if (nav.classList.contains("is-open")) {
       syncMenuState(nav, overlay, button, false, lang);
+      button.focus();
     }
   }
   function initMenuToggle() {
@@ -192,6 +216,26 @@
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         closeMenu(nav, overlay, button, getCurrentLanguage2());
+        return;
+      }
+      if (event.key !== "Tab" || !nav.classList.contains("is-open") || !isMobileViewport()) {
+        return;
+      }
+      const focusables = getFocusableElements(nav);
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey) {
+        if (active === first || !nav.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (active === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     });
     window.addEventListener("resize", () => {

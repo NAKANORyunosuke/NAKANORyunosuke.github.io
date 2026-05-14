@@ -98,6 +98,18 @@ function syncI18nAriaLabels(lang: Language): void {
   });
 }
 
+function annotateLangElements(): void {
+  // Tag every .lang-ja / .lang-en element with a matching `lang` attribute so
+  // search engines can identify the language of each text node even though
+  // both languages are emitted into the same page.
+  document.querySelectorAll<HTMLElement>('.lang-ja').forEach((el) => {
+    if (!el.hasAttribute('lang')) el.setAttribute('lang', 'ja');
+  });
+  document.querySelectorAll<HTMLElement>('.lang-en').forEach((el) => {
+    if (!el.hasAttribute('lang')) el.setAttribute('lang', 'en');
+  });
+}
+
 function updateDocumentLanguage(lang: Language): void {
   const html = document.documentElement;
   if (html.getAttribute('lang') !== lang) html.setAttribute('lang', lang);
@@ -123,6 +135,7 @@ function chooseInitialLanguage(): Language {
 }
 
 export function initLangSwitch(): void {
+  annotateLangElements();
   const initial = chooseInitialLanguage();
   storeLanguage(initial);
   updateDocumentLanguage(initial);
