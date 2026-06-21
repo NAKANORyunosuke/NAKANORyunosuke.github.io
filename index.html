@@ -1,5 +1,6 @@
 ---
 layout: default
+math: true
 title: "中野竜之介の研究ノートと開発記録"
 description: "中野竜之介 (NAKANO Ryunosuke) — 北海道大学大学院 理学院 数学専攻 博士後期課程. 特殊関数・テータ関数・周期写像に関する研究ノートと, ソフトウェア開発記録を公開."
 lang: ja
@@ -13,65 +14,71 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
 {% assign latest_project = latest_projects | first %}
 
 <section class="hero hero--home reveal-on-scroll" aria-labelledby="home-hero-heading">
-  <div class="hero__background" aria-hidden="true"></div>
-  <div class="hero__overlay" aria-hidden="true"></div>
   <div class="hero__inner">
     <div class="hero__text">
-      <span class="hero__eyebrow lang-ja"><span class="hero__status-dot" aria-hidden="true"></span>更新状況</span>
-      <span class="hero__eyebrow lang-en"><span class="hero__status-dot" aria-hidden="true"></span>Status</span>
-      <h1 id="home-hero-heading" class="lang-ja">中野竜之介 — 研究ノートと開発記録</h1>
-      <h1 class="lang-en">Ryunosuke Nakano — Research Notes and Build Log</h1>
-      <p class="lang-ja">このページでは公開中のノートとプロジェクトを時系列で確認できます. 最新更新と連絡先への導線をまとめています.</p>
-      <p class="lang-en">This page lists published notes and projects in chronological order, with direct links to recent updates and contact channels.</p>
+      <p class="hero__coord">
+        <span class="lang-ja">北海道大学大学院 理学院 数学専攻 博士後期課程</span>
+        <span class="lang-en">Dept. of Mathematics, Hokkaido University</span>
+      </p>
+      <h1 id="home-hero-heading">
+        <span class="lang-ja">中野竜之介</span>
+        <span class="lang-en">Ryunosuke Nakano</span>
+      </h1>
+      <p class="lead">
+        <span class="lang-ja">数学の研究ノートと, 開発の記録.</span>
+        <span class="lang-en">Research notes in mathematics, and a log of what I build.</span>
+      </p>
+      <div class="hero__profiles">
+        <span class="hero__profiles-label">
+          <span class="lang-ja">プロフィール</span>
+          <span class="lang-en">Profiles</span>
+        </span>
+        <a class="hero__profile hero__profile--primary" href="https://researchmap.jp/NAKANO-R" rel="noopener" target="_blank">researchmap<i class="ri-external-link-line" aria-hidden="true"></i></a>
+        <a class="hero__profile" href="https://x.com/RNakano_theta" rel="noopener" target="_blank">X / @RNakano_theta</a>
+        <a class="hero__profile" href="https://github.com/nakanoryunosuke" rel="noopener" target="_blank">GitHub</a>
+      </div>
       <div class="hero__actions">
         <a class="button button--accent" href="{{ '/notes/' | relative_url }}">
-          <span class="lang-ja">ノート一覧</span>
-          <span class="lang-en">Notes</span>
-          <i class="ri-arrow-right-line" aria-hidden="true"></i>
+          <span class="lang-ja">ノートを読む</span>
+          <span class="lang-en">Read notes</span>
         </a>
-        <a class="button button--ghost" href="{{ '/portfolio/' | relative_url }}">
-          <span class="lang-ja">プロジェクト一覧</span>
-          <span class="lang-en">Projects</span>
-          <i class="ri-folder-line" aria-hidden="true"></i>
+        <a class="button" href="{{ '/portfolio/' | relative_url }}">
+          <span class="lang-ja">つくったもの</span>
+          <span class="lang-en">Things I build</span>
         </a>
-        <a class="button button--ghost" href="{{ '/contact/' | relative_url }}">
+        <a class="button" href="{{ '/contact/' | relative_url }}">
           <span class="lang-ja">連絡先</span>
           <span class="lang-en">Contact</span>
-          <i class="ri-mail-line" aria-hidden="true"></i>
         </a>
       </div>
     </div>
 
-    <aside class="hero-status" aria-label="Current published status">
-      <p class="hero-status__title">
-        <span class="lang-ja">現在の公開状況</span>
-        <span class="lang-en">Current status</span>
-      </p>
-
-      {% if latest_post %}
-      <p>
-        <span class="lang-ja">最新ノート: {{ latest_post.date | date: "%Y-%m-%d" }} / <a href="{{ latest_post.url | relative_url }}">{{ latest_post.title_ja | default: latest_post.title }}</a></span>
-        <span class="lang-en">Latest note: {{ latest_post.date | date: "%Y-%m-%d" }} / <a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a></span>
-      </p>
-      {% endif %}
-
-      {% if latest_project %}
-      <p>
-        <span class="lang-ja">最新プロジェクト: {{ latest_project.date | date: "%Y-%m-%d" }} / <a href="{{ latest_project.url | relative_url }}">{{ latest_project.title }}</a></span>
-        <span class="lang-en">Latest project: {{ latest_project.date | date: "%Y-%m-%d" }} / <a href="{{ latest_project.url | relative_url }}">{{ latest_project.title }}</a></span>
-      </p>
-      {% endif %}
-
-      <p class="hero-status__line">
-        <span class="lang-ja">ノート: {{ latest_posts | size }} / プロジェクト: {{ latest_projects | size }}</span>
-        <span class="lang-en">Notes: {{ latest_posts | size }} / Projects: {{ latest_projects | size }}</span>
-      </p>
-    </aside>
+    <figure class="hero__plot">
+      <canvas class="hero__plot-canvas" data-theta-plot width="468" height="300" role="img"
+        aria-label="Domain coloring of the theta function vartheta_00(z, tau) on the complex plane: the argument is mapped to hue, and its zeros form a lattice."></canvas>
+      <figcaption class="hero__plot-caption">
+        <span class="lang-ja"><b>Fig.</b> $\vartheta_{00}(z,\tau)$ — テータ関数の domain coloring（偏角 = 色相, 零点が格子状に並ぶ）</span>
+        <span class="lang-en"><b>Fig.</b> $\vartheta_{00}(z,\tau)$ — domain coloring of a theta function (argument = hue; zeros form a lattice)</span>
+      </figcaption>
+      <div class="theta-control">
+        <canvas class="theta-control__pick" data-tau-pick width="148" height="104" tabindex="0"
+          role="slider" aria-label="Drag to move the modular parameter tau in the upper half-plane"
+          aria-valuetext="tau = 0.25 + 0.62i"></canvas>
+        <div class="theta-control__side">
+          <span class="theta-control__label">
+            <span class="lang-ja">τ をドラッグ</span>
+            <span class="lang-en">drag τ in ℍ</span>
+          </span>
+          <span class="theta-control__readout" data-tau-readout>τ = 0.25 + 0.62i</span>
+        </div>
+      </div>
+    </figure>
   </div>
 </section>
 
 <section class="home-section reveal-on-scroll" aria-labelledby="recent-notes-heading">
   <div class="section-heading">
+    <span class="plate-label"><span class="lang-ja">研究ノート</span><span class="lang-en">Research notes</span></span>
     <h2 id="recent-notes-heading" class="lang-ja">最新ノート</h2>
     <h2 class="lang-en">Recent Notes</h2>
     <p class="section-description lang-ja">新しい順に4件を表示しています.</p>
@@ -122,6 +129,7 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
 
 <section class="home-section home-section--muted reveal-on-scroll" aria-labelledby="featured-projects-heading">
   <div class="section-heading">
+    <span class="plate-label"><span class="lang-ja">開発記録</span><span class="lang-en">Build log</span></span>
     <h2 id="featured-projects-heading" class="lang-ja">公開プロジェクト</h2>
     <h2 class="lang-en">Published Projects</h2>
     <p class="section-description lang-ja">更新日の新しい順に表示しています.</p>
@@ -177,6 +185,7 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
 
 <section class="home-section reveal-on-scroll" id="contact-channels" aria-labelledby="engage-heading" data-toc-ignore>
   <div class="section-heading home-section__center">
+    <span class="plate-label"><span class="lang-ja">連絡</span><span class="lang-en">Contact</span></span>
     <h2 id="engage-heading" class="lang-ja">連絡窓口</h2>
     <h2 class="lang-en">Contact Channels</h2>
     <p class="section-description lang-ja">用途ごとの連絡先です.</p>

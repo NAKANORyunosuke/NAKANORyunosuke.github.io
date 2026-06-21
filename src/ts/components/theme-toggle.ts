@@ -17,12 +17,11 @@ function getPreferredTheme(): Theme {
     const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
     if (isTheme(stored)) return stored;
   } catch {
-    /* ignore storage access failures and fall back to system preference */
+    /* ignore storage access failures */
   }
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
-  }
+  // Light-first: the graph-paper notebook is the canonical look; blueprint (dark)
+  // is opt-in via the toggle.
   return 'light';
 }
 
