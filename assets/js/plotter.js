@@ -28,18 +28,18 @@
   var tauR = 0.25, tauI = 0.62;
   var TAU_R_MIN = -0.8, TAU_R_MAX = 0.8, TAU_I_MIN = 0.12, TAU_I_MAX = 1.6;
 
-  function hsv2rgb(h, s, v, out) {
-    var i = Math.floor(h * 6), f = h * 6 - i;
-    var p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s), r, g, b;
-    switch (((i % 6) + 6) % 6) {
-      case 0: r = v; g = t; b = p; break;
-      case 1: r = q; g = v; b = p; break;
-      case 2: r = p; g = v; b = t; break;
-      case 3: r = p; g = q; b = v; break;
-      case 4: r = t; g = p; b = v; break;
-      default: r = v; g = p; b = q; break;
-    }
-    out[0] = r * 255; out[1] = g * 255; out[2] = b * 255;
+  // Gentle cyclic phase colormap: balanced pastel wheel (the three cosines sum to
+  // zero, so perceived lightness stays near L regardless of hue) — far easier on the
+  // eyes than full-saturation HSV, while still cycling correctly with the argument.
+  var TWO_THIRDS_PI = 2.0943951023931953;
+  function phaseColor(theta, lightness, out) {
+    var c = 0.17; // muted chroma (pale)
+    var r = lightness + c * Math.cos(theta);
+    var g = lightness + c * Math.cos(theta - TWO_THIRDS_PI);
+    var b = lightness + c * Math.cos(theta + TWO_THIRDS_PI);
+    out[0] = (r < 0 ? 0 : r > 1 ? 1 : r) * 255;
+    out[1] = (g < 0 ? 0 : g > 1 ? 1 : g) * 255;
+    out[2] = (b < 0 ? 0 : b > 1 ? 1 : b) * 255;
   }
 
   function computeInto(W, H, NMAX) {
@@ -61,12 +61,10 @@
           im += amp * Math.sin(ang);
         }
         var mag = Math.sqrt(re * re + im * im);
-        var hue = Math.atan2(im, re) / TWO_PI + 0.5;
+        var theta = Math.atan2(im, re);
         var band = (Math.log(mag + 1e-12) / LOG2);
         band -= Math.floor(band);
-        var val = 0.55 + 0.4 * band;
-        if (val > 1) val = 1;
-        hsv2rgb(hue, 0.72, val, rgb);
+        phaseColor(theta, 0.66 + 0.2 * band, rgb); // lightness banded by |theta|
         var o = (py * W + px) * 4;
         data[o] = rgb[0]; data[o + 1] = rgb[1]; data[o + 2] = rgb[2]; data[o + 3] = 255;
       }
