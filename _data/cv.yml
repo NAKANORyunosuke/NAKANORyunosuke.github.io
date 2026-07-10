@@ -52,8 +52,8 @@ sections:
                 ja: "理学研究院・先端生命科学研究院 Research Assistant"
                 en: "Research Assistant, Faculty of Science / Faculty of Advanced Life Science, Hokkaido University"
           - date:
-                ja: "2025年2月〜現在"
-                en: "February 2025 - Present"
+                ja: "2025年2月〜2026年6月"
+                en: "February 2025 - June 2026"
             description:
                 ja: "株式会社en（業務委託: 道路可視化ツール向けAI開発 / Python）"
                 en: "en Co., Ltd. (contract): AI development for road-visualisation tools (Python)"
@@ -82,6 +82,12 @@ sections:
                 en:
                     - "Developed data processing scripts using Python"
                     - "Implemented server-side functionality in C# and Python"
+          - date:
+                ja: "2026年7月〜現在"
+                en: "July 2026 - Present"
+            description:
+                ja: "株式会社en 社員（道路可視化ツール向けAI開発 / Python）"
+                en: "en Co., Ltd. (employee): AI development for road-visualisation tools (Python)"
     - id: teaching
       title:
           ja: "教育歴"
