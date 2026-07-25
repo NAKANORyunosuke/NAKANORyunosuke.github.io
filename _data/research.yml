@@ -3,7 +3,13 @@ sections:
       title:
           ja: "査読付き論文"
           en: "Peer-reviewed Papers"
-      items: []
+      items:
+          - date:
+                ja: "2026年7月24日"
+                en: "24 July 2026"
+            description:
+                ja: 'MATSUMOTO Keiji, NAKANO Ryunosuke, "The algebro-geometric aspect of the iterated limit of a quaternary of means of four terms", International Journal of Mathematics, Online Ready, <a href="https://doi.org/10.1142/S0129167X2650062X">doi:10.1142/S0129167X2650062X</a>（<a href="https://arxiv.org/abs/2512.22002">arXiv:2512.22002</a>）, 2026年7月24日'
+                en: 'MATSUMOTO Keiji, NAKANO Ryunosuke, "The algebro-geometric aspect of the iterated limit of a quaternary of means of four terms", International Journal of Mathematics, Online Ready, <a href="https://doi.org/10.1142/S0129167X2650062X">doi:10.1142/S0129167X2650062X</a> (<a href="https://arxiv.org/abs/2512.22002">arXiv:2512.22002</a>), 24 July 2026'
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
@@ -11,13 +17,7 @@ sections:
       title:
           ja: "プレプリント"
           en: "Preprints"
-      items:
-          - date:
-                ja: "2025年12月26日"
-                en: "26 December 2025"
-            description:
-                ja: 'Keiji Matsumoto, Ryunosuke Nakano, "The algebro-geometric aspect of the iterated limit of a quaternary of means of four terms", <a href="https://arxiv.org/abs/2512.22002">arXiv:2512.22002</a>, 2025年12月26日'
-                en: 'Keiji Matsumoto, Ryunosuke Nakano, "The algebro-geometric aspect of the iterated limit of a quaternary of means of four terms", <a href="https://arxiv.org/abs/2512.22002">arXiv:2512.22002</a>, 26 December 2025'
+      items: []
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
