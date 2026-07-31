@@ -2237,6 +2237,33 @@ pre code,
     margin-bottom: 0;
 }
 
+/* display: block 化で .post__content の grid gap が消えるため、記事本文の縦リズムをここで持つ */
+.post__content > * + * {
+    margin-top: var(--space-2);
+}
+
+.post__content > h2 {
+    margin-top: var(--space-4);
+}
+
+.post__content > h3 {
+    margin-top: var(--space-3);
+}
+
+/* 日本語段落の字下げ。英語段落には適用しない */
+.post__content > p {
+    text-indent: 1em;
+}
+
+.post__content > p.lang-en {
+    text-indent: 0;
+}
+
+/* 連続する段落は書籍式に字下げのみで区切る。見出し・コード・リストとの境界は * + * の間隔が残る */
+.post__content > p + p {
+    margin-top: 0;
+}
+
 .site-toc {
     grid-area: toc;
     background: #ffffff;
