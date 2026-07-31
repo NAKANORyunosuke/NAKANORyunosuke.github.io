@@ -8,9 +8,12 @@ lang: ja
 published: true  
 ---  
   
-2026年2月9日, 東北大学で開催された第5回保型形式小集会で聴講しているとき, メールで神戸大学の高山信毅先生から[https://github.com/openxm-org/OpenXM](https://github.com/openxm-org/OpenXM)と[https://github.com/openxm-org/OpenXM_contrib2](https://github.com/openxm-org/OpenXM_contrib2)からソースをダウンロードすることを推奨する旨のメールを頂いた. お伝え頂いた日本大学の濱田龍義先生ありがとうございます.  
-本稿では[Risa/Asirのインストール](https://nakanoryunosuke.github.io/programming/2025/11/21/Risa-Asir-Install.html)の内容を指摘していただいた内容で再構成し, 最低限必要なパッケージをインストールするようにしたdockerfileを公開する. また, この最低限のdockerfileはビルドが最後まで通るという意味であるため, 本稿ではエラーを洗い出した道程と追加したパッケージに関しても記述する.  
-完全版Dockerfileに関しては[GitHub](https://github.com/NAKANORyunosuke/Risa-Asir-container)にも公開しておく.  
+2026年2月9日, 東北大学で開催された第5回保型形式小集会を聴講しているとき, 神戸大学の高山信毅先生から, [https://github.com/openxm-org/OpenXM](https://github.com/openxm-org/OpenXM)と[https://github.com/openxm-org/OpenXM_contrib2](https://github.com/openxm-org/OpenXM_contrib2)からソースをダウンロードすることを推奨するメールを頂いた.  
+お伝えくださった日本大学の濱田龍義先生, ありがとうございます.  
+本稿では, 前稿[Risa/Asirのインストール](https://nakanoryunosuke.github.io/programming/2025/11/21/Risa-Asir-Install.html)の内容をこの指摘に沿って再構成し, 最低限必要なパッケージをインストールするDockerfileを公開する.  
+ここでの「最低限」は, ビルドが最後まで通るという意味である.  
+ビルド時のエラーを洗い出した過程と, そこで追加したパッケージについても記述する.  
+完全版のDockerfileは[GitHub](https://github.com/NAKANORyunosuke/Risa-Asir-container)にも公開している.  
   
 ## ビルド成功までの最低限のDockerfile  
 ```dockerfile  
@@ -46,15 +49,16 @@ RUN make && mkdir ~/bin && cp openxm ~/bin
   
 CMD ["/bin/bash"]  
 ```  
-次のコマンドを実行しビルドした.  
+次のコマンドを実行してビルドした.  
 ```build_container.sh  
 DOCKER_BUILDKIT=1 docker build --no-cache -t risa-asir . 2>&1 | tee build.log  
 ```  
-この時点でビルドは成功したが, いくつかエラーが出ていたため, 恐らく使用している中で不都合が出てくると思われる.  
+この時点でビルドは成功したが, いくつかエラーが出ていた.  
+放置すれば, 使用している中で不都合が出てくると思われる.  
 ```  
 grep -nEi 'not found|command not found|No such file or directory|cannot find' build.log > error.log  
 ```  
-でnot foundであるエラーを抽出して対応する.  
+このコマンドで not found 系のエラーを抽出し, 順に対応する.  
 #### コマンドが存在しない系  
 ```error.log  
 md5.sh: not found  
@@ -141,15 +145,12 @@ Package 'QtSvg', required by 'virtual:world', not found
     - 文字コード変換ユーティリティ. 日本語文書処理や文字コードの正規化に用いられる. 必須ではない.  
   
   
-#### その他対応  
-`md5.sh: not found`は`PATH`に`/OpenXM/bin`を通すことにより解決.  
-  
-  
 #### configure スクリプトの異常実行系  
 ```error.log  
 ./configure: line 2703: 0: command not found  
 ```  
-`md5.sh`はOpenXMが提供するスクリプトで, インストール後は`/OpenXM/bin`に置かれるためPATHを追加して解決した.  
+`md5.sh`はOpenXMが提供するスクリプトで, インストール後は`/OpenXM/bin`に置かれる.  
+`PATH`に`/OpenXM/bin`を通して解決した.  
   
   
 ## 完全版Dockerfile  

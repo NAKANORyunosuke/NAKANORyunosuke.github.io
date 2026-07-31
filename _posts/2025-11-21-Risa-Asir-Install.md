@@ -7,7 +7,8 @@ tags: [Risa/Asir]
 lang: ja
 ---
 
-Risa/Asirをインストールしようと思い, <a href="https://qiita.com/satoshin_astonish/items/9c1f5beff7275dadf0d4">この記事</a>を参考にしたが, 色々パッケージが足りなかったため追加したDockerfileを公開する. 
+Risa/Asirをインストールするにあたり, <a href="https://qiita.com/satoshin_astonish/items/9c1f5beff7275dadf0d4">この記事</a>を参考にした.
+しかし記事のとおりに進めてもパッケージが不足していたため, 不足分を追加したDockerfileを公開する. 
 
 ## <span class="lang-ja reveal-on-scroll">Dockerfile</span><span class="lang-en">Dockerfile</span>
 
@@ -80,11 +81,11 @@ CMD ["/bin/bash"]
 
 2. **OpenXMのソースが想定している古いUnixツールが抜けている**
    - OpenXMは各種の `configure` / `make` の内部で, 以下のような古いツールやドキュメント系コマンドに依存している:
-     - `file`(`/usr/bin/file`) … configure の判定に使用
-     - `texinfo` … info ドキュメント生成
-     - `sharutils` … uuencode / shar 展開
-     - `latex2html` … LaTeX 文書から HTML を作るスクリプト
-   - これらが無いと `configure` が途中で失敗したり(特に `asir-doc`, `gnuplot` 周り), その後の `make all` が連鎖的に落ちる. 
+     - `file`(`/usr/bin/file`)：configure の判定に使用
+     - `texinfo`：info ドキュメント生成
+     - `sharutils`：uuencode / shar 展開
+     - `latex2html`：LaTeX 文書から HTML を作るスクリプト
+   - これらが無いと `configure` が途中で失敗し(特に `asir-doc`, `gnuplot` 周り), その後の `make all` も連鎖的に落ちる. 
    - 上のDockerfileではこれらを明示的に `apt-get install` することで, OpenXMの古いビルドスクリプトの前提をすべて満たすようにしている. 
 
 3. **X11 + 数学ライブラリの開発パッケージが不足している**
@@ -92,7 +93,7 @@ CMD ["/bin/bash"]
      - `libx11-dev`, `libxext-dev`, `libxmu-dev`, `libxaw7-dev`, `libice-dev`, `libsm-dev`
      - `libgmp-dev`, `libmpfr-dev`, `libmpc-dev`
    - これらが無い状態だと, `pari` や `asir2018` のリンク時に未解決シンボルやヘッダ欠落で失敗する. 
-   - そのため, X11 系と GMP/MPFR/MPC の dev パッケージをまとめて入れて, `pari`・`gmp`・`asir2018` のビルドが通るようにしている. 
+   - そのため, X11 系と GMP/MPFR/MPC の dev パッケージをまとめて入れて, `pari`, `gmp`, `asir2018` のビルドが通るようにしている. 
 
 <p class="lang-ja">議論やフィードバックは <a href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a> まで. </p>
 <p class="lang-en">Feedback and discussion: <a href="mailto:nakano.ryunosuke.i3[at]elms.hokudai.ac.jp">nakano.ryunosuke.i3[at]elms.hokudai.ac.jp</a>.</p>

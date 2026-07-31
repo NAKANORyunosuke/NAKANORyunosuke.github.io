@@ -44,7 +44,7 @@ Risa/Asir を Docker 上で単一コンテナ利用するだけでなく, 複数
 
 まず全体像として, Asir の distributed computation が OpenXM の上に載っていることを確認した.
 
-OpenXM の説明では,
+OpenXM の章では,
 
 - client が server に仕事を依頼する
 - server は stack machine として動く
@@ -53,7 +53,7 @@ OpenXM の説明では,
 
 というモデルが説明されている.
 
-ここを先に読むと, 後続の `ox_*` API がかなり理解しやすい.
+ここを先に読むと, 後続の `ox_*` API が理解しやすい.
 
 ### 2. `Functions for distributed computation`
 
@@ -84,9 +84,9 @@ manual ではこれらを, client と server の通信を確立するための p
 - `try_accept(socket, port)` は接続要求を accept する
 - `register_server(control_socket, control_port, server_socket, server_port)` は control / server socket の組を Asir に登録する
 
-という役割分担.
+という役割分担になっている.
 
-さらに manual の例では, `ox_launch` を別で起動してから,
+さらに manual には, `ox_launch` を別で起動してから,
 
 1. `CSocket=try_bind_listen(CPort);`
 2. `SSocket=try_bind_listen(SPort);`
@@ -96,7 +96,7 @@ manual ではこれらを, client と server の通信を確立するための p
 
 という順でつなぐ例が載っている.
 
-今回の cluster 実装は, まさにこの流儀を Docker compose に移したものになっている.
+今回の cluster 実装は, この流儀を Docker compose に移したものになっている.
 
 ### 4. `ox_launch_generic`
 
@@ -129,31 +129,13 @@ manual には, `ox_pop_local()` は data が無ければ block するとあり, 
 
 という組み合わせが説明されている.
 
-これは cluster 実装でそのまま採用した.
-
-つまり今回の回収ロジックは,
-
-- 単純な `ox_pop_local()` の直列待ち
-
-ではなく,
-
-- `ox_push_cmd(258)` 済み worker を `ox_select()` で監視し
-- ready 順に `ox_get()` で受け取る
-
-形にしている.
-
-この設計にした理由は, 公式 manual がまさにその使い方を推奨しているから.
+今回の回収ロジックはこれをそのまま採用し, 単純な `ox_pop_local()` の直列待ちではなく, `ox_push_cmd(258)` 済みの worker を `ox_select()` で監視して ready になった順に `ox_get()` で受け取る形にした.
 
 ## 実装方針
 
 ### master は listen 側
 
-`cluster/run_example.sh` が生成する Asir script では, 各 worker に対して
-
-- control port
-- server port
-
-を決めて, master 側で `try_bind_listen()` を呼ぶ.
+`cluster/run_example.sh` が生成する Asir script では, 各 worker に対して control port と server port を決めて, master 側で `try_bind_listen()` を呼ぶ.
 
 そのあと worker から来る control / server の 2 本の接続を `try_accept()` し, `register_server()` で Asir process id に束ねる.
 
@@ -167,7 +149,7 @@ worker 側は `cluster/scripts/worker-entrypoint.sh` で `ox_launch` helper を�
 - listen が始まったら control / server 両方へ接続
 - `ox_asir` をぶら下げる
 
-という流れ.
+という流れになっている.
 
 この retry loop は manual にはそのままは書かれていないが, Docker compose では起動順と ready 状態が完全には一致しないので, 実運用上ほぼ必須だった.
 
@@ -188,11 +170,11 @@ worker 側は `cluster/scripts/worker-entrypoint.sh` で `ox_launch` helper を�
 
 ### 1. `asir ./file.rr` ではなく `load("...")$`
 
-最初に少しハマったのがこれ.
+最初につまずいたのは file の渡し方だった.
 
 Asir は `asir ./file.rr` のような引数実行ではなく, `load("...")$` で読む前提だった.
 
-なので runner では stdin から
+そのため runner では stdin から
 
 ```asir
 load("/workspace/cluster/.generated/compose_cluster_example.generated.rr")$
@@ -204,7 +186,6 @@ quit;
 ### 2. `--build` を既定にしない方がよい
 
 cluster 実行は `https://github.com/NAKANORyunosuke/Risa-Asir-container` を clone した作業ディレクトリ全体を `/workspace` に bind mount しているので, script や sample の修正だけなら image rebuild は不要.
-
 そのため `cluster/run_example.sh` は, build なしを既定にして, 必要な時だけ `--build` を付ける仕様にした.
 
 ### 3. root に全部置くと分かりづらい
@@ -218,12 +199,11 @@ cluster 実装が一通り揃った段階で, root 直下に
 が混ざってしまった.
 
 そこで `single/`, `cluster/`, `ghcr/` に分け直した.
-
 この整理で, 単一コンテナ用と cluster 用の入口が見分けやすくなった.
 
 ## 実行例
 
-手元で cluster を起動する最短はこれ.
+手元では次のコマンドが cluster 起動の最短になる.
 
 ```bash
 ./cluster/run_example.sh 4
@@ -252,7 +232,8 @@ worker 数を 3 に変えてもそのまま動く.
 - `register_server()` まで含めた低水準の接続確立手順
 - `ox_select()` と `ox_get()` を使った非 block 回収手順
 
-Asir の distributed computation は古いが, API の責務はかなり明確で, manual を素直に読むと実装方針も自然に決まった. 今回はそこを Docker 向けに置き換えた, という感触が強い.
+Asir の distributed computation は古いが, API の責務は明確で, manual を素直に読むと実装方針も自然に決まった.
+今回はそこを Docker 向けに置き換えた, という感触が強い.
 
 ## 参考文献
 

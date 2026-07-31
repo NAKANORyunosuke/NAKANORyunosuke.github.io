@@ -38,17 +38,17 @@ $$
     F\left(\frac13,\frac23,1;1-s^3\right) = \theta_0(\tau)
 $$
 
-が成立.
+が成立する.
 
 ## 周期 $\tau$ と周期写像の逆写像 $1-s^3$ との対応
-J. M. Borwein, P. B. Borwein(1991)[^Bor91]では明記されてないが, 小池･志賀(2007)[^KS07]のTheorem 3.1においてどのように初期値 $a_0,b_0$ に対して周期 $\tau$ が定まるかを明記している:
+どのように初期値 $a_0,b_0$ に対して周期 $\tau$ が定まるかはJ. M. Borwein, P. B. Borwein(1991)[^Bor91]では明記されていないが, 小池・志賀(2007)[^KS07]のTheorem 3.1で与えられている:
 
 $$
     \tau = \sqrt{3}i \left. F\left(\frac13 ,\frac23 ,1;\frac{b_0^3}{a_0^3}\right)\middle/ F\left(\frac13 ,\frac23 ,1;1-\frac{b_0^3}{a_0^3}\right)\right.
 $$
 
-## コード
-```python
+## テータ定数を計算するコード
+```julia
 function theta01(tau::Complex; prec::Integer=256, tol::Real=1e-50)
     return setprecision(prec) do
         tau_big = Complex{BigFloat}(big(real(tau)), big(imag(tau)))
