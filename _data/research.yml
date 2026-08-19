@@ -17,7 +17,13 @@ sections:
       title:
           ja: "プレプリント"
           en: "Preprints"
-      items: []
+      items:
+          - date:
+                ja: "2026年8月18日"
+                en: "18 August 2026"
+            description:
+                ja: 'NAKANO Ryunosuke, "Obstructions to intrinsic perturbation for $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>）, 2026年8月18日'
+                en: 'NAKANO Ryunosuke, "Obstructions to intrinsic perturbation for $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>), 18 August 2026'
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
