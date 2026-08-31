@@ -70,7 +70,13 @@ sections:
                 en: 'NAKANO Ryunosuke "Running Risa/Asir with Docker: Pitfalls and Possible Solutions"(invited), <a href="https://www.mathlibre.org/msfd/39-en.html">Mathematical Software and Free Documents 39</a>, Tokyo University of Science, March 22, 2026'
           - date:
                 ja: "2026年3月23日"
-                en: "22 March 2026"
+                en: "23 March 2026"
             description:
                 ja: '中野竜之介, "4種4項平均の反復極限定理の代数幾何学的側面", <a href="https://www.mathsoc.jp/activity/meeting/tus26mar/index.html">日本数学会2026年度年会</a>, 東京理科大学神楽坂キャンパス, 2026年3月23日'
                 en: '中野竜之介, "4種4項平均の反復極限定理の代数幾何学的側面", <a href="https://www.mathsoc.jp/activity/meeting/tus26mar/index.html">日本数学会2026年度年会</a>, 東京理科大学神楽坂キャンパス, 2026年3月23日'
+          - date:
+                ja: "2026年9月2日"
+                en: "2 September 2026"
+            description:
+                ja: '中野竜之介, "超幾何級数 \(F\left(\frac16,\frac12,1;x\right)\) で表されるある種の極限定理の代数幾何学的側面", <a href="https://www.mathsoc.jp/activity/meeting/kobe26sept/index.html">日本数学会2026年度秋季総合分科会</a>, 神戸大学 六甲台地区 鶴甲第1キャンパス, 2026年9月2日'
+                en: '中野竜之介, "超幾何級数 \(F\left(\frac16,\frac12,1;x\right)\) で表されるある種の極限定理の代数幾何学的側面", <a href="https://www.mathsoc.jp/activity/meeting/kobe26sept/index.html">日本数学会2026年度秋季総合分科会</a>, 神戸大学 六甲台地区 鶴甲第1キャンパス, 2026年9月2日'
