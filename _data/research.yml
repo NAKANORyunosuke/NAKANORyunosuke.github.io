@@ -24,6 +24,12 @@ sections:
             description:
                 ja: 'NAKANO Ryunosuke, "Obstructions to intrinsic perturbation for $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>）, 2026年8月18日'
                 en: 'NAKANO Ryunosuke, "Obstructions to intrinsic perturbation for $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>), 18 August 2026'
+          - date:
+                ja: "2026年9月6日"
+                en: "6 September 2026"
+            description:
+                ja: 'NAKANO Ryunosuke, "The Constant in Thomae-Type Formulas for Eight Points on the Complex Projective Line", preprint（<a href="https://arxiv.org/abs/2609.06439">arXiv:2609.06439</a>）, 2026年9月6日'
+                en: 'NAKANO Ryunosuke, "The Constant in Thomae-Type Formulas for Eight Points on the Complex Projective Line", preprint (<a href="https://arxiv.org/abs/2609.06439">arXiv:2609.06439</a>), 6 September 2026'
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
