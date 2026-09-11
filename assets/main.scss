@@ -2995,6 +2995,25 @@ pre code,
     padding: 1.6rem;
 }
 
+/* ── Entry counts on research cards ────────────────────────── */
+.highlight-card__header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.highlight-card__header > h3 {
+    margin: 0;
+}
+
+.highlight-card__count {
+    flex: none;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
 .section + .section,
 .section + .section-card,
 .section-card + .section,
