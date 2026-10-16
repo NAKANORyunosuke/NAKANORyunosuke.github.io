@@ -41,6 +41,20 @@ sections:
             description:
                 ja: 'NAKANO Ryunosuke, "A codimension formula for intrinsic perturbation of $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2609.22414">arXiv:2609.22414</a>）, 2026年9月18日'
                 en: 'NAKANO Ryunosuke, "A codimension formula for intrinsic perturbation of $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2609.22414">arXiv:2609.22414</a>), 18 September 2026'
+          - date:
+                ja: "2026年10月16日"
+                en: "16 October 2026"
+            pdf: "/assets/pdf/preprints/fd-stable-paths.pdf"
+            description:
+                ja: 'NAKANO Ryunosuke, "Transformations of Lauricella''s $F_D$ and Correspondences between Hyperelliptic Curves", preprint（arXiv 投稿中）, 2026年10月16日'
+                en: 'NAKANO Ryunosuke, "Transformations of Lauricella''s $F_D$ and Correspondences between Hyperelliptic Curves", preprint (submitted to arXiv), 16 October 2026'
+          - date:
+                ja: "2026年10月16日"
+                en: "16 October 2026"
+            pdf: "/assets/pdf/preprints/fc-cubic-restrictions.pdf"
+            description:
+                ja: 'NAKANO Ryunosuke, "Integer Parameter Shifts in One-Variable Restrictions of Lauricella''s $F_C$", preprint（arXiv 投稿中）, 2026年10月16日'
+                en: 'NAKANO Ryunosuke, "Integer Parameter Shifts in One-Variable Restrictions of Lauricella''s $F_C$", preprint (submitted to arXiv), 16 October 2026'
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
