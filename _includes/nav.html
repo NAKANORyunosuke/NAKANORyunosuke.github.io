@@ -70,6 +70,13 @@
         </a>
       </li>
       <li>
+        <a class="primary-nav__link{% if current_path == '/preprints.html' %} is-active{% endif %}" href="{{ '/preprints.html' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
+          <span class="lang-ja">プレプリント</span>
+          <span class="lang-en">Preprints</span>
+        </a>
+      </li>
+      <li>
         <a class="primary-nav__link{% if current_path == '/slides.html' %} is-active{% endif %}" href="{{ '/slides.html' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-slideshow-line"></i></span>
           <span class="lang-ja">講演資料</span>

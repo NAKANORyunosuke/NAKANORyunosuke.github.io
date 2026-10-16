@@ -1,0 +1,59 @@
+---
+layout: default
+title: "プレプリント"
+description: "プレプリントの一覧と PDF の公開"
+lang: ja
+math: true
+og_title: "プレプリント"
+og_description: "プレプリントの一覧と PDF を掲載"
+---
+
+{% assign preprints = site.data.research.sections | where: "id", "preprints" | first %}
+
+<section class="hero glass-panel">
+    <div class="hero__grid">
+        <div class="hero__text">
+            <span class="hero__eyebrow lang-ja">プレプリント</span>
+            <span class="hero__eyebrow lang-en">Preprints</span>
+            <h1 class="lang-ja">プレプリント</h1>
+            <h1 class="lang-en">Preprints</h1>
+            <p class="lang-ja">プレプリントの PDF を arXiv とは別にこのページでも公開しています. </p>
+            <p class="lang-en">PDFs of the preprints are available here as well as on arXiv.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-card glass-panel">
+    <div class="section-heading">
+        <h2 class="lang-ja">一覧</h2>
+        <h2 class="lang-en">List</h2>
+    </div>
+    <div class="lang-ja">
+        <div class="highlight-card">
+            <ul class="timeline">
+                {% for item in preprints.items %}
+                <li class="timeline-item"><span class="timeline-date">{{ item.date.ja }}</span>
+                    <div class="timeline-desc">{{ item.description.ja }}{% if item.pdf %}<br><a
+                            href="{{ item.pdf | relative_url }}">PDF をダウンロード</a>{% endif %}</div>
+                </li>
+                {% else %}
+                <li class="timeline-item">{{ preprints.empty_message.ja }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="lang-en">
+        <div class="highlight-card">
+            <ul class="timeline">
+                {% for item in preprints.items %}
+                <li class="timeline-item"><span class="timeline-date">{{ item.date.en }}</span>
+                    <div class="timeline-desc">{{ item.description.en }}{% if item.pdf %}<br><a
+                            href="{{ item.pdf | relative_url }}">Download PDF</a>{% endif %}</div>
+                </li>
+                {% else %}
+                <li class="timeline-item">{{ preprints.empty_message.en }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
