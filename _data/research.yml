@@ -14,33 +14,12 @@ sections:
           ja: "Coming soon..."
           en: "Coming soon..."
     - id: preprints
-      # PDF を assets/pdf/preprints/ に置き, 項目に pdf: "/assets/pdf/preprints/<file>.pdf" を書く.
+      # 新しい順に並べる (新規は先頭に追加). PDF を assets/pdf/preprints/ に置き, 項目に pdf: "/assets/pdf/preprints/<file>.pdf" を書く.
       # arXiv で公開されたら description に arXiv リンクを足す. pdf: は arXiv と併記で残し, 改訂時は PDF も差し替える.
       title:
           ja: "プレプリント"
           en: "Preprints"
       items:
-          - date:
-                ja: "2026年8月18日"
-                en: "18 August 2026"
-            pdf: "/assets/pdf/preprints/obstruction-intrinsic-perturbation.pdf"
-            description:
-                ja: 'NAKANO Ryunosuke, "The obstruction to intrinsic perturbation for $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>）, 2026年8月18日'
-                en: 'NAKANO Ryunosuke, "The obstruction to intrinsic perturbation for $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>), 18 August 2026'
-          - date:
-                ja: "2026年9月6日"
-                en: "6 September 2026"
-            pdf: "/assets/pdf/preprints/thomae-eight-points.pdf"
-            description:
-                ja: 'NAKANO Ryunosuke, "The Constant in Thomae-Type Formulas for Eight Points on the Complex Projective Line", preprint（<a href="https://arxiv.org/abs/2609.06439">arXiv:2609.06439</a>）, 2026年9月6日'
-                en: 'NAKANO Ryunosuke, "The Constant in Thomae-Type Formulas for Eight Points on the Complex Projective Line", preprint (<a href="https://arxiv.org/abs/2609.06439">arXiv:2609.06439</a>), 6 September 2026'
-          - date:
-                ja: "2026年9月18日"
-                en: "18 September 2026"
-            pdf: "/assets/pdf/preprints/codimension-intrinsic-perturbation.pdf"
-            description:
-                ja: 'NAKANO Ryunosuke, "A codimension formula for intrinsic perturbation of $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2609.22414">arXiv:2609.22414</a>）, 2026年9月18日'
-                en: 'NAKANO Ryunosuke, "A codimension formula for intrinsic perturbation of $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2609.22414">arXiv:2609.22414</a>), 18 September 2026'
           - date:
                 ja: "2026年10月16日"
                 en: "16 October 2026"
@@ -69,6 +48,27 @@ sections:
             description:
                 ja: 'NAKANO Ryunosuke, MATSUKAWA Hisato, "Seven ordered points and the nonexistence of arithmetic ball quotient compactifications", preprint（arXiv 投稿中）, 2026年10月16日'
                 en: 'NAKANO Ryunosuke, MATSUKAWA Hisato, "Seven ordered points and the nonexistence of arithmetic ball quotient compactifications", preprint (submitted to arXiv), 16 October 2026'
+          - date:
+                ja: "2026年9月18日"
+                en: "18 September 2026"
+            pdf: "/assets/pdf/preprints/codimension-intrinsic-perturbation.pdf"
+            description:
+                ja: 'NAKANO Ryunosuke, "A codimension formula for intrinsic perturbation of $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2609.22414">arXiv:2609.22414</a>）, 2026年9月18日'
+                en: 'NAKANO Ryunosuke, "A codimension formula for intrinsic perturbation of $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2609.22414">arXiv:2609.22414</a>), 18 September 2026'
+          - date:
+                ja: "2026年9月6日"
+                en: "6 September 2026"
+            pdf: "/assets/pdf/preprints/thomae-eight-points.pdf"
+            description:
+                ja: 'NAKANO Ryunosuke, "The Constant in Thomae-Type Formulas for Eight Points on the Complex Projective Line", preprint（<a href="https://arxiv.org/abs/2609.06439">arXiv:2609.06439</a>）, 2026年9月6日'
+                en: 'NAKANO Ryunosuke, "The Constant in Thomae-Type Formulas for Eight Points on the Complex Projective Line", preprint (<a href="https://arxiv.org/abs/2609.06439">arXiv:2609.06439</a>), 6 September 2026'
+          - date:
+                ja: "2026年8月18日"
+                en: "18 August 2026"
+            pdf: "/assets/pdf/preprints/obstruction-intrinsic-perturbation.pdf"
+            description:
+                ja: 'NAKANO Ryunosuke, "The obstruction to intrinsic perturbation for $A$-hypergeometric series", preprint（<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>）, 2026年8月18日'
+                en: 'NAKANO Ryunosuke, "The obstruction to intrinsic perturbation for $A$-hypergeometric series", preprint (<a href="https://arxiv.org/abs/2608.18006">arXiv:2608.18006</a>), 18 August 2026'
       empty_message:
           ja: "Coming soon..."
           en: "Coming soon..."
