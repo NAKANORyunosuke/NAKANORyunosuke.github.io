@@ -19,6 +19,9 @@
 {% endif %}
 <!-- author meta -->
 <meta name="author" content="中野竜之介 (NAKANO Ryunosuke)">
+{% if page.noindex %}
+<meta name="robots" content="noindex, nofollow">
+{% endif %}
 
 <!-- hreflang: the same page serves both ja and en via in-page toggle.
      Linked URLs use a ?lang= hint so a language-specific deep link is possible. -->

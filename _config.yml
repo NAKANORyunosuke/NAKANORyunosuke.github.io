@@ -92,3 +92,9 @@ defaults:
           path: "feed.xml"
       values:
           sitemap: false
+
+    # 隠しページ (講義資料置き場) の配下はサイトマップに載せない
+    - scope:
+          path: "lecture-materials"
+      values:
+          sitemap: false

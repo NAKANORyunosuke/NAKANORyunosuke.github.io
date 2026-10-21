@@ -1,0 +1,72 @@
+---
+layout: default
+title: "2026年度 数学概論Ⅱ"
+description: "2026年度 数学概論Ⅱ (北海学園大学) の講義資料"
+lang: ja
+og_title: "2026年度 数学概論Ⅱ"
+og_description: "2026年度 数学概論Ⅱ の講義資料を掲載"
+# 隠しページ: 講義資料置き場からのみリンクする
+noindex: true
+sitemap: false
+# 資料は scripts/sync-lectures.mjs でこのディレクトリにコピーし, ここに追記する
+lectures:
+  - { n: 1, file: "lecture_01.html", title: { ja: "関数と微分法(1)", en: "Functions and Differentiation (1)" } }
+  - { n: 2, file: "lecture_02.html", title: { ja: "関数と微分法(2)", en: "Functions and Differentiation (2)" } }
+  - { n: 3, file: "lecture_03.html", title: { ja: "関数と微分法(3)", en: "Functions and Differentiation (3)" } }
+  - { n: 4, file: "lecture_04.html", title: { ja: "不定積分(1)", en: "Indefinite Integrals (1)" } }
+  - { n: 5, file: "lecture_05.html", title: { ja: "不定積分(2)", en: "Indefinite Integrals (2)" } }
+  - { n: 6, file: "lecture_06.html", title: { ja: "不定積分(3)", en: "Indefinite Integrals (3)" } }
+  - { n: 7, file: "lecture_07.html", title: { ja: "不定積分(4)", en: "Indefinite Integrals (4)" } }
+  - { n: 8, file: "lecture_08.html", title: { ja: "不定積分(5)", en: "Indefinite Integrals (5)" } }
+  - { n: 9, file: "lecture_09.html", title: { ja: "積分法のまとめ(1)", en: "Review of Integration (1)" } }
+  - { n: 10, file: "lecture_10.html", title: { ja: "定積分(1)", en: "Definite Integrals (1)" } }
+  - { n: 11, file: "lecture_11.html", title: { ja: "定積分(2)", en: "Definite Integrals (2)" } }
+  - { n: 12, file: "lecture_12.html", title: { ja: "定積分(3)", en: "Definite Integrals (3)" } }
+  - { n: 13, file: "lecture_13.html", title: { ja: "定積分(4)", en: "Definite Integrals (4)" } }
+  - { n: 14, file: "lecture_14.html", title: { ja: "定積分(5)", en: "Definite Integrals (5)" } }
+  - { n: 15, file: "lecture_15.html", title: { ja: "積分法のまとめ(2)", en: "Review of Integration (2)" } }
+---
+
+<section class="hero glass-panel">
+    <div class="hero__grid">
+        <div class="hero__text">
+            <span class="hero__eyebrow lang-ja">講義資料 · 2026年度 後期</span>
+            <span class="hero__eyebrow lang-en">Lecture Materials · Fall 2026</span>
+            <h1 class="lang-ja">数学概論Ⅱ</h1>
+            <h1 class="lang-en">数学概論Ⅱ (Introductory Mathematics II)</h1>
+            <p class="lang-ja">北海学園大学. 各回のスライドはブラウザで開いて操作できます. </p>
+            <p class="lang-en">Hokkai-Gakuen University. Each slide deck runs in the browser.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-card glass-panel">
+    <div class="section-heading">
+        <h2 class="lang-ja">各回の資料</h2>
+        <h2 class="lang-en">Lectures</h2>
+    </div>
+    <div class="lang-ja">
+        <div class="highlight-card">
+            <ul class="timeline">
+                {% for item in page.lectures %}
+                <li class="timeline-item"><span class="timeline-date">第{{ item.n }}回</span>
+                    <div class="timeline-desc"><a href="{{ item.file }}">{{ item.title.ja }}</a></div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="lang-en">
+        <div class="highlight-card">
+            <ul class="timeline">
+                {% for item in page.lectures %}
+                <li class="timeline-item"><span class="timeline-date">Lecture {{ item.n }}</span>
+                    <div class="timeline-desc"><a href="{{ item.file }}">{{ item.title.en }}</a></div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <p class="lang-ja"><a href="{{ '/lecture-materials.html' | relative_url }}">講義資料置き場に戻る</a></p>
+    <p class="lang-en"><a href="{{ '/lecture-materials.html' | relative_url }}">Back to Lecture Materials</a></p>
+</section>

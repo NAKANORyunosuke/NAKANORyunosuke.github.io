@@ -1,0 +1,62 @@
+---
+layout: default
+title: "講義資料置き場"
+description: "講義資料のダウンロードリンク"
+lang: ja
+og_title: "講義資料置き場"
+og_description: "講義資料を掲載"
+# 隠しページ: ナビゲーションには載せず, 検索エンジンとサイトマップからも外す
+noindex: true
+sitemap: false
+# 授業ごとのページを lecture-materials/<年度>/<授業>/ に作り, ここに追記する
+courses:
+  - term: { ja: "2026年度 後期", en: "Fall 2026" }
+    title: { ja: "数学概論Ⅱ (北海学園大学)", en: "数学概論Ⅱ (Hokkai-Gakuen University)" }
+    url: "/lecture-materials/2026/math-overview-2/"
+---
+
+<section class="hero glass-panel">
+    <div class="hero__grid">
+        <div class="hero__text">
+            <span class="hero__eyebrow lang-ja">講義資料</span>
+            <span class="hero__eyebrow lang-en">Lecture Notes</span>
+            <h1 class="lang-ja">講義資料置き場</h1>
+            <h1 class="lang-en">Lecture Materials</h1>
+            <p class="lang-ja">講義で使用する資料を置いています. </p>
+            <p class="lang-en">Materials used in lectures.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-card glass-panel">
+    <div class="section-heading">
+        <h2 class="lang-ja">授業</h2>
+        <h2 class="lang-en">Courses</h2>
+    </div>
+    <div class="lang-ja">
+        <div class="highlight-card">
+            <ul class="timeline">
+                {% for item in page.courses %}
+                <li class="timeline-item"><span class="timeline-date">{{ item.term.ja }}</span>
+                    <div class="timeline-desc"><a href="{{ item.url | relative_url }}">{{ item.title.ja }}</a></div>
+                </li>
+                {% else %}
+                <li class="timeline-item">現在公開中の資料はありません. </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="lang-en">
+        <div class="highlight-card">
+            <ul class="timeline">
+                {% for item in page.courses %}
+                <li class="timeline-item"><span class="timeline-date">{{ item.term.en }}</span>
+                    <div class="timeline-desc"><a href="{{ item.url | relative_url }}">{{ item.title.en }}</a></div>
+                </li>
+                {% else %}
+                <li class="timeline-item">No materials are available at the moment.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
