@@ -111,7 +111,6 @@ svg text{font-family:var(--sans)}
 .chain .lbl{grid-column:1/-1;color:var(--muted);font-size:.75em;margin-top:.4em}
 #ly-read .row{white-space:normal}
 .wgt>svg#is-svg{max-height:calc(var(--u)*46)}
-#rv-read{font-size:.88em}
 @media(max-width:700px){.readout{font-size:.85rem}.readout .row{white-space:normal}}
 @media(max-width:700px){.chain{gap:.15rem;font-size:.8rem}.chain .box{min-width:0;padding:.1em .3em}.chain .arr{font-size:.75rem}}
 
@@ -886,7 +885,7 @@ function renderNav(){
   place.textContent=slides[current].dataset.section||'';
   count.textContent=(current+1)+' / '+(LAST+1);
 }
-const FIT_MIN=.7,FIT_MAX=1.75,FIT_MOBILE=650;const fitted=new WeakMap();
+const FIT_MIN=.7,FIT_MAX=.8,FIT_MOBILE=650;const fitted=new WeakMap();
 function fitSlide(slide){
   const key=innerWidth+'x'+innerHeight;if(fitted.get(slide)===key)return;fitted.set(slide,key);
   slide.style.removeProperty('--fit');
@@ -898,7 +897,7 @@ function fitSlide(slide){
   const overflows=()=>slide.scrollHeight>slide.clientHeight+1||slide.scrollWidth>slide.clientWidth+1||[...slide.querySelectorAll('h1 .w,h2 .w')].some(e=>e.getBoundingClientRect().right>slide.clientWidth+1);
   const clamp=f=>Math.max(FIT_MIN,Math.min(FIT_MAX,f));
   const h0=extent();if(!h0||!avail)return;
-  let fit=clamp(avail/h0),best=null;
+  let fit=FIT_MAX,best=null;
   for(let i=0;i<10;i++){
     slide.style.setProperty('--fit',fit.toFixed(3));const h=extent();
     if(!overflows()&&h<=avail+1){best=fit;if(h>=avail*.9||fit>=FIT_MAX)break;const grown=clamp(fit*Math.min(1.1,avail/h));if(grown<=fit+.005)break;fit=grown;continue;}

@@ -103,10 +103,9 @@ ol.steps{padding-left:1.6em}
 .readout th{padding:0 .8em 0 0;text-align:left;font-weight:400;color:var(--muted);font-size:.85em}
 svg .halo{fill:var(--bg);opacity:.85}
 svg text{font-family:var(--sans)}
-#fm-read{font-size:.88em}
 #fm-read th,#fm-read td{text-align:right}
 #fm-read th:first-child,#fm-read td:first-child{text-align:left}
-#pw-read{font-size:1.15em;justify-self:center}
+#pw-read{justify-self:center}
 #pw-read td{padding:.25em 1.2em .25em 0;border-bottom:1px solid var(--line)}
 #pw-read td:first-child{color:var(--muted)}
 @media(max-width:700px){.wgt{grid-template-columns:minmax(0,1fr)}.readout{overflow-x:auto}.readout td{white-space:normal}#pw-read{font-size:.85rem}}
@@ -855,7 +854,7 @@ function renderNav(){
   place.textContent=slides[current].dataset.section||'';
   count.textContent=(current+1)+' / '+(LAST+1);
 }
-const FIT_MIN=.7,FIT_MAX=1.75,FIT_MOBILE=650;const fitted=new WeakMap();
+const FIT_MIN=.7,FIT_MAX=.8,FIT_MOBILE=650;const fitted=new WeakMap();
 function fitSlide(slide){
   const key=innerWidth+'x'+innerHeight;if(fitted.get(slide)===key)return;fitted.set(slide,key);
   slide.style.removeProperty('--fit');
@@ -867,7 +866,7 @@ function fitSlide(slide){
   const overflows=()=>slide.scrollHeight>slide.clientHeight+1||slide.scrollWidth>slide.clientWidth+1||[...slide.querySelectorAll('h1 .w,h2 .w')].some(e=>e.getBoundingClientRect().right>slide.clientWidth+1);
   const clamp=f=>Math.max(FIT_MIN,Math.min(FIT_MAX,f));
   const h0=extent();if(!h0||!avail)return;
-  let fit=clamp(avail/h0),best=null;
+  let fit=FIT_MAX,best=null;
   for(let i=0;i<10;i++){
     slide.style.setProperty('--fit',fit.toFixed(3));const h=extent();
     if(!overflows()&&h<=avail+1){best=fit;if(h>=avail*.9||fit>=FIT_MAX)break;const grown=clamp(fit*Math.min(1.1,avail/h));if(grown<=fit+.005)break;fit=grown;continue;}
