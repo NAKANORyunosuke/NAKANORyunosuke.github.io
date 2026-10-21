@@ -104,8 +104,6 @@ ol.steps{padding-left:1.6em}
 svg .halo{fill:var(--bg);opacity:.85}
 svg text{font-family:var(--sans)}
 #err-table td{vertical-align:middle}
-#err-table td:last-child{font-size:.88em}
-#ec-read,#pf-read,#ra-read,#fm-read,#du-read{font-size:.9em}
 @media(max-width:700px){#err-table{display:block;max-width:100%;overflow-x:auto}}
 .slide[data-id="practice"] td .math>svg{max-width:none}
 .slide[data-id="practice"] td{white-space:nowrap}
@@ -127,6 +125,7 @@ svg text{font-family:var(--sans)}
 .edge.prev{left:0}.edge.next{right:0}
 #laser{position:fixed;inset:0;width:100%;height:100%;z-index:50;pointer-events:none}
 html.laser,html.laser *{cursor:none!important}
+html.pen,html.pen *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none} /* ペンで押している間は, 文字の選択と長押しのメニューを出さない */
 @media(max-width:520px){.dots .row{gap:.18rem}.dots .group{gap:.05rem}.dots a{width:.24rem;height:.24rem}.dots .place{display:none}.dots{grid-template-columns:minmax(0,1fr) auto}.dots .row{grid-column:1}.dots .count{grid-column:2}}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
@@ -915,7 +914,7 @@ addEventListener('keydown',e=>{
   else if(e.key==='End'){e.preventDefault();show(LAST,true);}
 });
 let touch=null;
-addEventListener('touchstart',e=>{if(e.touches.length!==1||guarded(e.target)){touch=null;return;}touch={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+addEventListener('touchstart',e=>{if(e.touches.length!==1||e.touches[0].touchType==='stylus'||guarded(e.target)){touch=null;return;}touch={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
 addEventListener('touchcancel',()=>{touch=null;},{passive:true});
 addEventListener('touchend',e=>{if(!touch||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-touch.x,dy=e.changedTouches[0].clientY-touch.y;touch=null;if(Math.abs(dx)>52&&Math.abs(dx)>Math.abs(dy)*1.25)(dx<0?next:prev)();},{passive:true});
 </script>
@@ -1150,7 +1149,7 @@ show(hashIndex(),false);
 </script>
 
 <script>
-/* ---- レーザーポインター: マウスの位置に赤い点と短い軌跡を描く. L キーで普通の矢印と切り替える ---- */
+/* ---- レーザーポインター: マウスやペン (Apple Pencil) の位置に赤い点と短い軌跡を描く. L キーで普通の矢印と切り替える ---- */
 (()=>{
   const cv=document.getElementById('laser'),cx=cv.getContext('2d'),root=document.documentElement;
   const TRAIL=260,IDLE=3000,FADE=500; // 軌跡が残る時間, 止まってから消え始めるまでの時間, 消える時間 (ms)
@@ -1197,17 +1196,30 @@ show(hashIndex(),false);
     raf=requestAnimationFrame(draw);
   };
   const kick=()=>{if(!raf)raf=requestAnimationFrame(draw);};
+  // ペンを初めて使ったら, 指で操作する端末でもポインターを出す
+  let penSeen=false;
+  const pen=e=>{if(e.pointerType==='pen'&&!penSeen){penSeen=true;on=true;root.classList.add('laser');}};
   addEventListener('pointermove',e=>{
     if(e.pointerType==='touch')return;
+    pen(e);
     const t=performance.now();head={x:e.clientX,y:e.clientY};last=t;
     // 速く動かしたときも点が粗くならないよう, フレームの間にたまった位置も全部使う
     const ev=e.getCoalescedEvents?.()||[];const all=ev.length?ev:[e];
     for(const c of all)pts.push({x:c.clientX,y:c.clientY,t:Math.min(t,c.timeStamp||t)});
     hot=e.target instanceof Element&&!!e.target.closest('button,a,input,select,summary,[role="slider"]');kick();
   },{passive:true});
-  addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'){down=true;last=performance.now();kick();}});
-  addEventListener('pointerup',()=>{down=false;kick();});
-  document.addEventListener('pointerleave',()=>{head=null;pts=[];kick();});
+  addEventListener('pointerdown',e=>{
+    if(e.pointerType==='touch')return;
+    pen(e);down=true;last=performance.now();
+    if(e.pointerType==='pen'){root.classList.add('pen');head={x:e.clientX,y:e.clientY};pts.push({x:e.clientX,y:e.clientY,t:last});}
+    kick();
+  });
+  const up=()=>{down=false;root.classList.remove('pen');kick();};
+  addEventListener('pointerup',up);addEventListener('pointercancel',up);
+  // ペンで指している間は, 画面をスクロールさせない (左右に動かしてもスライドは送らない)
+  addEventListener('touchmove',e=>{if([...e.touches].some(t=>t.touchType==='stylus'))e.preventDefault();},{passive:false});
+  // ペンを離したときは点をすぐ消さず, マウスを止めたときと同じように少し残してから消す
+  document.addEventListener('pointerleave',e=>{if(e.pointerType==='pen')return;head=null;pts=[];kick();});
   addEventListener('blur',()=>{head=null;pts=[];kick();});
   addEventListener('keydown',e=>{
     if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.altKey||e.key.toLowerCase()!=='l')return;
