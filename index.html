@@ -76,7 +76,49 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
   </div>
 </section>
 
-<section class="home-section reveal-on-scroll" aria-labelledby="recent-notes-heading">
+<section class="home-section reveal-on-scroll" aria-labelledby="research-heading">
+  <div class="section-heading">
+    <span class="plate-label"><span class="lang-ja">研究活動</span><span class="lang-en">Research</span></span>
+    <h2 id="research-heading" class="lang-ja">論文とプレプリント</h2>
+    <h2 class="lang-en">Papers and Preprints</h2>
+    <p class="section-description lang-ja">査読付き論文と, 新しいプレプリント3件です.</p>
+    <p class="section-description lang-en">Peer-reviewed papers and the three most recent preprints.</p>
+  </div>
+
+  {% for section in site.data.research.sections %}
+  {% if section.id == "peer_reviewed" or section.id == "preprints" %}
+  {% if section.id == "preprints" %}{% assign limit = 3 %}{% else %}{% assign limit = 100 %}{% endif %}
+  <div class="highlight-card">
+    <div class="highlight-card__header">
+      <h3><span class="lang-ja">{{ section.title.ja }}</span><span class="lang-en">{{ section.title.en }}</span></h3>
+    </div>
+    <ul class="timeline">
+      {% for item in section.items limit: limit %}
+      <li class="timeline-item">
+        <span class="timeline-date"><span class="lang-ja">{{ item.date.ja }}</span><span class="lang-en">{{ item.date.en }}</span></span>
+        <div class="timeline-desc">
+          <span class="lang-ja">{{ item.description.ja }}</span><span class="lang-en">{{ item.description.en }}</span>{% if item.pdf %}<br><a href="{{ item.pdf | relative_url }}">PDF</a>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  <div class="home-section__action">
+    <a class="button button--accent" href="{{ '/research-activity.html' | relative_url }}">
+      <span class="lang-ja">論文・講演の一覧へ</span>
+      <span class="lang-en">All publications &amp; talks</span>
+    </a>
+    <a class="button" href="{{ '/preprints.html' | relative_url }}">
+      <span class="lang-ja">プレプリント一覧へ</span>
+      <span class="lang-en">All preprints</span>
+    </a>
+  </div>
+</section>
+
+<section class="home-section home-section--muted reveal-on-scroll" aria-labelledby="recent-notes-heading">
   <div class="section-heading">
     <span class="plate-label"><span class="lang-ja">研究ノート</span><span class="lang-en">Research notes</span></span>
     <h2 id="recent-notes-heading" class="lang-ja">最新ノート</h2>
@@ -123,48 +165,6 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
     <a class="button button--accent" href="{{ '/notes/' | relative_url }}">
       <span class="lang-ja">ノート一覧へ</span>
       <span class="lang-en">All notes</span>
-    </a>
-  </div>
-</section>
-
-<section class="home-section home-section--muted reveal-on-scroll" aria-labelledby="research-heading">
-  <div class="section-heading">
-    <span class="plate-label"><span class="lang-ja">研究活動</span><span class="lang-en">Research</span></span>
-    <h2 id="research-heading" class="lang-ja">論文とプレプリント</h2>
-    <h2 class="lang-en">Papers and Preprints</h2>
-    <p class="section-description lang-ja">査読付き論文と, 新しいプレプリント3件です.</p>
-    <p class="section-description lang-en">Peer-reviewed papers and the three most recent preprints.</p>
-  </div>
-
-  {% for section in site.data.research.sections %}
-  {% if section.id == "peer_reviewed" or section.id == "preprints" %}
-  {% if section.id == "preprints" %}{% assign limit = 3 %}{% else %}{% assign limit = 100 %}{% endif %}
-  <div class="highlight-card">
-    <div class="highlight-card__header">
-      <h3><span class="lang-ja">{{ section.title.ja }}</span><span class="lang-en">{{ section.title.en }}</span></h3>
-    </div>
-    <ul class="timeline">
-      {% for item in section.items limit: limit %}
-      <li class="timeline-item">
-        <span class="timeline-date"><span class="lang-ja">{{ item.date.ja }}</span><span class="lang-en">{{ item.date.en }}</span></span>
-        <div class="timeline-desc">
-          <span class="lang-ja">{{ item.description.ja }}</span><span class="lang-en">{{ item.description.en }}</span>{% if item.pdf %}<br><a href="{{ item.pdf | relative_url }}">PDF</a>{% endif %}
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-  {% endfor %}
-
-  <div class="home-section__action">
-    <a class="button button--accent" href="{{ '/research-activity.html' | relative_url }}">
-      <span class="lang-ja">論文・講演の一覧へ</span>
-      <span class="lang-en">All publications &amp; talks</span>
-    </a>
-    <a class="button" href="{{ '/preprints.html' | relative_url }}">
-      <span class="lang-ja">プレプリント一覧へ</span>
-      <span class="lang-en">All preprints</span>
     </a>
   </div>
 </section>
