@@ -33,24 +33,10 @@
         </a>
       </li>
       <li>
-        <a class="primary-nav__link{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
-          <span class="lang-ja">ノート</span>
-          <span class="lang-en">Notes</span>
-        </a>
-      </li>
-      <li>
         <a class="primary-nav__link{% if current_path == '/circum-vitae.html' %} is-active{% endif %}" href="{{ '/circum-vitae.html' | relative_url }}">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-profile-line"></i></span>
           <span class="lang-ja">履歴書</span>
           <span class="lang-en">Curriculum Vitae</span>
-        </a>
-      </li>
-      <li>
-        <a class="primary-nav__link{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
-          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-folder-line"></i></span>
-          <span class="lang-ja">ポートフォリオ</span>
-          <span class="lang-en">Portfolio</span>
         </a>
       </li>
     </ul>
@@ -87,6 +73,28 @@
         <a class="primary-nav__link primary-nav__link--external" href="https://researchmap.jp/NAKANO-R" rel="noopener" target="_blank">
           <span class="primary-nav__icon" aria-hidden="true"><i class="ri-external-link-line"></i></span>
           <span>researchmap</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section class="primary-nav__section">
+    <span class="primary-nav__title">
+      <span class="lang-ja">ノートと開発</span>
+      <span class="lang-en">Notes &amp; Projects</span>
+    </span>
+    <ul class="primary-nav__list">
+      <li>
+        <a class="primary-nav__link{% if current_path == '/notes/' or current_path contains '/notes/' or page.layout == 'post' or page.collection == 'posts' %} is-active{% endif %}" href="{{ '/notes/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-file-text-line"></i></span>
+          <span class="lang-ja">ノート</span>
+          <span class="lang-en">Notes</span>
+        </a>
+      </li>
+      <li>
+        <a class="primary-nav__link{% if current_path == '/portfolio/' or current_path contains '/portfolio/' or page.layout == 'project' or page.collection == 'projects' %} is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">
+          <span class="primary-nav__icon" aria-hidden="true"><i class="ri-folder-line"></i></span>
+          <span class="lang-ja">ポートフォリオ</span>
+          <span class="lang-en">Portfolio</span>
         </a>
       </li>
     </ul>

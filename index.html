@@ -38,17 +38,17 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
         <a class="hero__profile" href="https://github.com/nakanoryunosuke" rel="noopener" target="_blank">GitHub</a>
       </div>
       <div class="hero__actions">
-        <a class="button button--accent" href="{{ '/notes/' | relative_url }}">
+        <a class="button button--accent" href="{{ '/research-activity.html' | relative_url }}">
+          <span class="lang-ja">論文・講演</span>
+          <span class="lang-en">Publications &amp; Talks</span>
+        </a>
+        <a class="button" href="{{ '/notes/' | relative_url }}">
           <span class="lang-ja">ノートを読む</span>
           <span class="lang-en">Read notes</span>
         </a>
         <a class="button" href="{{ '/portfolio/' | relative_url }}">
           <span class="lang-ja">つくったもの</span>
           <span class="lang-en">Things I build</span>
-        </a>
-        <a class="button" href="{{ '/contact/' | relative_url }}">
-          <span class="lang-ja">連絡先</span>
-          <span class="lang-en">Contact</span>
         </a>
       </div>
     </div>
@@ -127,7 +127,49 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
   </div>
 </section>
 
-<section class="home-section home-section--muted reveal-on-scroll" aria-labelledby="featured-projects-heading">
+<section class="home-section home-section--muted reveal-on-scroll" aria-labelledby="research-heading">
+  <div class="section-heading">
+    <span class="plate-label"><span class="lang-ja">研究活動</span><span class="lang-en">Research</span></span>
+    <h2 id="research-heading" class="lang-ja">論文とプレプリント</h2>
+    <h2 class="lang-en">Papers and Preprints</h2>
+    <p class="section-description lang-ja">査読付き論文と, 新しいプレプリント3件です.</p>
+    <p class="section-description lang-en">Peer-reviewed papers and the three most recent preprints.</p>
+  </div>
+
+  {% for section in site.data.research.sections %}
+  {% if section.id == "peer_reviewed" or section.id == "preprints" %}
+  {% if section.id == "preprints" %}{% assign limit = 3 %}{% else %}{% assign limit = 100 %}{% endif %}
+  <div class="highlight-card">
+    <div class="highlight-card__header">
+      <h3><span class="lang-ja">{{ section.title.ja }}</span><span class="lang-en">{{ section.title.en }}</span></h3>
+    </div>
+    <ul class="timeline">
+      {% for item in section.items limit: limit %}
+      <li class="timeline-item">
+        <span class="timeline-date"><span class="lang-ja">{{ item.date.ja }}</span><span class="lang-en">{{ item.date.en }}</span></span>
+        <div class="timeline-desc">
+          <span class="lang-ja">{{ item.description.ja }}</span><span class="lang-en">{{ item.description.en }}</span>{% if item.pdf %}<br><a href="{{ item.pdf | relative_url }}">PDF</a>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  <div class="home-section__action">
+    <a class="button button--accent" href="{{ '/research-activity.html' | relative_url }}">
+      <span class="lang-ja">論文・講演の一覧へ</span>
+      <span class="lang-en">All publications &amp; talks</span>
+    </a>
+    <a class="button" href="{{ '/preprints.html' | relative_url }}">
+      <span class="lang-ja">プレプリント一覧へ</span>
+      <span class="lang-en">All preprints</span>
+    </a>
+  </div>
+</section>
+
+<section class="home-section reveal-on-scroll" aria-labelledby="featured-projects-heading">
   <div class="section-heading">
     <span class="plate-label"><span class="lang-ja">開発記録</span><span class="lang-en">Build log</span></span>
     <h2 id="featured-projects-heading" class="lang-ja">公開プロジェクト</h2>
@@ -183,7 +225,7 @@ og_description: "中野竜之介 (NAKANO Ryunosuke) の研究ノートと開発�
   </div>
 </section>
 
-<section class="home-section reveal-on-scroll" id="contact-channels" aria-labelledby="engage-heading" data-toc-ignore>
+<section class="home-section home-section--muted reveal-on-scroll" id="contact-channels" aria-labelledby="engage-heading" data-toc-ignore>
   <div class="section-heading home-section__center">
     <span class="plate-label"><span class="lang-ja">連絡</span><span class="lang-en">Contact</span></span>
     <h2 id="engage-heading" class="lang-ja">連絡窓口</h2>
