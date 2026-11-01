@@ -31,10 +31,10 @@ sections:
           - date:
                 ja: "2026年10月16日"
                 en: "16 October 2026"
-            pdf: "/assets/pdf/preprints/fc-cubic-restrictions.pdf"
+            pdf: "/assets/pdf/preprints/fc-finite-reductions.pdf"
             description:
-                ja: 'NAKANO Ryunosuke, "Integer Parameter Shifts in One-Variable Restrictions of Lauricella''s $F_C$", preprint（<a href="https://arxiv.org/abs/2610.22933">arXiv:2610.22933</a>）, 2026年10月16日'
-                en: 'NAKANO Ryunosuke, "Integer Parameter Shifts in One-Variable Restrictions of Lauricella''s $F_C$", preprint (<a href="https://arxiv.org/abs/2610.22933">arXiv:2610.22933</a>), 16 October 2026'
+                ja: 'NAKANO Ryunosuke, "A Criterion for Finite Hypergeometric Reductions of Lauricella''s $F_C$ with Arguments Related by Cube Roots of Unity", preprint（<a href="https://arxiv.org/abs/2610.22933">arXiv:2610.22933</a>）, 2026年10月16日'
+                en: 'NAKANO Ryunosuke, "A Criterion for Finite Hypergeometric Reductions of Lauricella''s $F_C$ with Arguments Related by Cube Roots of Unity", preprint (<a href="https://arxiv.org/abs/2610.22933">arXiv:2610.22933</a>), 16 October 2026'
           - date:
                 ja: "2026年10月16日"
                 en: "16 October 2026"
