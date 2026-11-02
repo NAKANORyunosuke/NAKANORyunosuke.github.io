@@ -42,7 +42,7 @@ Twitchのサブスク限定Discordサーバー向けに, サブスク認証と�
 - Windows Server上でUvicornをポート8000で起動し, NginxでTLS終端したリバースプロキシ構成を実現
 
 ## インフラ構成
-- Discord BotとFastAPIを同一プロセス内で稼働し, Uvicornを別スレッドで起動  
+- Discord BotとFastAPIを同一プロセス内で稼働させ, Uvicornを別スレッドで起動  
 - NginxがHTTPS(443)を受け持ち, `/twitch_callback` と `/twitch_eventsub` をUvicornへプロキシ  
 - win-acmeによるLet’s Encrypt証明書を自動更新し, Nginxに適用
 

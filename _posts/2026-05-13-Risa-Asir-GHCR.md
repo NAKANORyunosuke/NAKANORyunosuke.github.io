@@ -107,19 +107,19 @@ publish 後は次で pull できる.
 docker pull ghcr.io/nakanoryunosuke/risa-asir-container:latest
 ```
 
-そのまま shell に入るなら:
+そのまま shell に入るなら次のとおり.
 
 ```bash
 docker run -it --rm ghcr.io/nakanoryunosuke/risa-asir-container:latest bash
 ```
 
-`https://github.com/NAKANORyunosuke/Risa-Asir-container` を clone した作業ディレクトリを mount して使うなら:
+`https://github.com/NAKANORyunosuke/Risa-Asir-container` を clone した作業ディレクトリを mount して使うなら次のとおり.
 
 ```bash
 docker run -it --rm -v "$PWD:/workspace" -w /workspace ghcr.io/nakanoryunosuke/risa-asir-container:latest bash
 ```
 
-`https://github.com/NAKANORyunosuke/Risa-Asir-container` に含めた補助 script を使うなら:
+`https://github.com/NAKANORyunosuke/Risa-Asir-container` に含めた補助 script を使うなら次のとおり.
 
 ```bash
 ./ghcr/pull.sh

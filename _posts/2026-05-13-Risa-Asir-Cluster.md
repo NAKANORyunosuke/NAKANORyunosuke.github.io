@@ -74,9 +74,9 @@ OpenXM の章では,
 
 ### 3. `generate_port`, `try_bind_listen`, `try_connect`, `try_accept`, `register_server`
 
-最終的にいちばん効いたのはこの節だった.
+最終的にいちばん参考になったのはこの節だった.
 
-manual ではこれらを, client と server の通信を確立するための primitive と説明している.
+manual ではこれらを client と server の通信を確立するための primitive と説明している.
 
 内容を要約すると,
 
@@ -186,7 +186,7 @@ quit;
 ### 2. `--build` を既定にしない方がよい
 
 cluster 実行は `https://github.com/NAKANORyunosuke/Risa-Asir-container` を clone した作業ディレクトリ全体を `/workspace` に bind mount しているので, script や sample の修正だけなら image rebuild は不要.
-そのため `cluster/run_example.sh` は, build なしを既定にして, 必要な時だけ `--build` を付ける仕様にした.
+そのため `cluster/run_example.sh` は build なしを既定にして, 必要な時だけ `--build` を付ける仕様にした.
 
 ### 3. root に全部置くと分かりづらい
 

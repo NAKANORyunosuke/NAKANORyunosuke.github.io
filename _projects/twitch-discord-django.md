@@ -23,7 +23,7 @@ published: true
 
 ## 概要
 Twitchログイン(django-allauth)で認証されたスタッフのみが利用できる, DiscordロールDMの一括配布ツールである.   
-Bot(py-cord + FastAPI)の管理APIと連携し, メッセージテンプレート `{user}` の置換や未知プレースホルダの事前エラーを備える. 
+Bot(py-cord + FastAPI)の管理APIと連携し, メッセージテンプレートの `{user}` の置換や, 未知のプレースホルダを送信前にエラーにする検査を備える. 
 
 - **目的**：運営が非技術者でも安全かつ簡単にロール対象へ告知DMを送れるようにする
 - **効果**：案内や告知の即時配布, 誤送信と設定ミスの抑制, 添付ファイル付き配信の省力化
@@ -39,7 +39,7 @@ Bot(py-cord + FastAPI)の管理APIと連携し, メッセージテンプレー�
 
 ## 主要機能
 - **認証**：Twitchログイン(django-allauth)
-    - 許可Twitchログイン名はスタッフ(`is_staff`)へ自動昇格
+    - 許可Twitchログイン名のユーザーはスタッフ(`is_staff`)へ自動昇格
 - **権限**：`is_staff` のみアクセス可能(非スタッフは 403)
 - **送信**：指定ロールの全メンバーへDM一括送信
     - 添付ファイル対応(最大 8MB, Discord DM 制限に準拠)
@@ -82,13 +82,13 @@ curl -X POST http://127.0.0.1:8000/send_role_dm \
 - **Web**：Twitchログイン＋スタッフ昇格(許可ログイン名のみ)で画面アクセスを制限
 - **API**：Bot 側は Bearer トークンで保護し, Web からのみ正規リクエスト
 - **入力**：メッセージのテンプレ置換は {user} のみ許可, 未知 {...} は送信前にブロック
-- **送信**：ファイルはDjangoで受領後に公開URLを生成, BotがDLしてDMに添付
+- **送信**：Djangoがファイルを受領後に公開URLを生成, BotがDLしてDMに添付
 
 ### セットアップ / 実行
 - **事前**：Bot(py-cord + FastAPI)がローカル :8000 で稼働
 - **設定**：
     - venv/token.json に admin_api_token と bot_admin_api_base を記載(未設定時は http://127.0.0.1:8000 を利用)
-    - 許可Twitchログイン名は環境変数 ALLOWED_TWITCH_LOGINS(カンマ区切り)または token.json の twitch_login/twitch_name 読み取りにより自動昇格
+    - 許可Twitchログイン名を環境変数 ALLOWED_TWITCH_LOGINS(カンマ区切り)または token.json の twitch_login/twitch_name から読み取り, 該当するユーザーを自動昇格
 - **インストール**：
 ```bash
 pip install -r requirements.txt

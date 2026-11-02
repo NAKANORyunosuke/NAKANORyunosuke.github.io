@@ -36,7 +36,7 @@ MCYR Timetable Maker は、学会や研究会向けの「講演データ統合 +
 ## 背景と課題
 - 事務局運用で、応募データ整形、突合作業、編成、配布資料化が分断されていた
 - 同姓同名や表記揺れにより、手動照合でミスが起きやすかった
-- 編成後の配布資料（一覧PDFと講究録PDF）作成が別作業で重かった
+- 編成後の配布資料（一覧PDFと講究録PDF）の作成が別作業で重かった
 - 運用担当が非エンジニア中心のため、Web画面上で閉じる必要があった
 
 ## 解決したこと
@@ -68,7 +68,7 @@ MCYR Timetable Maker は、学会や研究会向けの「講演データ統合 +
 - Google OAuth（django-allauth）を利用
 - 許可ドメインを `ALLOWED_LOGIN_EMAIL_DOMAINS` で制御
 - `is_approved` 未承認ユーザーは `/accounts/pending-approval/` へリダイレクト
-- APIは `IsApprovedUser` を基本ゲートにし、更新系一部は `IsAdminUser` 制御
+- APIは `IsApprovedUser` を基本の権限チェックにし、更新系の一部は `IsAdminUser` で制御
 - OAuth開始/コールバックの構造化ログ、redirect正規化ミドルウェアを実装
 
 ### 2. 2ソース取り込み + 照合
@@ -87,7 +87,7 @@ MCYR Timetable Maker は、学会や研究会向けの「講演データ統合 +
 - `promote_staging_to_core` で Speaker / Submission / SubmissionFile を反映
 - 空値で既存値を消さない保全ロジック
 - 削除行検知（`mark_deleted_rows` / `remove_deleted_records`）
-- 取り込み履歴は `ImportJob` にサマリー・メタデータ保存
+- 取り込み履歴は `ImportJob` にサマリー・メタデータを保存
 
 ### 4. 照合課題解決UI
 - 課題一覧 + diff表示 + 解決アクション
@@ -205,8 +205,8 @@ MCYR Timetable Maker は、学会や研究会向けの「講演データ統合 +
 ## 技術的ハイライト
 - ビジネスルールの中核を Serializer/Service に寄せ、Viewを薄く維持
 - 取り込みは「自動確定」と「人手解決」の境界を明示して事故を抑制
-- 編成制約をAPI側で強制し、UIの不正操作や同時編集に耐性
-- 講究録生成は同期APIから分離し、ジョブ化・進捗化・再利用化を実装
+- 編成制約をAPI側で強制し、UIの不正操作や同時編集に耐える設計
+- 講究録生成は同期APIから分離してジョブ化し、進捗表示と成果物の再利用を実装
 - 管理画面は閲覧専用化/入力補助（アイコン選択等）で運用事故を低減
 
 ## 今後の改善余地
